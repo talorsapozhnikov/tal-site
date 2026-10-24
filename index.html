@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="טל אור ספוזניקוב · צילום חתונות דוקומנטרי במרכז, בשרון ובצפון. צילום אותנטי, לא מורגש ונעים.">
+<meta property="og:title" content="טל אור ספוזניקוב · צילום חתונות">
+<meta property="og:description" content="צילום חתונות דוקומנטרי במרכז, בשרון ובצפון.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#fbfbf9">
+<title>טל אור ספוזניקוב</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;400;500&family=IBM+Plex+Sans+Hebrew:wght@300;400;600&family=IBM+Plex+Mono:wght@400&display=swap">
+<style>
+/* Layout: "notebook" — one narrow centered column, each wedding a short chapter; sticky WhatsApp bar on phones */
+:root{
+  --paper:#fbfbf9; --ink:#24261f; --soft:#6f726a; --rule:#e3e4de; --leaf:#4f6b55; --leaf-ink:#ffffff; --tint:#f0f2ec;
+  --f-display:"Frank Ruhl Libre","David",Georgia,serif;
+  --f-body:"IBM Plex Sans Hebrew",system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--paper:#171816;--ink:#e9eae4;--soft:#a1a49b;--rule:#2d2f2a;--leaf:#9dbba3;--leaf-ink:#14170f;--tint:#1f211d;color-scheme:dark}}
+:root[data-theme="dark"]{--paper:#171816;--ink:#e9eae4;--soft:#a1a49b;--rule:#2d2f2a;--leaf:#9dbba3;--leaf-ink:#14170f;--tint:#1f211d;color-scheme:dark}
+
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.7}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--leaf);outline-offset:3px}
+.gut{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.col{max-width:620px;margin:0 auto}
+
+/* header */
+header.site{padding-block:22px}
+header.site .col{display:flex;justify-content:space-between;align-items:center;gap:16px;max-width:900px}
+.logo{font-family:var(--f-display);font-size:19px;font-weight:400;text-decoration:none;line-height:1.2}
+.logo small{display:block;font-family:var(--f-body);font-size:11px;color:var(--soft);font-weight:300}
+.tools{display:flex;gap:10px;align-items:center}
+.lang{background:none;border:1px solid var(--rule);color:var(--ink);font-family:var(--f-mono);font-size:12px;padding:5px 10px;border-radius:99px;cursor:pointer}
+.wa{display:inline-flex;align-items:center;gap:8px;background:var(--leaf);color:var(--leaf-ink);text-decoration:none;font-size:14px;font-weight:600;padding:8px 16px;border-radius:99px}
+.wa svg{width:16px;height:16px;fill:currentColor}
+
+/* hero */
+.hero{padding-block:40px 30px}
+.hero h1{font-family:var(--f-display);font-weight:300;font-size:clamp(32px,6vw,50px);line-height:1.15;margin:0 0 16px;text-wrap:balance}
+.hero p{margin:0;color:var(--soft);font-size:17px;max-width:46ch}
+.region{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.region span{font-size:12px;color:var(--soft);border:1px solid var(--rule);border-radius:99px;padding:2px 10px}
+
+/* photo stand-ins */
+.ph{position:relative;background:var(--g);aspect-ratio:var(--r,3/2);max-width:100%;overflow:hidden;border-radius:2px}
+.ph::after{content:"";position:absolute;inset:0;opacity:.3;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+.ph em{position:absolute;inset-inline-start:10px;bottom:8px;font-style:normal;font-size:11px;color:rgba(255,255,255,.9);z-index:1;text-shadow:0 1px 2px rgba(0,0,0,.45)}
+.p1{--g:radial-gradient(60% 70% at 70% 30%,#f2d2a9,transparent 70%),radial-gradient(40% 50% at 25% 75%,#3b2b22,transparent),linear-gradient(160deg,#a87b5a,#4a3426)}
+.p2{--g:radial-gradient(50% 60% at 40% 40%,#ece6d9,transparent 70%),linear-gradient(200deg,#9a9b8c,#4a4d42)}
+.p3{--g:radial-gradient(35% 45% at 60% 45%,#ffcf8a,transparent 70%),radial-gradient(80% 60% at 50% 100%,#120d0b,transparent),linear-gradient(180deg,#3a2c24,#120e0c)}
+.p4{--g:radial-gradient(70% 50% at 50% 20%,#e6ece4,transparent 70%),linear-gradient(180deg,#a9b8a6,#6a7b62 60%,#3f4a37)}
+.p5{--g:radial-gradient(45% 55% at 30% 35%,#f7e8d0,transparent 70%),linear-gradient(120deg,#c3a585,#735c4a)}
+.p6{--g:radial-gradient(40% 40% at 50% 50%,#e4dccd,transparent 75%),linear-gradient(140deg,#8a7a68,#3a332c)}
+
+/* stories */
+section{padding-block:34px}
+.label{font-size:12px;letter-spacing:.08em;color:var(--leaf);font-weight:600;margin:0 0 18px}
+.stories{display:grid;gap:44px}
+.story{display:grid;gap:10px}
+.story .head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;border-bottom:1px solid var(--rule);padding-bottom:8px;flex-wrap:wrap}
+.story .head h3{margin:0;font-family:var(--f-display);font-weight:400;font-size:22px}
+.story .head span{font-size:13px;color:var(--soft)}
+.pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px}
+.story p{margin:0;color:var(--soft);font-size:15px}
+.story .t{font-family:var(--f-mono);font-size:12px;color:var(--soft)}
+
+/* approach */
+.approach{background:var(--tint)}
+.approach h2,.about h2,.price h2,.contact h2{font-family:var(--f-display);font-weight:300;font-size:clamp(26px,4.5vw,34px);line-height:1.25;margin:0 0 20px;text-wrap:balance}
+.points{display:grid;gap:18px;margin:0;padding:0;list-style:none}
+.points li{display:grid;gap:2px;padding-inline-start:14px;border-inline-start:2px solid var(--leaf)}
+.points strong{font-weight:600}
+.points span{color:var(--soft);font-size:15px}
+
+/* about */
+.about .grid{display:grid;grid-template-columns:150px minmax(0,1fr);gap:22px;align-items:start}
+.about p{margin:0 0 12px}
+.facts{display:flex;gap:28px;flex-wrap:wrap;margin-top:8px}
+.facts div{display:grid}
+.facts b{font-family:var(--f-display);font-weight:400;font-size:30px;line-height:1;font-variant-numeric:tabular-nums}
+.facts span{font-size:13px;color:var(--soft)}
+@media (max-width:520px){.about .grid{grid-template-columns:minmax(0,1fr)}.about .grid .ph{max-width:180px}}
+
+/* price */
+.price .box{border:1px solid var(--rule);padding:24px;display:grid;gap:10px}
+.price .amount{font-family:var(--f-display);font-size:clamp(34px,6vw,44px);font-weight:400;line-height:1;font-variant-numeric:tabular-nums}
+.price .amount small{font-family:var(--f-body);font-size:15px;color:var(--soft);font-weight:300;margin-inline-end:8px}
+.price p{margin:0;color:var(--soft);font-size:15px}
+
+/* contact */
+.contact{text-align:start}
+.contact .row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.ig{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-size:14px;padding:8px 16px;border-radius:99px;border:1px solid var(--rule)}
+.ig svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2}
+footer{padding-block:30px 110px;color:var(--soft);font-size:12px;border-top:1px solid var(--rule)}
+
+/* sticky WhatsApp on phones */
+.dock{display:none}
+@media (max-width:640px){
+  header.site .wa span{display:none}
+  .dock{display:flex;position:fixed;inset:auto 0 0 0;padding:10px max(16px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));background:var(--paper);border-top:1px solid var(--rule);z-index:5}
+  .dock .wa{flex:1;justify-content:center;padding-block:12px}
+}
+</style>
+<style>*,*::before,*::after{box-sizing:border-box}html{-webkit-text-size-adjust:100%}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+
+<header class="site gut">
+  <div class="col">
+    <a class="logo" href="#top"><span data-en="Tal Or Sapozhnikov">טל אור ספוזניקוב</span><small data-en="Documentary wedding photography">צילום חתונות דוקומנטרי</small></a>
+    <div class="tools">
+      <button class="lang" id="lang" type="button" aria-label="Switch language">EN</button>
+      <a class="wa" href="https://wa.me/message/S3TUYMIDEZYNF1" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.3c0-.1-.2-.2-.4-.3Z"/></svg>
+        <span data-en="Message me">דברו איתי</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <div class="hero gut"><div class="col">
+    <h1 data-en="Just be together. I'll keep the moments.">תהיו ביחד. את הרגעים אני אשמור.</h1>
+    <p data-en="I come like a friend with a camera, quietly and easily, and catch the feeling along the way.">אני מגיע כמו חבר עם מצלמה, בשקט ובקלילות, ותופס את הרגש בדרך.</p>
+    <div class="region"><span data-en="Center">מרכז</span><span data-en="Sharon">שרון</span><span data-en="North">צפון</span></div>
+  </div></div>
+
+  <section class="gut"><div class="col">
+    <p class="label" data-en="WEDDINGS">חתונות</p>
+    <div class="stories">
+      <article class="story">
+        <div class="head"><h3 data-en="Couple name">שמות הזוג</h3><span data-en="Venue · Month 2026">מקום · חודש 2026</span></div>
+        <div class="ph p4" style="--r:3/2"><em data-en="Ceremony">חופה</em></div>
+        <div class="pair"><div class="ph p5" style="--r:4/5"><em data-en="Getting ready">התארגנות</em></div><div class="ph p1" style="--r:4/5"><em data-en="Grandma, front row">סבתא בשורה הראשונה</em></div></div>
+        <p data-en="One or two lines about what made this day theirs.">משפט או שניים על מה שהפך את היום הזה לשלהם.</p>
+      </article>
+      <article class="story">
+        <div class="head"><h3 data-en="Couple name">שמות הזוג</h3><span data-en="Venue · Month 2026">מקום · חודש 2026</span></div>
+        <div class="ph p2" style="--r:3/2"><em data-en="A quiet moment between guests">רגע שקט בין האורחים</em></div>
+        <div class="pair"><div class="ph p6" style="--r:4/5"><em data-en="Hands">ידיים</em></div><div class="ph p3" style="--r:4/5"><em data-en="Dance floor">רחבה</em></div></div>
+      </article>
+    </div>
+  </div></section>
+
+  <section class="approach gut"><div class="col">
+    <p class="label" data-en="WHAT IT FEELS LIKE">איך זה מרגיש איתי</p>
+    <h2 data-en="You're busy feeling it all. I'm there to hold on to it.">אתם עסוקים בלהתרגש. אני שם כדי לשמור את זה.</h2>
+    <ul class="points">
+      <li><strong data-en="Easy, like with a friend">בנוח, כמו עם חבר</strong><span data-en="No poses, no stopping the day for a shot. You stay with your people.">בלי פוזות ובלי לעצור את היום בשביל תמונה. אתם נשארים עם האנשים שלכם.</span></li>
+      <li><strong data-en="The moments in between">הרגעים שבין לבין</strong><span data-en="Quiet glances, the excitement between guests, what happens on the side while everyone looks forward.">מבטים שקטים, התרגשויות בין האורחים, מה שקורה בצד כשכולם מסתכלים קדימה.</span></li>
+      <li><strong data-en="Colours as you remember them">צבעים כמו שזכרתם</strong><span data-en="Soft, warm editing that looks like the day felt.">עריכה רכה וחמה, שנראית כמו שהיום הרגיש.</span></li>
+    </ul>
+  </div></section>
+
+  <section class="about gut"><div class="col">
+    <p class="label" data-en="ABOUT">קצת עליי</p>
+    <div class="grid">
+      <div class="ph p5" style="--r:4/5"><em data-en="Portrait">תמונה שלי</em></div>
+      <div>
+        <h2 data-en="Hi, I'm Tal Or.">היי, אני טל אור.</h2>
+        <p data-en="I've been photographing weddings and events for eight years, and for the last two I've focused only on wedding stills. I love small, intimate weddings, in nature or in a cozy venue, where everyone knows everyone.">אני מצלם חתונות ואירועים כבר שמונה שנים, ובשנתיים האחרונות מתמקד רק בצילום סטילס לחתונות. אני אוהב חתונות קטנות ואינטימיות, בטבע או במקום קטן ונעים, שבהן כולם מכירים את כולם.</p>
+        <div class="facts">
+          <div><b>8</b><span data-en="years behind the camera">שנים מאחורי המצלמה</span></div>
+          <div><b>2</b><span data-en="years only weddings">שנים רק חתונות</span></div>
+        </div>
+      </div>
+    </div>
+  </div></section>
+
+  <section class="price gut"><div class="col">
+    <p class="label" data-en="PRICE">מחיר</p>
+    <div class="box">
+      <div class="amount"><small data-en="from">החל מ־</small><span data-en="₪7,000">7,000 ₪</span></div>
+      <p data-en="Wedding stills coverage. Send me your date and the size of the wedding on WhatsApp, and I'll reply with exact details.">צילום סטילס לחתונה. שלחו לי בוואטסאפ את התאריך וגודל האירוע, ואחזור אליכם עם כל הפרטים.</p>
+    </div>
+  </div></section>
+
+  <section class="contact gut"><div class="col">
+    <h2 data-en="Getting married? I'd love to meet you.">מתחתנים? אשמח להכיר אתכם.</h2>
+    <div class="row">
+      <a class="wa" href="https://wa.me/message/S3TUYMIDEZYNF1" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Z"/></svg><span data-en="WhatsApp">וואטסאפ</span></a>
+      <a class="ig" href="https://www.instagram.com/pho_t.o.s/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/></svg><span dir="ltr">@pho_t.o.s</span></a>
+    </div>
+  </div></section>
+</main>
+
+<footer class="gut"><div class="col"><span data-en="Tal Or Sapozhnikov · Documentary wedding photography · Center, Sharon, North">טל אור ספוזניקוב · צילום חתונות דוקומנטרי · מרכז, שרון, צפון</span></div></footer>
+
+<div class="dock"><a class="wa" href="https://wa.me/message/S3TUYMIDEZYNF1" target="_blank" rel="noopener"><span data-en="Message me on WhatsApp">דברו איתי בוואטסאפ</span></a></div>
+
+<script>
+(function(){
+  var root=document.documentElement, btn=document.getElementById('lang');
+  var nodes=document.querySelectorAll('[data-en]');
+  nodes.forEach(function(n){n.dataset.he=n.textContent;});
+  function set(l){
+    root.lang=l; root.dir=l==='he'?'rtl':'ltr';
+    nodes.forEach(function(n){n.textContent=l==='he'?n.dataset.he:n.dataset.en;});
+    btn.textContent=l==='he'?'EN':'עב';
+    try{localStorage.setItem('lang',l);}catch(e){}
+  }
+  var saved='he'; try{saved=localStorage.getItem('lang')||'he';}catch(e){}
+  set(saved);
+  btn.addEventListener('click',function(){set(root.lang==='he'?'en':'he');});
+})();
+</script>
+</body>
+</html>
