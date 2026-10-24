@@ -1,5 +1,5 @@
 /* Tal Or Sapozhnikov · photography
-   Editorial layout: a photography magazine. Masthead, cover, contents, feature, about, closing page.
+   Editorial layout: a photography magazine. Masthead, cover, contents, one collage per moment of the day, about, closing page.
    One light "paper" look on purpose; colours are set explicitly so it reads the same on any device theme. */
 :root{
   --paper:#f6f6f3;
@@ -77,41 +77,34 @@ h1,h2,h3{text-wrap:balance}
   .cover .lines .to-index:hover{color:var(--ink)}
 }
 
-/* ---------- contents ---------- */
-.contents{padding-block:clamp(52px,8vw,96px)}
+/* ---------- contents: the chapters of the day ---------- */
+.contents{padding-block:clamp(52px,8vw,96px) clamp(20px,4vw,40px)}
 .contents h2{grid-column:1/-1;font-family:var(--serif);font-weight:400;font-size:28px;line-height:1.1;margin:0 0 18px}
 .contents ol{grid-column:1/-1;list-style:none;margin:0;padding:0}
-.contents li a{display:grid;grid-template-columns:minmax(0,1fr) 112px;grid-template-rows:auto auto auto;column-gap:18px;align-items:center;padding-block:16px;border-top:1px solid var(--rule);text-decoration:none}
+.contents li a{display:grid;grid-template-columns:44px minmax(0,1fr) auto;align-items:baseline;gap:12px;padding-block:14px;border-top:1px solid var(--rule);text-decoration:none}
 .contents li:last-child a{border-bottom:1px solid var(--rule)}
-.contents .k{grid-column:1;grid-row:1}
-.contents .t{grid-column:1;grid-row:2;font-family:var(--serif);font-size:clamp(24px,3vw,30px);line-height:1.15}
-.contents .m{grid-column:1;grid-row:3;font-size:13px;color:var(--grey)}
-.contents .thumb{grid-column:2;grid-row:1/4;aspect-ratio:4/3;overflow:hidden;background:var(--plate)}
-.contents .thumb img{width:100%;height:100%;object-fit:cover}
+.contents .no,.chapter .no{font-size:12px;color:var(--grey);font-variant-numeric:tabular-nums;letter-spacing:.04em}
+.contents .t{font-family:var(--serif);font-size:clamp(24px,3vw,32px);line-height:1.15}
+.contents .m{font-size:13px;color:var(--grey)}
 .contents li a:hover .t,.contents li a:focus-visible .t{text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:1px}
-@media (prefers-reduced-motion:no-preference){.contents .thumb img{transition:transform .5s ease}.contents li a:hover .thumb img{transform:scale(1.03)}}
-@media (min-width:860px){
-  .contents h2{grid-column:1/4}
-  .contents ol{grid-column:4/-1}
-  .contents li a{grid-template-columns:170px minmax(0,1fr) 130px 150px;grid-template-rows:auto}
-  .contents .k,.contents .t,.contents .m,.contents .thumb{grid-row:1}
-  .contents .k{grid-column:1}.contents .t{grid-column:2}.contents .m{grid-column:3}.contents .thumb{grid-column:4}
-}
+@media (min-width:860px){.contents h2{grid-column:1/4}.contents ol{grid-column:4/-1}}
 
-/* ---------- feature (home) ---------- */
-.feature{padding-block:clamp(40px,6vw,64px) clamp(60px,9vw,110px);border-top:1px solid var(--ink)}
-.feature header{grid-column:1/-1;display:grid;gap:6px;margin-bottom:clamp(20px,3vw,32px)}
-.feature h2{font-family:var(--serif);font-weight:400;font-size:clamp(38px,6vw,68px);line-height:1;margin:0}
-.f-main{grid-column:1/-1;margin:0}
-.f-side{grid-column:1/-1;display:grid;gap:22px;align-content:end;margin-top:26px}
-.note{margin:0;font-family:var(--serif);font-size:clamp(19px,1.8vw,22px);line-height:1.55;max-width:30ch}
-.f-side figure{margin:0}
-.more{justify-self:start;font-size:14px;text-decoration:none;border-bottom:1px solid var(--ink);padding-block:6px 2px}
-.more:hover{border-bottom-width:2px}
-@media (min-width:760px){
-  .f-main{grid-column:1/7}
-  .f-side{grid-column:8/-1;margin-top:0}
+/* ---------- chapters and collages ---------- */
+.chapter{padding-block:clamp(44px,7vw,90px);border-top:1px solid var(--ink)}
+.chapter header{display:flex;align-items:baseline;flex-wrap:wrap;gap:6px 16px;margin-bottom:clamp(18px,3vw,30px)}
+.chapter h2{font-family:var(--serif);font-weight:400;font-size:clamp(38px,6vw,68px);line-height:1;margin:0}
+.chapter .more{margin-inline-start:auto}
+.collage{display:grid;gap:clamp(8px,1.2vw,14px)}
+.crow{display:flex;gap:clamp(8px,1.2vw,14px);align-items:flex-start}
+.crow figure{margin:0;flex-basis:0;min-width:0}
+.crow .photo img{width:100%}
+@media (max-width:699px){
+  .crow.n3{flex-wrap:wrap}
+  .crow.n3 figure:first-child{flex-basis:100%}
 }
+@media (prefers-reduced-motion:no-preference){.crow .photo{overflow:hidden}.crow img{transition:transform .6s ease}.crow figure:hover img{transform:scale(1.015)}}
+.more{justify-self:start;font-size:14px;text-decoration:none;border-bottom:1px solid var(--ink);padding-block:6px 2px;white-space:nowrap}
+.more:hover{border-bottom-width:2px}
 
 /* ---------- about ---------- */
 .about{padding-block:clamp(56px,8vw,100px);border-top:1px solid var(--ink)}
@@ -155,17 +148,7 @@ footer.site a:hover{color:var(--ink)}
 .p-head{padding-block:clamp(10px,3vw,30px) clamp(26px,4vw,48px);display:grid;gap:10px}
 .p-head h1{font-family:var(--serif);font-weight:400;font-size:clamp(46px,8.5vw,112px);line-height:.95;margin:0}
 .p-head .count{font-size:13px;color:var(--grey)}
-.p-head .note{margin-top:10px}
-.gallery{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(12px,1.6vw,20px);row-gap:clamp(18px,4vw,56px);padding-bottom:clamp(60px,9vw,110px)}
-.gallery figure{margin:0;grid-column:1/-1}
-.gallery .pair-b{grid-column:4/-1}
-@media (min-width:760px){
-  .gallery .tall{grid-column:3/9}
-  .gallery .wide{grid-column:1/10}
-  .gallery .wide-end{grid-column:4/-1}
-  .gallery .pair-a{grid-column:1/8}
-  .gallery .pair-b{grid-column:9/-1;align-self:end}
-}
+.gallery{padding-bottom:clamp(60px,9vw,110px)}
 .next{border-top:1px solid var(--ink);padding-block:28px 40px}
 .next a{display:grid;gap:4px;text-decoration:none}
 .next .t{font-family:var(--serif);font-size:clamp(28px,4vw,44px);line-height:1.1}

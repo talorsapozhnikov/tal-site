@@ -73,44 +73,65 @@
     });
   };
 
-  /* ---------- home: cover lines and contents, from PROJECTS ---------- */
+  /* ---------- collage: rows of photos at their own proportions, heights equal within a row ---------- */
+  function ratio(name) { var p = window.PHOTOS[name]; return p.w ? p.w / p.h : (p.portrait ? 2 / 3 : 1.5); }
+  Site.collage = function (names, rows, eager) {
+    rows = rows && rows.length ? rows : [2, 3];
+    var out = '', i = 0, r = 0;
+    while (i < names.length) {
+      var n = Math.min(rows[r % rows.length], names.length - i), row = names.slice(i, i + n);
+      var total = row.reduce(function (a, x) { return a + ratio(x); }, 0);
+      out += '<div class="crow n' + n + '">' + row.map(function (x, k) {
+        var share = Math.round(ratio(x) / total * 100);
+        return '<figure style="flex-grow:' + ratio(x).toFixed(3) + '"><div class="photo">' +
+          Site.img(x, '(min-width:1240px) ' + Math.round(12.4 * share) + 'px, (min-width:700px) ' + share + 'vw, ' + (n === 3 && k === 0 ? 100 : 50) + 'vw', eager && i === 0 && k === 0) +
+          '</div></figure>';
+      }).join('') + '</div>';
+      i += n; r++;
+    }
+    return out;
+  };
+  function live() { return window.CHAPTERS.filter(function (c) { return c.photos.length; }); }
+
+  /* ---------- home: cover lines, index and one collage per chapter ---------- */
   Site.home = function () {
     var list = document.getElementById('contents-list');
     var lines = document.getElementById('cover-lines');
+    var box = document.getElementById('chapters');
     Site.renderers.push(function () {
       document.title = Site.lang === 'he' ? 'טל אור ספוזניקוב · צילום' : 'Tal Or Sapozhnikov · Photography';
-      if (list) list.innerHTML = window.PROJECTS.map(function (p) {
-        return '<li><a href="' + Site.href('project.html?id=' + p.id) + '">' +
-          '<span class="k kicker">' + Site.t(p.kind) + '</span>' +
-          '<span class="t">' + Site.t(p.title) + '</span>' +
-          '<span class="m">' + Site.count(p.photos.length) + '</span>' +
-          '<span class="thumb">' + Site.img(p.thumb, '150px') + '</span></a></li>';
+      var ch = live();
+      if (list) list.innerHTML = ch.map(function (c, k) {
+        return '<li><a href="#' + c.id + '"><span class="no">' + String(k + 1).padStart(2, '0') + '</span>' +
+          '<span class="t">' + Site.t(c.title) + '</span><span class="m">' + Site.count(c.photos.length) + '</span></a></li>';
       }).join('');
-      if (lines) lines.innerHTML = window.PROJECTS.map(function (p) {
-        return '<li><a href="' + Site.href('project.html?id=' + p.id) + '"><small>' + Site.t(p.kind) + '</small><span>' + Site.t(p.title) + '</span></a></li>';
+      if (lines) lines.innerHTML = ch.map(function (c) {
+        return '<li><a href="#' + c.id + '"><span>' + Site.t(c.title) + '</span></a></li>';
+      }).join('');
+      if (box) box.innerHTML = ch.map(function (c, k) {
+        var more = c.photos.length > 5;
+        return '<section class="chapter" id="' + c.id + '" aria-labelledby="h-' + c.id + '">' +
+          '<header><span class="no">' + String(k + 1).padStart(2, '0') + '</span><h2 id="h-' + c.id + '">' + Site.t(c.title) + '</h2>' +
+          '<a class="more" href="' + Site.href('project.html?id=' + c.id) + '">' +
+          (Site.lang === 'he' ? (more ? 'לכל ' + c.photos.length + ' התמונות ←' : 'לפרק המלא ←') : (more ? 'All ' + c.photos.length + ' photographs →' : 'Open chapter →')) +
+          '</a></header><div class="collage">' + Site.collage(c.photos.slice(0, 5), c.rows) + '</div></section>';
       }).join('');
     });
   };
 
-  /* ---------- project page ---------- */
+  /* ---------- chapter page ---------- */
   Site.project = function () {
     var id = params.get('id');
-    var all = window.PROJECTS;
-    var i = all.findIndex(function (p) { return p.id === id; });
+    var all = live();
+    var i = all.findIndex(function (c) { return c.id === id; });
     var head = document.getElementById('p-head'), gal = document.getElementById('gallery'), next = document.getElementById('next'), miss = document.getElementById('missing');
     if (i < 0) { head.hidden = true; gal.hidden = true; next.hidden = true; miss.hidden = false; return; }
-    var p = all[i], n = all[(i + 1) % all.length];
-    var sizes = {
-      tall: '(min-width:760px) 50vw, 100vw', full: '(min-width:1280px) 1240px, 100vw', wide: '(min-width:760px) 75vw, 100vw',
-      'wide-end': '(min-width:760px) 75vw, 100vw', 'pair-a': '(min-width:760px) 58vw, 100vw', 'pair-b': '(min-width:760px) 33vw, 75vw'
-    };
+    var c = all[i], n = all[(i + 1) % all.length];
     Site.renderers.push(function () {
-      document.title = Site.t(p.title) + ' · ' + (Site.lang === 'he' ? 'טל אור ספוזניקוב' : 'Tal Or Sapozhnikov');
-      head.innerHTML = '<span class="kicker">' + Site.t(p.kind) + '</span><h1>' + Site.t(p.title) + '</h1>' +
-        '<span class="count">' + Site.count(p.photos.length) + '</span>' + (p.note ? '<p class="note">' + Site.t(p.note) + '</p>' : '');
-      gal.innerHTML = p.photos.map(function (ph, k) {
-        return '<figure class="' + ph.layout + '"><div class="photo">' + Site.img(ph.name, sizes[ph.layout], k === 0) + '</div></figure>';
-      }).join('');
+      document.title = Site.t(c.title) + ' · ' + (Site.lang === 'he' ? 'טל אור ספוזניקוב' : 'Tal Or Sapozhnikov');
+      head.innerHTML = '<span class="kicker">' + (Site.lang === 'he' ? 'פרק ' : 'Chapter ') + (i + 1) + '</span><h1>' + Site.t(c.title) + '</h1>' +
+        '<span class="count">' + Site.count(c.photos.length) + '</span>';
+      gal.innerHTML = '<div class="collage">' + Site.collage(c.photos, c.rows, true) + '</div>';
       next.hidden = all.length < 2;
       next.querySelector('a').href = Site.href('project.html?id=' + n.id);
       next.querySelector('.t').textContent = Site.t(n.title);

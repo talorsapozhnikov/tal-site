@@ -1,9 +1,7 @@
-/* Photo stories shown on the site.
-   To add a story: export each photo as WebP in the sizes listed in README.md, put it in /images,
-   add its entry to PHOTOS, then add a project to PROJECTS. No HTML changes are needed.
-
-   Only group photos that come from the same event. Never invent places, dates or names:
-   add them to a project only after Tal confirms them. */
+/* The site is organised by moments of the day, not by wedding.
+   To add photos: export each as WebP in the sizes listed in README.md, put it in /images,
+   add it to PHOTOS, then list its name in a chapter below. No HTML changes are needed.
+   Never invent places, dates or names. */
 
 window.PHOTOS = {
   'water-portrait':      { portrait: true,
@@ -28,51 +26,19 @@ window.PHOTOS = {
   'dancefloor-blue':     { alt: { he: 'רחבת ריקודים באור כחול, אנשים רוקדים בצללית מתחת לפנסי במה', en: 'A dance floor in blue light, people dancing in silhouette under stage lights' } }
 };
 
-/* layout per photo: tall | full | wide | wide-end | pair-a | pair-b */
-window.PROJECTS = [
-  {
-    id: 'on-the-shore',
-    kind: { he: 'סיפור · חתונה', en: 'Story · Wedding' },
-    title: { he: 'על החוף', en: 'On the shore' },
-    thumb: 'shore-chuppah-bw',
-    photos: [
-      { name: 'shore-crowd', layout: 'full' },
-      { name: 'shore-portrait', layout: 'tall' },
-      { name: 'shore-kiss', layout: 'pair-a' },
-      { name: 'shore-band', layout: 'pair-b' },
-      { name: 'shore-chuppah-bw', layout: 'full' },
-      { name: 'shore-blur', layout: 'wide-end' },
-      { name: 'shore-dip', layout: 'wide' }
-    ]
-  },
-  {
-    id: 'by-the-water',
-    kind: { he: 'סיפור · חתונה', en: 'Story · Wedding' },
-    title: { he: 'ליד המים', en: 'By the water' },
-    note: { he: 'יש רגעים שלא צריכים הרבה מילים. רק אור נכון, מבט אחד, וכל מה שקורה ביניהם.',
-            en: 'Some moments don’t need many words. Just the right light, a single glance, and everything that happens in between.' },
-    thumb: 'water-embrace',
-    photos: [
-      { name: 'water-portrait', layout: 'tall' },
-      { name: 'water-aisle', layout: 'full' },
-      { name: 'water-low-angle', layout: 'pair-a' },
-      { name: 'water-embrace', layout: 'pair-b' }
-    ]
-  },
-  {
-    id: 'moments',
-    kind: { he: 'מבחר', en: 'Selection' },
-    title: { he: 'רגעים', en: 'Moments' },
-    note: { he: 'תמונות בודדות. כל אחת עומדת בפני עצמה.',
-            en: 'Single frames. Each one stands on its own.' },
-    thumb: 'grove-chuppah-bw',
-    photos: [
-      { name: 'grove-chuppah-bw', layout: 'full' },
-      { name: 'grove-setup', layout: 'pair-a' },
-      { name: 'sea-bottle', layout: 'pair-b' },
-      { name: 'dancefloor-dj', layout: 'wide-end' },
-      { name: 'dancefloor-blue', layout: 'wide' },
-      { name: 'grove-chuppah-crowd', layout: 'wide-end' }
-    ]
-  }
+/* Chapters appear on the home page in this order. A chapter with no photos is hidden.
+   The first 5 photos of a chapter make its collage on the home page; all of them appear on its own page.
+   rows: how many photos sit in each collage row, repeated (default [2, 3]). */
+window.CHAPTERS = [
+  { id: 'beauty', title: { he: 'ביוטי', en: 'Getting ready' }, photos: [] },
+  { id: 'reception', title: { he: 'קבלת פנים', en: 'Reception' }, rows: [3],
+    photos: ['grove-setup', 'shore-band', 'sea-bottle'] },
+  { id: 'chuppah', title: { he: 'חופה', en: 'Chuppah' },
+    photos: ['shore-crowd', 'shore-kiss', 'grove-chuppah-bw', 'shore-chuppah-bw', 'water-aisle', 'grove-chuppah-crowd'] },
+  { id: 'couple', title: { he: 'הזוג', en: 'The two of them' },
+    photos: ['water-portrait', 'shore-dip', 'shore-blur', 'shore-portrait', 'water-embrace', 'water-low-angle'] },
+  { id: 'family', title: { he: 'משפחה', en: 'Family' }, photos: [] },
+  { id: 'dance', title: { he: 'רחבה', en: 'Dance floor' },
+    photos: ['dancefloor-dj', 'dancefloor-blue'] },
+  { id: 'laughter', title: { he: 'צחוק', en: 'Laughter' }, photos: [] }
 ];
