@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Documentary · טל אור ספוזניקוב</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=David+Libre:wght@400;500;700&family=Amatic+SC:wght@400;700&family=Assistant:wght@300;400;600&display=swap">
+<style>
+/* Direction 2 · Documentary: a photo diary. One narrow column of dated entries, prints laid on a ruled page, handwritten notes in blue pen. */
+:root{
+  --page:#fbfaf6; --line:#e4e6ec; --ink:#2b2926; --pencil:#77736c; --pen:#2c4a8a; --print:#ffffff; --tape:rgba(214,206,190,.75);
+  --body:"David Libre","David",Georgia,serif;
+  --hand:"Amatic SC","Segoe Print",cursive;
+  --ui:"Assistant",system-ui,sans-serif;
+  color-scheme:light;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;color:var(--ink);font-family:var(--body);font-size:18px;line-height:1.75;
+  background:var(--page) repeating-linear-gradient(to bottom,transparent 0 31px,var(--line) 31px 32px)}
+img{max-width:100%}
+a{color:var(--pen)}
+:focus-visible{outline:2px solid var(--pen);outline-offset:3px}
+.gut{padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:max(18px,env(safe-area-inset-right,0px))}
+.col{max-width:600px;margin:0 auto}
+.hand{font-family:var(--hand);color:var(--pen);font-weight:700;line-height:1.1}
+.draft{position:fixed;inset-inline-start:max(12px,env(safe-area-inset-left,0px));bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:9;background:var(--pen);color:#fff;font:600 11px var(--ui);padding:4px 10px;border-radius:99px}
+
+/* prints */
+.print{background:var(--print);padding:10px 10px 34px;box-shadow:0 1px 2px rgba(0,0,0,.08),0 8px 22px -12px rgba(0,0,0,.25);position:relative;margin:0;max-width:100%}
+.print figcaption{position:absolute;inset-inline:12px;bottom:6px;font-family:var(--hand);font-size:20px;font-weight:700;color:var(--pen);line-height:1.2}
+.tilt-a{transform:rotate(-1.2deg)} .tilt-b{transform:rotate(.9deg)} .tilt-c{transform:rotate(-.5deg)}
+.print::before{content:"";position:absolute;top:-10px;inset-inline-start:calc(50% - 36px);width:72px;height:20px;background:var(--tape);transform:rotate(-3deg)}
+@media (prefers-reduced-motion:no-preference){.print{transition:transform .35s ease}.print:hover{transform:rotate(0) scale(1.01)}}
+.ph{position:relative;aspect-ratio:var(--r,3/2);max-width:100%;background:var(--g);overflow:hidden}
+.ph span{position:absolute;inset-inline-start:8px;top:6px;font:400 11px var(--ui);color:rgba(255,255,255,.9);text-shadow:0 1px 2px rgba(0,0,0,.4)}
+.w1{--g:radial-gradient(55% 60% at 65% 35%,#f4dcb8,transparent 70%),linear-gradient(160deg,#b38b67,#4d3a2c)}
+.w2{--g:radial-gradient(45% 50% at 35% 40%,#efe3cf,transparent 70%),linear-gradient(200deg,#a39783,#4f4639)}
+.w3{--g:radial-gradient(30% 40% at 50% 35%,#ffb98a,transparent 70%),radial-gradient(40% 40% at 20% 20%,#6b5bd6,transparent 70%),linear-gradient(180deg,#2a2440,#0e0c14)}
+.w4{--g:radial-gradient(60% 50% at 50% 25%,#f3ead8,transparent 70%),linear-gradient(180deg,#c6b48f,#7b8a5c 60%,#40482f)}
+.w5{--g:radial-gradient(40% 45% at 60% 55%,#f1d7c0,transparent 70%),linear-gradient(130deg,#8f6f58,#3d2f27)}
+
+/* header */
+header.site{padding-block:22px 0}
+header.site .col{display:flex;justify-content:space-between;align-items:center;gap:12px}
+header.site .name{font-family:var(--ui);font-size:14px;font-weight:600}
+.lang{background:var(--page);border:1px solid var(--line);color:var(--ink);font:600 12px var(--ui);padding:4px 10px;border-radius:99px;cursor:pointer}
+
+.open{padding-block:40px 20px}
+.open .hand{font-size:clamp(44px,11vw,72px);margin:0 0 8px}
+.open p{margin:0 0 12px}
+.open .who{font-family:var(--ui);font-size:13px;color:var(--pencil)}
+
+/* entries */
+.entry{padding-block:44px}
+.entry .col{width:100%}
+.entry .date{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.entry .date .hand{font-size:34px}
+.entry .date small{font-family:var(--ui);font-size:13px;color:var(--pencil)}
+.entry h2{font-size:24px;font-weight:500;margin:0;line-height:1.3}
+.entry p{margin:0}
+.duo{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:18px;align-items:start}
+.duo .print:last-child{margin-top:46px}
+.note{font-family:var(--hand);font-size:26px;font-weight:700;color:var(--pen);line-height:1.2;border-inline-start:3px solid var(--pen);padding-inline-start:12px}
+.sheet{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;background:#1b1a19;padding:8px}
+.sheet .ph{--r:1/1}
+.sheet-cap{font-family:var(--ui);font-size:12px;color:var(--pencil)}
+.video .ph{--r:16/9;display:grid;place-items:center}
+.play{width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,.88);display:grid;place-items:center;z-index:1;border:0;cursor:pointer}
+.play svg{width:20px;height:20px;fill:#1b1a19;margin-inline-start:3px}
+hr.sep{border:0;text-align:center;margin:0}
+hr.sep::after{content:"· · ·";font-family:var(--ui);color:var(--pencil);letter-spacing:.4em}
+
+.end{padding-block:40px 90px}
+.end .hand{font-size:40px;margin:0 0 12px}
+.end ul{list-style:none;padding:0;margin:0;display:grid;gap:6px;font-family:var(--ui);font-size:16px}
+</style>
+</head>
+<body>
+<span class="draft" data-en="Draft · Documentary">טיוטה · Documentary</span>
+
+<header class="site gut"><div class="col">
+  <span class="name" data-en="Tal Or Sapozhnikov">טל אור ספוזניקוב</span>
+  <button class="lang" id="lang" type="button">EN</button>
+</div></header>
+
+<main>
+  <section class="open gut"><div class="col">
+    <p class="hand" data-en="A photo diary">יומן מצולם</p>
+    <p data-en="I photograph and film weddings, events, concerts, festivals and productions.">אני מצלם סטילס ווידאו בחתונות, באירועים, בהופעות, בפסטיבלים ובהפקות.</p>
+    <p data-en="What I look for is whatever happens without a plan: real emotion, interesting light, a composition that exists for one second.">מה שאני מחפש הוא מה שקורה בלי תכנון: רגש אמיתי, אור מעניין, קומפוזיציה שקיימת לשנייה אחת.</p>
+    <p class="who" data-en="Below: a few pages from the diary.">למטה: כמה דפים מהיומן.</p>
+  </div></section>
+
+  <article class="entry gut"><div class="col" style="display:grid;gap:22px">
+    <div class="date"><span class="hand" data-en="[Date]">[תאריך]</span><small data-en="Wedding · [Place]">חתונה · [מקום]</small></div>
+    <h2 data-en="[Project name]">[שם הפרויקט]</h2>
+    <figure class="print tilt-a"><div class="ph w1" style="--r:4/3" role="img" aria-label="מקום לתמונה" data-en-label="Photo placeholder"><span data-en="Photo">תמונה</span></div><figcaption data-en="[short handwritten note]">[הערה קצרה בכתב יד]</figcaption></figure>
+    <p data-en="[A few words from Tal about this day. Written as a diary: what you saw, what you felt, the moment you remember.]">[כמה מילים של טל על היום הזה. כתוב כמו ביומן: מה ראית, מה הרגשת, איזה רגע נשאר איתך.]</p>
+    <div class="duo">
+      <figure class="print tilt-b"><div class="ph w2" style="--r:3/4" role="img" aria-label="מקום לתמונה" data-en-label="Photo placeholder"></div><figcaption data-en="[note]">[הערה]</figcaption></figure>
+      <figure class="print tilt-c"><div class="ph w5" style="--r:4/5" role="img" aria-label="מקום לתמונה" data-en-label="Photo placeholder"></div><figcaption data-en="[note]">[הערה]</figcaption></figure>
+    </div>
+    <p class="note" data-en="[One line the couple said that day, with their permission]">[משפט אחד שהזוג אמר באותו יום, באישורם]</p>
+  </div></article>
+
+  <hr class="sep">
+
+  <article class="entry gut"><div class="col" style="display:grid;gap:22px">
+    <div class="date"><span class="hand" data-en="[Date]">[תאריך]</span><small data-en="Concert · [Place]">הופעה · [מקום]</small></div>
+    <h2 data-en="[Project name]">[שם הפרויקט]</h2>
+    <div>
+      <div class="sheet" role="img" aria-label="גיליון מגע: ארבעה מקומות לתמונות מההופעה" data-en-label="Contact sheet: four photo placeholders from the concert">
+        <div class="ph w3"></div><div class="ph w3" style="filter:hue-rotate(40deg)"></div><div class="ph w3" style="filter:hue-rotate(-30deg)"></div><div class="ph w3" style="filter:saturate(.6)"></div>
+      </div>
+      <p class="sheet-cap" data-en="Contact sheet · a sequence from one song">גיליון מגע · רצף משיר אחד</p>
+    </div>
+    <p data-en="[What happened on stage and in the crowd.]">[מה קרה על הבמה ובקהל.]</p>
+  </div></article>
+
+  <hr class="sep">
+
+  <article class="entry video gut"><div class="col" style="display:grid;gap:22px">
+    <div class="date"><span class="hand" data-en="[Date]">[תאריך]</span><small data-en="Festival · [Place] · Video">פסטיבל · [מקום] · וידאו</small></div>
+    <h2 data-en="[Project name]">[שם הפרויקט]</h2>
+    <figure class="print tilt-b"><div class="ph w4" role="img" aria-label="מקום לסרטון" data-en-label="Video placeholder"><button class="play" type="button" aria-label="הפעלת סרטון" data-en-label="Play video"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg></button></div><figcaption data-en="[length · note]">[אורך · הערה]</figcaption></figure>
+  </div></article>
+
+  <section class="end gut" id="contact"><div class="col">
+    <p class="hand" data-en="Want to tell me about your day?">רוצים לספר לי על היום שלכם?</p>
+    <ul>
+      <li><a href="https://wa.me/message/S3TUYMIDEZYNF1" target="_blank" rel="noopener" data-en="WhatsApp">וואטסאפ</a></li>
+      <li><a href="https://www.instagram.com/pho_t.o.s/" target="_blank" rel="noopener" dir="ltr">@pho_t.o.s</a></li>
+    </ul>
+  </div></section>
+</main>
+
+<script>
+(function(){var r=document.documentElement,b=document.getElementById('lang'),t=document.querySelectorAll('[data-en]'),a=document.querySelectorAll('[data-en-label]');
+t.forEach(function(n){n.dataset.he=n.textContent});a.forEach(function(n){n.dataset.heLabel=n.getAttribute('aria-label')});
+function set(l){r.lang=l;r.dir=l==='he'?'rtl':'ltr';t.forEach(function(n){n.textContent=l==='he'?n.dataset.he:n.dataset.en});a.forEach(function(n){n.setAttribute('aria-label',l==='he'?n.dataset.heLabel:n.dataset.enLabel)});b.textContent=l==='he'?'EN':'עב';b.setAttribute('aria-label',l==='he'?'Switch to English':'מעבר לעברית');try{localStorage.setItem('lang',l)}catch(e){}}
+var s='he';try{s=localStorage.getItem('lang')||'he'}catch(e){}set(s);b.addEventListener('click',function(){set(r.lang==='he'?'en':'he')})})();
+</script>
+</body>
+</html>
