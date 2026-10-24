@@ -23,8 +23,6 @@ window.PHOTOS = {
   'shore-chuppah-bw':    { alt: { he: 'בשחור־לבן: הזוג מתחת לחופה מול הים, האורחים עומדים סביב', en: 'Black and white: the couple under the chuppah facing the sea, guests standing around' } },
   'shore-blur':          { alt: { he: 'הזוג מחובק מחוץ לפוקוס, הגלים חדים מאחוריהם', en: 'The couple holding each other out of focus, the waves sharp behind them' } },
   'shore-dip':           { alt: { he: 'החתן מטה את הכלה לאחור על החוף, אור נגדי מהים', en: 'The groom dips the bride back on the shore, the sea backlit behind them' } },
-  'path-walk':           { portrait: true, w: 1000, h: 1333,
-    alt: { he: 'אישה בחולצה כתומה הולכת לבד בשביל ירוק, בתים ישנים ומגדלים ברקע', en: 'A woman in an orange shirt walking alone down a green path, old houses and towers in the distance' } },
   'sea-bottle':          { portrait: true, w: 1000, h: 1500,
     alt: { he: 'הים בשקיעה, ממוסגר בין דמות ובקבוק מחוץ לפוקוס', en: 'The sea at sunset, framed between a blurred figure and a bottle' } },
   'dancefloor-blue':     { alt: { he: 'רחבת ריקודים באור כחול, אנשים רוקדים בצללית מתחת לפנסי במה', en: 'A dance floor in blue light, people dancing in silhouette under stage lights' } }
@@ -73,7 +71,6 @@ window.PROJECTS = [
       { name: 'grove-setup', layout: 'pair-a' },
       { name: 'sea-bottle', layout: 'pair-b' },
       { name: 'dancefloor-dj', layout: 'wide-end' },
-      { name: 'path-walk', layout: 'tall' },
       { name: 'dancefloor-blue', layout: 'wide' },
       { name: 'grove-chuppah-crowd', layout: 'wide-end' }
     ]
