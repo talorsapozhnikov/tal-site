@@ -21,7 +21,7 @@
     img: function (name, sizes, eager) {
       var p = window.PHOTOS[name];
       var ws = p.portrait ? [600, 1000, 1400] : [400, 800, 1400, 2000];
-      var w = p.portrait ? 1000 : 1500, h = p.portrait ? 1500 : 1000;
+      var w = p.w || (p.portrait ? 1000 : 1500), h = p.h || (p.portrait ? 1500 : 1000);
       var srcset = ws.map(function (x) { return 'images/' + name + '-' + x + '.webp ' + x + 'w'; }).join(', ');
       return '<img src="images/' + name + '-' + ws[ws.length - 2] + '.webp" srcset="' + srcset + '" sizes="' + sizes +
         '" width="' + w + '" height="' + h + '" ' + (eager ? 'fetchpriority="high"' : 'loading="lazy"') +

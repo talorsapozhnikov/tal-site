@@ -7,8 +7,8 @@
   --grey:#62625d;
   --rule:#d3d3cd;
   --plate:#deddd8;
-  --serif:"Frank Ruhl Libre","David","Times New Roman",serif;
-  --sans:"IBM Plex Sans Hebrew","Segoe UI",system-ui,sans-serif;
+  --serif:"Bellefair","David","Times New Roman",serif;
+  --sans:"Assistant","Segoe UI",system-ui,sans-serif;
   --gutter:max(18px,env(safe-area-inset-left,0px));
   --gutter-end:max(18px,env(safe-area-inset-right,0px));
   color-scheme:light;
@@ -48,10 +48,10 @@ h1,h2,h3{text-wrap:balance}
 
 /* ---------- masthead ---------- */
 .mast .name{padding-block:clamp(26px,5vw,52px) clamp(14px,2vw,20px)}
-.mast h1{font-family:var(--serif);font-weight:300;font-size:clamp(50px,10vw,132px);line-height:.92;letter-spacing:-.012em;margin:0}
+.mast h1{font-family:var(--serif);font-weight:400;font-size:clamp(50px,10vw,132px);line-height:.92;letter-spacing:-.012em;margin:0}
 .mast h1 span{display:block}
 @media (min-width:700px){.mast h1 span{display:inline}}
-.mast .alt{display:block;font-family:var(--serif);font-weight:300;font-size:clamp(15px,1.5vw,19px);color:var(--grey);margin-top:clamp(10px,1.3vw,16px)}
+.mast .alt{display:block;font-family:var(--serif);font-weight:400;font-size:clamp(15px,1.5vw,19px);color:var(--grey);margin-top:clamp(10px,1.3vw,16px)}
 [dir="rtl"] .mast .alt{text-align:right}
 [dir="ltr"] .mast .alt{text-align:left}
 .dek{display:flex;justify-content:space-between;align-items:baseline;gap:4px 18px;flex-wrap:wrap;border-top:1px solid var(--ink);padding-block:10px;font-size:13px;color:var(--grey)}
@@ -101,7 +101,7 @@ h1,h2,h3{text-wrap:balance}
 /* ---------- feature (home) ---------- */
 .feature{padding-block:clamp(40px,6vw,64px) clamp(60px,9vw,110px);border-top:1px solid var(--ink)}
 .feature header{grid-column:1/-1;display:grid;gap:6px;margin-bottom:clamp(20px,3vw,32px)}
-.feature h2{font-family:var(--serif);font-weight:300;font-size:clamp(38px,6vw,68px);line-height:1;margin:0}
+.feature h2{font-family:var(--serif);font-weight:400;font-size:clamp(38px,6vw,68px);line-height:1;margin:0}
 .f-main{grid-column:1/-1;margin:0}
 .f-side{grid-column:1/-1;display:grid;gap:22px;align-content:end;margin-top:26px}
 .note{margin:0;font-family:var(--serif);font-size:clamp(19px,1.8vw,22px);line-height:1.55;max-width:30ch}
@@ -129,7 +129,7 @@ h1,h2,h3{text-wrap:balance}
 /* ---------- closing page: contact ---------- */
 .contact{padding-block:clamp(64px,10vw,130px);border-top:1px solid var(--ink)}
 .contact .inner{grid-column:1/-1;display:grid;gap:14px}
-.contact h2{font-family:var(--serif);font-weight:300;font-size:clamp(36px,6vw,72px);line-height:1.02;margin:0;max-width:14ch}
+.contact h2{font-family:var(--serif);font-weight:400;font-size:clamp(36px,6vw,72px);line-height:1.02;margin:0;max-width:14ch}
 .contact p{margin:0;font-size:17px;color:var(--grey)}
 .actions{display:grid;gap:12px;margin-top:22px}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:54px;padding:0 26px;border:1px solid var(--ink);border-radius:2px;font:500 15px/1 var(--sans);letter-spacing:.02em;text-decoration:none;transition:background-color .2s ease,color .2s ease}
@@ -153,7 +153,7 @@ footer.site a:hover{color:var(--ink)}
 [dir="rtl"] .back::before{content:"→"}
 [dir="ltr"] .back::before{content:"←"}
 .p-head{padding-block:clamp(10px,3vw,30px) clamp(26px,4vw,48px);display:grid;gap:10px}
-.p-head h1{font-family:var(--serif);font-weight:300;font-size:clamp(46px,8.5vw,112px);line-height:.95;margin:0}
+.p-head h1{font-family:var(--serif);font-weight:400;font-size:clamp(46px,8.5vw,112px);line-height:.95;margin:0}
 .p-head .count{font-size:13px;color:var(--grey)}
 .p-head .note{margin-top:10px}
 .gallery{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(12px,1.6vw,20px);row-gap:clamp(18px,4vw,56px);padding-bottom:clamp(60px,9vw,110px)}
@@ -171,4 +171,4 @@ footer.site a:hover{color:var(--ink)}
 .next .t{font-family:var(--serif);font-size:clamp(28px,4vw,44px);line-height:1.1}
 .next a:hover .t{text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:1px}
 .missing{padding-block:60px 100px;display:grid;gap:14px}
-.missing h1{font-family:var(--serif);font-weight:300;font-size:clamp(36px,6vw,64px);margin:0}
+.missing h1{font-family:var(--serif);font-weight:400;font-size:clamp(36px,6vw,64px);margin:0}
