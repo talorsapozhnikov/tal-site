@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>כיווני עיצוב לתיק העבודות</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;500;800&family=IBM+Plex+Sans+Hebrew:wght@300;400;600&family=Karantina:wght@400;700&family=Bellefair&family=IBM+Plex+Mono:wght@400&display=swap">
+<style>
+/* Layout: page chrome stays neutral; each direction is a self-contained mockup "frame" with its own fixed look */
+:root{
+  --bg:#f3f3f1; --fg:#1d1d1b; --muted:#6b6a66; --line:#d9d8d3; --card:#ffffff; --accent:#8a4b2a;
+  --f-ui:"IBM Plex Sans Hebrew",system-ui,sans-serif;
+  --f-serif:"Frank Ruhl Libre","David",serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#161615;--fg:#ecebe7;--muted:#9c9a94;--line:#2e2d2b;--card:#1f1f1d;--accent:#d29a76;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#161615;--fg:#ecebe7;--muted:#9c9a94;--line:#2e2d2b;--card:#1f1f1d;--accent:#d29a76;color-scheme:dark}
+
+body{background:var(--bg);color:var(--fg);font-family:var(--f-ui);font-size:15px;line-height:1.6}
+.wrap{max-width:1100px;margin:0 auto;padding-block:40px 80px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header.intro{display:grid;gap:10px;margin-bottom:40px;max-width:65ch}
+header.intro h1{font-family:var(--f-serif);font-weight:500;font-size:clamp(28px,4vw,40px);line-height:1.15;margin:0;text-wrap:balance}
+header.intro p{margin:0;color:var(--muted)}
+.eyebrow{font-size:12px;letter-spacing:.08em;color:var(--accent);font-weight:600}
+
+.dir{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:28px;padding-block:36px;border-top:1px solid var(--line)}
+@media (max-width:860px){.dir{grid-template-columns:minmax(0,1fr)}}
+.dir .meta{display:grid;gap:12px;align-content:start}
+.dir .meta h2{margin:0;font-family:var(--f-serif);font-weight:500;font-size:26px;line-height:1.2}
+.dir .meta .letter{font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+.dir .meta p{margin:0}
+.dir .meta ul{margin:0;padding-inline-start:18px;color:var(--muted);display:grid;gap:4px}
+.swatches{display:flex;gap:6px;flex-wrap:wrap}
+.swatches span{width:28px;height:28px;border-radius:50%;border:1px solid var(--line)}
+.fit{font-size:13px;color:var(--muted);border-inline-start:2px solid var(--accent);padding-inline-start:10px}
+
+/* mockup frame */
+.frame{border-radius:10px;overflow:hidden;border:1px solid var(--line);box-shadow:0 10px 30px -18px rgba(0,0,0,.35);min-width:0}
+.bar{display:flex;gap:6px;align-items:center;padding:8px 12px;background:var(--card);border-bottom:1px solid var(--line)}
+.bar i{width:9px;height:9px;border-radius:50%;background:var(--line)}
+.bar b{font-weight:400;font-family:var(--f-mono);font-size:11px;color:var(--muted);margin-inline-start:auto;direction:ltr}
+
+/* photo stand-ins: layered light + grain, each named for the moment it represents */
+.ph{position:relative;background:var(--g);aspect-ratio:var(--r,3/2);max-width:100%;overflow:hidden}
+.ph::after{content:"";position:absolute;inset:0;opacity:.35;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+.ph em{position:absolute;inset-inline-start:8px;bottom:6px;font-style:normal;font-size:10px;color:rgba(255,255,255,.85);font-family:var(--f-ui);z-index:1;text-shadow:0 1px 2px rgba(0,0,0,.4)}
+.p1{--g:radial-gradient(60% 70% at 70% 30%,#f2d2a9,transparent 70%),radial-gradient(40% 50% at 25% 75%,#3b2b22,transparent),linear-gradient(160deg,#a87b5a,#4a3426)}
+.p2{--g:radial-gradient(50% 60% at 40% 40%,#e9e4da,transparent 70%),linear-gradient(200deg,#8d8f86,#3f423c)}
+.p3{--g:radial-gradient(35% 45% at 60% 45%,#ffcf8a,transparent 70%),radial-gradient(80% 60% at 50% 100%,#120d0b,transparent),linear-gradient(180deg,#2d2420,#0e0b0a)}
+.p4{--g:radial-gradient(70% 50% at 50% 20%,#dfe6ea,transparent 70%),linear-gradient(180deg,#9fb0b8,#5d6b62 60%,#3b4436)}
+.p5{--g:radial-gradient(45% 55% at 30% 35%,#f5e6cf,transparent 70%),linear-gradient(120deg,#b59a7c,#6b5646)}
+.p6{--g:radial-gradient(40% 40% at 50% 50%,#d9d4cb,transparent 75%),linear-gradient(140deg,#5a5853,#262624)}
+.bw{filter:grayscale(1) contrast(1.1)}
+
+/* ===== A · יומן שטח (contact sheet) ===== */
+.A{background:#e8e8e4;color:#121212;font-family:var(--f-ui);padding:22px}
+.A nav{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--f-mono);font-size:11px;gap:12px;flex-wrap:wrap}
+.A nav .name{font-family:var(--f-ui);font-weight:600;font-size:14px}
+.A h3{font-family:var(--f-ui);font-weight:300;font-size:clamp(22px,3.4vw,34px);line-height:1.2;margin:26px 0 18px;max-width:22ch}
+.A .sheet{background:#141414;padding:10px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+.A .sheet .cell{position:relative}
+.A .sheet .n{display:block;font-family:var(--f-mono);font-size:9px;color:#d6a300;padding-top:3px;direction:ltr;text-align:left}
+.A .mark{outline:2px solid #d8262b;outline-offset:2px;border-radius:2px}
+.A .cap{display:flex;gap:16px;font-family:var(--f-mono);font-size:11px;color:#555;margin-top:12px;flex-wrap:wrap;direction:ltr;justify-content:flex-end}
+@media (max-width:520px){.A .sheet{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* ===== B · שקט (gallery minimal) ===== */
+.B{background:#fbfbfa;color:#2a2a28;padding:22px 26px 30px;font-family:var(--f-ui)}
+.B nav{display:flex;justify-content:space-between;font-size:12px;font-weight:300;letter-spacing:.04em;gap:12px;flex-wrap:wrap}
+.B nav span:first-child{font-family:"Bellefair",serif;font-size:18px;letter-spacing:0}
+.B .stage{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:26px;margin-top:40px;align-items:end}
+.B .stage p{font-size:13px;font-weight:300;color:#77766f;margin:0;max-width:28ch}
+.B .stage h3{font-family:"Bellefair",serif;font-weight:400;font-size:clamp(24px,3vw,32px);margin:0 0 10px;line-height:1.25}
+.B .row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:26px;margin-top:26px}
+@media (max-width:560px){.B .stage{grid-template-columns:minmax(0,1fr)}.B .row{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* ===== C · לילה (cinematic dark) ===== */
+.C{background:#0f0d0c;color:#efe7dc;font-family:var(--f-ui)}
+.C .hero{position:relative}
+.C .hero .ph{--r:16/8}
+.C .over{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;padding:18px 22px;z-index:2}
+.C nav{display:flex;justify-content:space-between;font-size:12px;letter-spacing:.06em;gap:12px}
+.C h3{font-family:var(--f-serif);font-weight:300;font-size:clamp(28px,5vw,56px);line-height:1.05;margin:0;max-width:12ch}
+.C .quote{padding:26px 22px 30px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px;align-items:center}
+.C .quote p{font-family:var(--f-serif);font-size:17px;line-height:1.6;margin:0;color:#cdbfae}
+.C .quote small{display:block;margin-top:8px;font-family:var(--f-ui);font-size:11px;color:#8d8073}
+@media (max-width:560px){.C .quote{grid-template-columns:minmax(0,1fr)}}
+
+/* ===== D · סיפור יום (timeline editorial) ===== */
+.D{background:#e9ece4;color:#1f2a1f;font-family:var(--f-ui);padding:22px}
+.D nav{display:flex;justify-content:space-between;font-size:12px;gap:12px}
+.D nav b{font-family:"Karantina",sans-serif;font-size:24px;font-weight:700;line-height:1}
+.D h3{font-family:"Karantina",sans-serif;font-weight:700;font-size:clamp(46px,9vw,92px);line-height:.85;margin:22px 0 6px;color:#2f4a33}
+.D .sub{font-size:13px;color:#4f5c4e;margin:0 0 18px}
+.D .chap{display:grid;grid-template-columns:70px minmax(0,1fr) minmax(0,1fr);gap:14px;padding-block:14px;border-top:1px solid #c3cbbd;align-items:start}
+.D .chap .t{font-family:var(--f-mono);font-size:13px;color:#2f4a33;direction:ltr;text-align:right}
+.D .chap h4{margin:0 0 4px;font-size:15px;font-weight:600}
+.D .chap p{margin:0;font-size:12px;color:#4f5c4e}
+@media (max-width:560px){.D .chap{grid-template-columns:56px minmax(0,1fr)}.D .chap .ph{grid-column:2}}
+
+footer.next{margin-top:30px;padding:22px;border:1px solid var(--line);border-radius:10px;background:var(--card);display:grid;gap:8px;max-width:65ch}
+footer.next h2{margin:0;font-size:17px;font-weight:600}
+footer.next p{margin:0;color:var(--muted)}
+@media (prefers-reduced-motion:no-preference){.frame{transition:transform .3s}.frame:hover{transform:translateY(-2px)}}
+</style>
+<style>*,*::before,*::after{box-sizing:border-box}body{margin:0}img{max-width:100%}</style>
+</head>
+<body>
+
+<div class="wrap" dir="rtl" lang="he">
+  <header class="intro">
+    <span class="eyebrow">צילום חתונות דוקומנטרי · סבב ראשון</span>
+    <h1>ארבעה כיווני עיצוב לתיק העבודות</h1>
+    <p>כל כיוון מספר את אותו סיפור בדרך אחרת. התמונות כאן הן מקומות שמורים שמסמנים איזה רגע ייכנס לשם. בחרו כיוון אחד, או ספרו לי מה לקחת מכל אחד.</p>
+  </header>
+
+  <!-- A -->
+  <section class="dir">
+    <div class="frame">
+      <div class="bar"><i></i><i></i><i></i><b>yourname.co.il</b></div>
+      <div class="A">
+        <nav><span class="name">שם הצלם</span><span>עבודות · על הגישה · יצירת קשר</span></nav>
+        <h3>מה שקרה באמת, בסדר שבו זה קרה.</h3>
+        <div class="sheet">
+          <div class="cell"><div class="ph p5 bw"><em>התארגנות</em></div><span class="n">12A</span></div>
+          <div class="cell"><div class="ph p2 bw mark"><em>אבא מחכה</em></div><span class="n">13A</span></div>
+          <div class="cell"><div class="ph p1 bw"><em>מבט ראשון</em></div><span class="n">14A</span></div>
+          <div class="cell"><div class="ph p4 bw"><em>חופה</em></div><span class="n">15A</span></div>
+          <div class="cell"><div class="ph p6 bw"><em>סבתא</em></div><span class="n">16A</span></div>
+          <div class="cell"><div class="ph p3 bw mark"><em>רחבה</em></div><span class="n">17A</span></div>
+          <div class="cell"><div class="ph p1 bw"><em>נאום</em></div><span class="n">18A</span></div>
+          <div class="cell"><div class="ph p2 bw"><em>02:14</em></div><span class="n">19A</span></div>
+        </div>
+        <div class="cap"><span>35mm · f/1.4 · 1/125</span><span>17:42</span><span>Kibbutz Tzuba</span></div>
+      </div>
+    </div>
+    <div class="meta">
+      <span class="letter">כיוון A</span>
+      <h2>יומן שטח</h2>
+      <p>תיק העבודות בנוי כמו גיליון מגע של פילם. רצפים של פריימים, סימון אדום על הנבחרים, ונתוני צילום אמיתיים מתחת לכל תמונה.</p>
+      <ul><li>שחור־לבן כברירת מחדל, צבע רק בתוך גלריה</li><li>טקסט מעט, כמעט טכני</li><li>מדגיש תהליך ונוכחות, לא "תמונה יפה"</li></ul>
+      <div class="swatches"><span style="background:#e8e8e4"></span><span style="background:#141414"></span><span style="background:#d8262b"></span><span style="background:#d6a300"></span></div>
+      <p class="fit">מתאים אם אתם מצלמים הרבה בשחור־לבן או על פילם, ופונה לזוגות שנמשכים לצילום עיתונאי.</p>
+    </div>
+  </section>
+
+  <!-- B -->
+  <section class="dir">
+    <div class="frame">
+      <div class="bar"><i></i><i></i><i></i><b>yourname.co.il</b></div>
+      <div class="B">
+        <nav><span>שם הצלם</span><span>חתונות · מסע · אודות · קשר</span></nav>
+        <div class="stage">
+          <div class="ph p1" style="--r:4/3"><em>רגע לפני החופה</em></div>
+          <div><h3>בלי פוזות. בלי הוראות.</h3><p>מהבוקר ועד השיר האחרון. היום שלכם, כמו שהוא.</p></div>
+        </div>
+        <div class="row">
+          <div class="ph p4" style="--r:4/5"><em>שדה</em></div>
+          <div class="ph p5" style="--r:4/5"><em>ידיים</em></div>
+          <div class="ph p2" style="--r:4/5"><em>אמא</em></div>
+        </div>
+      </div>
+    </div>
+    <div class="meta">
+      <span class="letter">כיוון B</span>
+      <h2>שקט</h2>
+      <p>הרבה מרווח לבן, טיפוגרפיה עדינה, והתמונות מקבלות את כל הבמה. מרגיש כמו גלריה קטנה.</p>
+      <ul><li>תמונות צבע עם עיבוד טבעי ורך</li><li>רשת אסימטרית שמשאירה לתמונות לנשום</li><li>הכי בטוח וקל לתחזוקה</li></ul>
+      <div class="swatches"><span style="background:#fbfbfa"></span><span style="background:#2a2a28"></span><span style="background:#77766f"></span></div>
+      <p class="fit">מתאים אם הצבעים שלכם נקיים וטבעיים ואתם רוצים שהעבודה תדבר לבד.</p>
+    </div>
+  </section>
+
+  <!-- C -->
+  <section class="dir">
+    <div class="frame">
+      <div class="bar"><i></i><i></i><i></i><b>yourname.co.il</b></div>
+      <div class="C">
+        <div class="hero">
+          <div class="ph p3"><em>הרחבה, 23:40</em></div>
+          <div class="over">
+            <nav><span>שם הצלם</span><span>סיפורים · קשר</span></nav>
+            <h3>הלילה שלכם, בלי פוזות.</h3>
+          </div>
+        </div>
+        <div class="quote">
+          <p>"לא הרגשנו שמצלמים אותנו בכלל. ואז קיבלנו את התמונות ובכינו שוב."<small>נועה ואיתי · יקב בגליל · אוגוסט 2026</small></p>
+          <div class="ph p6" style="--r:3/2"><em>אחרי החופה</em></div>
+        </div>
+      </div>
+    </div>
+    <div class="meta">
+      <span class="letter">כיוון C</span>
+      <h2>לילה</h2>
+      <p>רקע כהה, תמונות מלאות רוחב, גרעין קולנועי וכותרות סריף גדולות. דרמטי ורגשי.</p>
+      <ul><li>מבליט אור, צללים ותמונות ערב</li><li>המלצות זוגות במרכז</li><li>חוויה של סרט יותר מאתר</li></ul>
+      <div class="swatches"><span style="background:#0f0d0c"></span><span style="background:#efe7dc"></span><span style="background:#cdbfae"></span><span style="background:#ffcf8a"></span></div>
+      <p class="fit">מתאים אם החוזקה שלכם היא אור טבעי וערבי, ומסיבות מלאות אנרגיה.</p>
+    </div>
+  </section>
+
+  <!-- D -->
+  <section class="dir">
+    <div class="frame">
+      <div class="bar"><i></i><i></i><i></i><b>yourname.co.il</b></div>
+      <div class="D">
+        <nav><b>שם הצלם</b><span>עוד סיפורים ←</span></nav>
+        <h3>מיכל ודניאל</h3>
+        <p class="sub">חתונה אחת, מהבוקר ועד הלילה. 14 שעות, 900 פריימים, 60 בתיק.</p>
+        <div class="chap"><span class="t">09:30</span><div><h4>הבית של ההורים</h4><p>קפה, גיהוץ אחרון, אחים שמתווכחים.</p></div><div class="ph p5" style="--r:16/9"><em>מטבח</em></div></div>
+        <div class="chap"><span class="t">17:15</span><div><h4>החופה</h4><p>הרוח הפילה את הטלית. כולם צחקו.</p></div><div class="ph p4" style="--r:16/9"><em>חופה</em></div></div>
+        <div class="chap"><span class="t">01:50</span><div><h4>השיר האחרון</h4><p>עשרה אנשים, נעליים ביד.</p></div><div class="ph p3" style="--r:16/9"><em>סוף הלילה</em></div></div>
+      </div>
+    </div>
+    <div class="meta">
+      <span class="letter">כיוון D</span>
+      <h2>סיפור יום</h2>
+      <p>במקום גלריה, כל חתונה מוצגת כסיפור לפי שעות. הזוג רואה בדיוק איך ייראה היום שלהם בעיניכם.</p>
+      <ul><li>עמוד לכל חתונה, עם כותרות וטקסטים קצרים</li><li>ממחיש "דוקומנטרי" בצורה הכי ברורה</li><li>דורש קצת כתיבה מצידכם על כל חתונה</li></ul>
+      <div class="swatches"><span style="background:#e9ece4"></span><span style="background:#2f4a33"></span><span style="background:#4f5c4e"></span><span style="background:#c3cbbd"></span></div>
+      <p class="fit">מתאים אם אתם אוהבים לספר סיפורים ויש לכם 3–5 חתונות מלאות שאתם גאים בהן.</p>
+    </div>
+  </section>
+
+  <footer class="next">
+    <h2>מה הלאה</h2>
+    <p>ענו על השאלות בצ'אט, ספרו איזה כיוון הכי מרגיש כמוכם (אפשר גם לשלב), ושלחו קישור לאינסטגרם או 10–15 תמונות. אחרי זה אבנה את הדף הראשי עם העבודות האמיתיות שלכם.</p>
+  </footer>
+</div>
+</body>
+</html>
