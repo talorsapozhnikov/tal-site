@@ -7,11 +7,10 @@
   --grey:#62625d;
   --rule:#d3d3cd;
   --plate:#deddd8;
-  /* type: Frank Ruhl Libre for Hebrew display, Newsreader for English display, Assistant for text in both */
-  --display-he:"Frank Ruhl Libre","David","Times New Roman",serif;
-  --display-en:"Newsreader","Frank Ruhl Libre",Georgia,serif;
-  --serif:var(--display-he);
-  --sans:"Assistant","Segoe UI",system-ui,sans-serif;
+  /* type follows the tos logo: thin, even-stroke geometric letters.
+     Jost has no Hebrew, so one stack gives Jost for Latin and Heebo for Hebrew in both languages */
+  --serif:"Jost","Heebo","Segoe UI",system-ui,sans-serif;
+  --sans:"Jost","Heebo","Segoe UI",system-ui,sans-serif;
   --gutter:max(18px,env(safe-area-inset-left,0px));
   --gutter-end:max(18px,env(safe-area-inset-right,0px));
   color-scheme:light;
@@ -19,8 +18,7 @@
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 @media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
-html[lang="en"]{--serif:var(--display-en)}
-body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.65;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-weight:400;font-size:16px;line-height:1.65;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}
 img{max-width:100%;height:auto;display:block}
 a{color:inherit}
 h1,h2,h3{text-wrap:balance}
@@ -41,7 +39,7 @@ html[lang="en"] .kicker{font-size:12px;letter-spacing:.08em;text-transform:upper
 .photo img{width:100%}
 
 /* ---------- top bar ---------- */
-.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-block:8px;border-bottom:1px solid var(--rule)}
+.topbar{display:flex;flex-wrap:wrap;row-gap:0;justify-content:space-between;align-items:center;column-gap:12px;padding-block:8px;border-bottom:1px solid var(--rule)}
 .brand{display:inline-flex;align-items:center;gap:12px;text-decoration:none;min-height:44px}
 .brand img{width:auto;height:30px;flex:none}
 @media (min-width:860px){.brand img{height:36px}}
@@ -59,16 +57,14 @@ html[lang="en"] .topbar nav a{background-position:0 calc(100% - 9px)}
 
 /* ---------- masthead ---------- */
 .mast .name{padding-block:clamp(26px,5vw,52px) clamp(14px,2vw,20px)}
-.mast h1{font-family:var(--serif);font-weight:300;font-size:clamp(48px,9vw,124px);line-height:.92;letter-spacing:-.01em;margin:0}
-html[lang="en"] .mast h1{letter-spacing:-.025em;line-height:.95}
+.mast h1{font-family:var(--serif);font-weight:200;font-size:clamp(46px,8.6vw,118px);line-height:.95;letter-spacing:-.01em;margin:0}
 .mast h1 span{display:block}
 @media (min-width:700px){.mast h1 span{display:inline}}
-.mast .alt{display:block;font-family:var(--display-en);font-weight:300;font-size:clamp(16px,1.6vw,21px);letter-spacing:.01em;color:var(--grey);margin-top:clamp(10px,1.3vw,16px)}
-html[lang="en"] .mast .alt{font-family:var(--display-he)}
+.mast .alt{display:block;font-family:var(--serif);font-weight:300;font-size:clamp(16px,1.6vw,21px);letter-spacing:.01em;color:var(--grey);margin-top:clamp(10px,1.3vw,16px)}
 [dir="rtl"] .mast .alt{text-align:right}
 [dir="ltr"] .mast .alt{text-align:left}
 .dek{display:flex;justify-content:space-between;align-items:baseline;gap:4px 18px;flex-wrap:wrap;border-top:1px solid var(--ink);padding-block:10px;font-size:13px;color:var(--grey)}
-.dek .statement{font-family:var(--serif);font-size:17px;color:var(--ink)}
+.dek .statement{font-family:var(--serif);font-weight:400;font-size:17px;color:var(--ink)}
 
 /* ---------- cover: masthead on paper, then the photograph whole, never cropped or stretched ---------- */
 .hero{padding-top:env(safe-area-inset-top,0px)}
@@ -81,7 +77,7 @@ html[lang="en"] .mast .alt{font-family:var(--display-he)}
 
 /* ---------- section heads ---------- */
 .sec-head{display:grid;gap:8px;padding-block:clamp(56px,9vw,120px) clamp(24px,4vw,48px)}
-.sec-head h2{font-family:var(--serif);font-weight:300;font-size:clamp(34px,4.6vw,56px);line-height:1;margin:0}
+.sec-head h2{font-family:var(--serif);font-weight:200;font-size:clamp(34px,4.6vw,56px);line-height:1;margin:0}
 .sec-head p{margin:0;color:var(--grey);font-size:15px;max-width:40ch}
 @media (min-width:860px){.sec-head{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:end}.sec-head p{justify-self:end;text-align:end}}
 
@@ -120,7 +116,7 @@ html[lang="en"] .mast .alt{font-family:var(--display-he)}
 .archive{border-top:1px solid var(--ink);margin-top:clamp(56px,9vw,120px)}
 .cat{padding-bottom:clamp(40px,6vw,80px)}
 .cat > header{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 16px;border-top:1px solid var(--rule);padding-top:16px;margin-bottom:clamp(16px,2.6vw,28px)}
-.cat h3{font-family:var(--serif);font-weight:400;font-size:clamp(28px,3.4vw,40px);line-height:1;margin:0}
+.cat h3{font-family:var(--serif);font-weight:300;font-size:clamp(28px,3.4vw,40px);line-height:1;margin:0}
 .cat > header .m{font-size:13px;color:var(--grey)}
 .cat > header .more{margin-inline-start:auto}
 .cards{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(22px,3vw,36px) clamp(12px,1.6vw,20px)}
@@ -139,12 +135,12 @@ html[lang="en"] .mast .alt{font-family:var(--display-he)}
 .chapter:first-child{border-top:0;padding-top:0}
 .chapter > header{display:flex;align-items:baseline;flex-wrap:wrap;gap:6px 16px;margin-bottom:clamp(18px,3vw,32px)}
 .chapter .no{font-size:12px;color:var(--grey);font-variant-numeric:tabular-nums}
-.chapter h2{font-family:var(--serif);font-weight:300;font-size:clamp(32px,4.4vw,52px);line-height:1;margin:0}
+.chapter h2{font-family:var(--serif);font-weight:200;font-size:clamp(32px,4.4vw,52px);line-height:1;margin:0}
 .chapter .more{margin-inline-start:auto}
 
 /* ---------- about ---------- */
 .about{padding-block:clamp(64px,10vw,130px);border-top:1px solid var(--ink)}
-.about h2{grid-column:1/-1;font-family:var(--serif);font-weight:300;font-size:clamp(34px,4.6vw,56px);line-height:1;margin:0 0 clamp(20px,3vw,32px)}
+.about h2{grid-column:1/-1;font-family:var(--serif);font-weight:200;font-size:clamp(34px,4.6vw,56px);line-height:1;margin:0 0 clamp(20px,3vw,32px)}
 .about .text{grid-column:1/-1;display:grid;gap:18px}
 .about .text p{margin:0;max-width:44ch;font-size:17px;line-height:1.75}
 .about .text .lede{font-family:var(--serif);font-weight:300;font-size:clamp(25px,3vw,38px);line-height:1.3;max-width:24ch}
@@ -158,7 +154,7 @@ html[lang="en"] .mast .alt{font-family:var(--display-he)}
 /* ---------- closing page: contact ---------- */
 .contact{padding-block:clamp(64px,10vw,130px);border-top:1px solid var(--ink)}
 .contact .inner{grid-column:1/-1;display:grid;gap:14px}
-.contact h2{font-family:var(--serif);font-weight:300;font-size:clamp(38px,6vw,76px);line-height:1;margin:0;max-width:13ch}
+.contact h2{font-family:var(--serif);font-weight:200;font-size:clamp(38px,6vw,76px);line-height:1;margin:0;max-width:13ch}
 .contact p{margin:0;font-size:17px;color:var(--grey)}
 .actions{display:grid;gap:12px;margin-top:22px}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:54px;padding:0 26px;border:1px solid var(--ink);border-radius:2px;font:500 15px/1 var(--sans);letter-spacing:.02em;text-decoration:none;transition:background-color .2s ease,color .2s ease}
@@ -182,16 +178,18 @@ footer.site a:hover{color:var(--ink)}
 [dir="rtl"] .back::before{content:"→"}
 [dir="ltr"] .back::before{content:"←"}
 .p-head{padding-block:clamp(10px,3vw,30px) clamp(26px,4vw,48px);display:grid;gap:10px}
-.p-head h1{font-family:var(--serif);font-weight:300;font-size:clamp(44px,8vw,104px);line-height:.95;margin:0}
+.p-head h1{font-family:var(--serif);font-weight:200;font-size:clamp(44px,8vw,104px);line-height:.95;margin:0}
 .p-head .count{font-size:13px;color:var(--grey)}
 .gallery{padding-bottom:clamp(60px,9vw,110px)}
 .next{border-top:1px solid var(--ink);padding-block:28px 40px}
 .next a{display:grid;gap:4px;text-decoration:none}
-.next .t{font-family:var(--serif);font-weight:300;font-size:clamp(30px,4.4vw,52px);line-height:1.05}
+.next .t{font-family:var(--serif);font-weight:200;font-size:clamp(30px,4.4vw,52px);line-height:1.05}
 .next a:hover .t{text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:1px}
 .missing{padding-block:60px 100px;display:grid;gap:14px}
-.missing h1{font-family:var(--serif);font-weight:300;font-size:clamp(36px,6vw,64px);margin:0}
+.missing h1{font-family:var(--serif);font-weight:200;font-size:clamp(36px,6vw,64px);margin:0}
 
 /* hold the space of script-rendered sections until they fill, so nothing below them jumps */
 #gallery:empty,#selected-seq:empty{min-height:120svh}
 #archive-list:empty{min-height:60svh}
+/* narrow screens: the logo carries the brand, so the small label steps aside and the bar stays on one line */
+@media (max-width:520px){.brand .label{display:none}}
