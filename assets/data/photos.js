@@ -1,7 +1,13 @@
-/* The site is organised by moments of the day, not by wedding.
-   To add photos: export each as WebP in the sizes listed in README.md, put it in /images,
-   add it to PHOTOS, then list its name in a chapter below. No HTML changes are needed.
-   Never invent places, dates or names. */
+/* Every photograph on the site, by a stable id (the file name stem in /images).
+   One entry per photo; categories, stories and the home page refer to photos by this id,
+   so the same image file can appear in several places without being copied.
+
+   Each entry:
+     portrait: true        vertical photo (files at 600, 1000, 1400 wide); otherwise landscape (400, 800, 1400, 2000)
+     w, h                  real proportions when they are not 3:2 (landscape) or 2:3 (portrait)
+     alt: { he, en }       what happens in the photo, in both languages. Required.
+
+   New photos: run tools/add-photos.py (see README.md); it writes the image files and prints entries to paste here. */
 
 window.PHOTOS = {
   'water-portrait':      { portrait: true,
@@ -55,84 +61,3 @@ window.PHOTOS = {
   'fest-sequins-blue':   { alt: { he: 'זמר במכנסי פאייטים רחבים על המסלול באור כחול, פסנתרן בקצה הבמה', en: 'A singer in wide sequinned trousers on the runway in blue light, a pianist at the edge of the stage' } },
   'dancefloor-blue':     { alt: { he: 'רחבת ריקודים באור כחול, אנשים רוקדים בצללית מתחת לפנסי במה', en: 'A dance floor in blue light, people dancing in silhouette under stage lights' } }
 };
-
-/* ---------- Layout blocks ----------
-   A layout is a list of blocks. Every photo keeps its own proportions; nothing is cropped.
-     { full: 'name' }                       one photo across the page
-     { wide: 'name', align: 'start'|'end' } one photo across three quarters, leaving air on one side
-     { solo: 'name', align: 'start'|'center'|'end' }  a vertical photo alone, with generous space around it
-     { pair: ['a', 'b'] }                   two photos side by side, same height
-     { pair: ['a', 'b'], offset: true }     a large photo and a smaller one set lower beside it
-     { row: ['a', 'b', 'c'] }               three photos side by side, same height
-   Where a chapter has no layout, its photos fall into automatic rows. */
-
-/* ---------- Selected work ----------
-   The curated sequence on the home page, one group per field. Groups are never mixed:
-   wedding photos stay with weddings, festival photos with festivals. A group whose category
-   has no photos is hidden. Tight rows of equal height; not every good photo belongs here. */
-window.SELECTED = [
-  { category: 'weddings', blocks: [
-    { row: ['grove-family-laugh', 'shore-silhouette', 'shore-kiss'] },
-    { row: ['first-dance', 'grove-glass', 'dancefloor-yellow'] },
-    { row: ['shore-band', 'sea-bottle', 'water-cheek'] }
-  ] },
-  { category: 'festivals', blocks: [
-    { row: ['fest-bow', 'fest-phones', 'fest-runway-bw'] },
-    { row: ['fest-reach-bw', 'fest-barrier'] },
-    { row: ['fest-sequins-up', 'fest-guitar-sun', 'fest-horns'] }
-  ] }
-];
-
-/* ---------- Archive ----------
-   Top-level categories, in this order. A category with no photos is hidden.
-   Weddings are split into chapters by moment of the day; other categories hold their photos directly.
-   photos: everything in the chapter, in page order. cover: the photo shown on the archive card.
-   layout (optional): blocks for the chapter page; photos missing from it are added at the end automatically. */
-window.CATEGORIES = [
-  { id: 'weddings', title: { he: 'חתונות', en: 'Weddings' },
-    chapters: [
-      { id: 'beauty', title: { he: 'ביוטי', en: 'Getting ready' }, photos: [] },
-      { id: 'reception', title: { he: 'קבלת פנים', en: 'Reception' }, cover: 'shore-band',
-        photos: ['grove-setup', 'shore-band', 'sea-bottle'],
-        layout: [
-          { row: ['grove-setup', 'shore-band', 'sea-bottle'] }
-        ] },
-      { id: 'chuppah', title: { he: 'חופה', en: 'Chuppah' }, cover: 'grove-ring',
-        photos: ['shore-crowd', 'shore-kiss', 'grove-glass', 'grove-ring', 'grove-family-laugh', 'grove-chuppah-bw', 'water-aisle', 'shore-chuppah-bw', 'grove-chuppah-crowd'],
-        layout: [
-          { row: ['shore-crowd', 'shore-kiss'] },
-          { row: ['grove-ring', 'grove-glass', 'grove-family-laugh'] },
-          { row: ['grove-chuppah-bw', 'shore-chuppah-bw'] },
-          { row: ['water-aisle', 'grove-chuppah-crowd'] }
-        ] },
-      { id: 'couple', title: { he: 'הזוג', en: 'The two of them' }, cover: 'shore-dip',
-        photos: ['shore-blur', 'shore-silhouette', 'grove-laugh', 'shore-dip', 'water-cheek', 'water-portrait', 'shore-portrait', 'water-embrace', 'water-low-angle'],
-        layout: [
-          { row: ['shore-blur', 'shore-silhouette', 'grove-laugh'] },
-          { row: ['shore-dip', 'water-cheek', 'water-low-angle'] },
-          { row: ['water-portrait', 'water-embrace', 'shore-portrait'] }
-        ] },
-      { id: 'family', title: { he: 'משפחה', en: 'Family' }, photos: [] },
-      { id: 'dance', title: { he: 'רחבה', en: 'Dance floor' }, cover: 'dancefloor-lift',
-        photos: ['first-dance', 'dancefloor-yellow', 'dancefloor-lift', 'dancefloor-amber', 'dancefloor-dj', 'dancefloor-blue'],
-        layout: [
-          { row: ['first-dance', 'dancefloor-yellow'] },
-          { row: ['dancefloor-lift', 'dancefloor-amber'] },
-          { row: ['dancefloor-dj', 'dancefloor-blue'] }
-        ] }
-    ] },
-  { id: 'events', title: { he: 'אירועים', en: 'Events' }, photos: [] },
-  { id: 'concerts', title: { he: 'הופעות', en: 'Concerts' }, photos: [] },
-  { id: 'festivals', title: { he: 'פסטיבלים', en: 'Festivals' }, cover: 'fest-reach-bw',
-    photos: ['fest-stage-wide', 'fest-reach-bw', 'fest-bow', 'fest-crowd-faces', 'fest-runway-bw', 'fest-sequins-up', 'fest-phones',
-             'fest-guitar-sun', 'fest-shirtless', 'fest-runway-day', 'fest-horns', 'fest-barrier', 'fest-sunflower', 'fest-sequins-blue'],
-    layout: [
-      { row: ['fest-stage-wide', 'fest-crowd-faces'] },
-      { row: ['fest-reach-bw', 'fest-bow', 'fest-runway-bw'] },
-      { row: ['fest-phones', 'fest-sequins-up'] },
-      { row: ['fest-guitar-sun', 'fest-shirtless', 'fest-sequins-blue'] },
-      { row: ['fest-runway-day', 'fest-horns'] },
-      { row: ['fest-barrier', 'fest-sunflower'] }
-    ] },
-  { id: 'productions', title: { he: 'הפקות', en: 'Productions' }, photos: [] }
-];
