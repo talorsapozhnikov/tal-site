@@ -75,7 +75,7 @@
       document.documentElement.classList.remove('lb-open');
       if (opener) opener.focus({ preventScroll: true });
     };
-    if (reduce) done(); else setTimeout(done, 220);
+    if (reduce) done(); else setTimeout(done, 280);
     if (pushed && !fromHistory) { pushed = false; history.back(); }
     pushed = false;
   }
