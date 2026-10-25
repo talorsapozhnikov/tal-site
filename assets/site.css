@@ -58,9 +58,10 @@ h1,h2,h3{text-wrap:balance}
 .dek .statement{font-family:var(--serif);font-size:15px;color:var(--ink)}
 
 /* ---------- hero: the cover photograph fills the opening screen, name and bar sit on it ---------- */
-.hero{position:relative;display:flex;min-height:min(100svh,1000px);background:#111;color:var(--paper);isolation:isolate}
+.hero{position:relative;display:flex;aspect-ratio:3/2;background:#111;color:var(--paper);isolation:isolate}
+/* the box has the photo's own proportions, so the photo is never cropped */
 .hero .bg{position:absolute;inset:0;z-index:-1}
-.hero .bg img{width:100%;height:100%;object-fit:cover;object-position:50% 50%}
+.hero .bg img{width:100%;height:100%;object-fit:fill}
 .hero .bg::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,10,10,.55) 0%,rgba(10,10,10,0) 22%,rgba(10,10,10,0) 45%,rgba(10,10,10,.72) 100%)}
 .hero .inner{flex:1;display:flex;padding-top:env(safe-area-inset-top,0px)}
 .hero .page{flex:1;display:flex;flex-direction:column;width:100%}
@@ -74,7 +75,18 @@ h1,h2,h3{text-wrap:balance}
 .hero .credit{margin:0;padding-block:0 18px;font-size:12px;color:rgba(246,246,243,.7)}
 .hero .credit b{font-weight:500;color:var(--paper)}
 .hero :focus-visible{outline-color:var(--paper)}
-@media (max-width:640px){.hero{min-height:88svh}.hero .bg img{object-position:50% 50%}}
+/* phones and upright screens: the whole photograph between the bar and the name */
+@media (max-width:640px),(max-aspect-ratio:1/1){
+  .hero{flex-direction:column;aspect-ratio:auto;padding-top:env(safe-area-inset-top,0px)}
+  .hero .inner,.hero .page{display:contents}
+  .hero .topbar{order:0;margin-left:var(--gutter);margin-right:var(--gutter-end);border-bottom:0}
+  .hero .bg{position:relative;inset:auto;z-index:0;order:1}
+  .hero .bg img{height:auto;object-fit:fill}
+  .hero .bg::after{display:none}
+  .hero .name{order:2;margin-top:0;padding-left:var(--gutter);padding-right:var(--gutter-end)}
+  .hero .dek{order:3;margin-left:var(--gutter);margin-right:var(--gutter-end)}
+  .hero .credit{order:4;padding:12px var(--gutter-end) 22px var(--gutter)}
+}
 
 /* ---------- contents: categories, with the wedding chapters nested ---------- */
 .contents{padding-block:clamp(52px,8vw,96px) clamp(20px,4vw,40px)}
