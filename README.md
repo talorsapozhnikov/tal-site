@@ -19,7 +19,7 @@ No build step and no dependencies: open `index.html` or serve the folder with an
 
 ## Adding photos
 
-Top-level categories are weddings, events, concerts, festivals and productions. Weddings are split into chapters by moment of the day (getting ready, reception, chuppah, the couple, family, dance floor, laughter), not by wedding.
+Top-level categories are weddings, events, concerts, festivals and productions. Weddings are split into chapters by moment of the day (getting ready, reception, chuppah, the couple, family, dance floor), not by wedding.
 
 1. Export each photo as WebP without metadata (no EXIF, no GPS):
    - landscape: widths 400, 800, 1400, 2000 → `images/<name>-400.webp` … `-2000.webp`
