@@ -57,25 +57,24 @@ h1,h2,h3{text-wrap:balance}
 .dek{display:flex;justify-content:space-between;align-items:baseline;gap:4px 18px;flex-wrap:wrap;border-top:1px solid var(--ink);padding-block:10px;font-size:13px;color:var(--grey)}
 .dek .statement{font-family:var(--serif);font-size:15px;color:var(--ink)}
 
-/* ---------- cover ---------- */
-.cover{padding-block:8px 0}
-.cover .shot{grid-column:1/-1;margin:0}
-.cover .frame{position:relative;aspect-ratio:4/5;overflow:hidden;background:var(--plate);margin-left:calc(-1 * var(--gutter));margin-right:calc(-1 * var(--gutter-end))}
-.cover .frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 45%}
-.cover figcaption{font-size:12px;color:var(--grey);padding-top:8px}
-.cover figcaption b{font-weight:500;color:var(--ink)}
-.cover .lines{display:none}
-@media (min-width:641px){.cover .frame{aspect-ratio:3/2;margin-left:0;margin-right:0}}
-@media (min-width:960px){
-  .cover .shot{grid-column:1/11}
-  .cover .lines{grid-column:11/-1;display:flex;flex-direction:column;justify-content:space-between;gap:18px;border-inline-start:1px solid var(--rule);padding-inline-start:16px}
-  .cover .lines ul{list-style:none;margin:0;padding:0;display:grid;gap:16px}
-  .cover .lines li a{display:grid;text-decoration:none;font-family:var(--serif);font-size:20px;line-height:1.2}
-  .cover .lines li small{display:block;font-family:var(--sans);font-size:12px;color:var(--grey);line-height:1.5;margin-top:4px}
-  .cover .lines li a:hover span{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
-  .cover .lines .to-index{font-size:13px;color:var(--grey);text-decoration:none}
-  .cover .lines .to-index:hover{color:var(--ink)}
-}
+/* ---------- hero: the cover photograph fills the opening screen, name and bar sit on it ---------- */
+.hero{position:relative;display:flex;min-height:min(100svh,1000px);background:#111;color:var(--paper);isolation:isolate}
+.hero .bg{position:absolute;inset:0;z-index:-1}
+.hero .bg img{width:100%;height:100%;object-fit:cover;object-position:50% 50%}
+.hero .bg::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,10,10,.55) 0%,rgba(10,10,10,0) 22%,rgba(10,10,10,0) 45%,rgba(10,10,10,.72) 100%)}
+.hero .inner{flex:1;display:flex;padding-top:env(safe-area-inset-top,0px)}
+.hero .page{flex:1;display:flex;flex-direction:column;width:100%}
+.hero .topbar{border-bottom-color:rgba(246,246,243,.28)}
+.hero .lang{color:var(--paper);border-color:rgba(246,246,243,.5)}
+.hero .lang:hover{border-color:var(--paper)}
+.hero .name{margin-top:auto}
+.hero .alt{color:rgba(246,246,243,.78)}
+.hero .dek{border-top-color:rgba(246,246,243,.7);color:rgba(246,246,243,.82)}
+.hero .dek .statement{color:var(--paper)}
+.hero .credit{margin:0;padding-block:0 18px;font-size:12px;color:rgba(246,246,243,.7)}
+.hero .credit b{font-weight:500;color:var(--paper)}
+.hero :focus-visible{outline-color:var(--paper)}
+@media (max-width:640px){.hero{min-height:88svh}.hero .bg img{object-position:50% 50%}}
 
 /* ---------- contents: categories, with the wedding chapters nested ---------- */
 .contents{padding-block:clamp(52px,8vw,96px) clamp(20px,4vw,40px)}

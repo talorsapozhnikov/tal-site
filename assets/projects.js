@@ -50,7 +50,7 @@ window.CATEGORIES = [
       { id: 'reception', title: { he: 'קבלת פנים', en: 'Reception' }, rows: [3],
         photos: ['grove-setup', 'shore-band', 'sea-bottle'] },
       { id: 'chuppah', title: { he: 'חופה', en: 'Chuppah' },
-        photos: ['grove-ring', 'shore-kiss', 'shore-chuppah-bw', 'grove-glass', 'shore-crowd', 'grove-chuppah-bw', 'water-aisle', 'grove-chuppah-crowd'] },
+        photos: ['grove-ring', 'shore-kiss', 'grove-chuppah-crowd', 'grove-glass', 'shore-crowd', 'grove-chuppah-bw', 'water-aisle', 'shore-chuppah-bw'] },
       { id: 'couple', title: { he: 'הזוג', en: 'The two of them' },
         photos: ['shore-silhouette', 'water-cheek', 'shore-blur', 'water-portrait', 'shore-dip', 'shore-portrait', 'water-embrace', 'water-low-angle'] },
       { id: 'family', title: { he: 'משפחה', en: 'Family' }, photos: [] },
