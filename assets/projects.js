@@ -39,23 +39,71 @@ window.PHOTOS = {
   'dancefloor-blue':     { alt: { he: 'רחבת ריקודים באור כחול, אנשים רוקדים בצללית מתחת לפנסי במה', en: 'A dance floor in blue light, people dancing in silhouette under stage lights' } }
 };
 
-/* Top-level categories, in this order. A category with no photos is hidden.
+/* ---------- Layout blocks ----------
+   A layout is a list of blocks. Every photo keeps its own proportions; nothing is cropped.
+     { full: 'name' }                       one photo across the page
+     { wide: 'name', align: 'start'|'end' } one photo across three quarters, leaving air on one side
+     { solo: 'name', align: 'start'|'center'|'end' }  a vertical photo alone, with generous space around it
+     { pair: ['a', 'b'] }                   two photos side by side, same height
+     { pair: ['a', 'b'], offset: true }     a large photo and a smaller one set lower beside it
+     { row: ['a', 'b', 'c'] }               three photos side by side, same height
+   Where a chapter has no layout, its photos fall into automatic rows. */
+
+/* ---------- Selected work ----------
+   The curated sequence on the home page: the strongest frames, in an order that alternates
+   close and wide, quiet and loud. Not every good photo belongs here. */
+window.SELECTED = [
+  { full: 'grove-family-laugh' },
+  { pair: ['shore-kiss', 'shore-silhouette'], offset: true },
+  { full: 'first-dance' },
+  { row: ['shore-band', 'sea-bottle', 'grove-glass'] },
+  { wide: 'grove-chuppah-crowd', align: 'end' },
+  { pair: ['dancefloor-yellow', 'dancefloor-lift'] }
+];
+
+/* ---------- Archive ----------
+   Top-level categories, in this order. A category with no photos is hidden.
    Weddings are split into chapters by moment of the day; other categories hold their photos directly.
-   The first 5 photos of a chapter (or category) make its collage on the home page; all appear on its own page.
-   rows: how many photos sit in each collage row, repeated (default [2, 3]). */
+   photos: everything in the chapter, in page order. cover: the photo shown on the archive card.
+   layout (optional): blocks for the chapter page; photos missing from it are added at the end automatically. */
 window.CATEGORIES = [
   { id: 'weddings', title: { he: 'חתונות', en: 'Weddings' },
     chapters: [
       { id: 'beauty', title: { he: 'ביוטי', en: 'Getting ready' }, photos: [] },
-      { id: 'reception', title: { he: 'קבלת פנים', en: 'Reception' }, rows: [3],
-        photos: ['grove-setup', 'shore-band', 'sea-bottle'] },
-      { id: 'chuppah', title: { he: 'חופה', en: 'Chuppah' },
-        photos: ['grove-ring', 'shore-kiss', 'grove-chuppah-crowd', 'grove-glass', 'grove-family-laugh', 'shore-crowd', 'grove-chuppah-bw', 'water-aisle', 'shore-chuppah-bw'] },
-      { id: 'couple', title: { he: 'הזוג', en: 'The two of them' },
-        photos: ['shore-silhouette', 'water-cheek', 'shore-blur', 'grove-laugh', 'shore-dip', 'water-portrait', 'shore-portrait', 'water-embrace', 'water-low-angle'] },
+      { id: 'reception', title: { he: 'קבלת פנים', en: 'Reception' }, cover: 'shore-band',
+        photos: ['grove-setup', 'shore-band', 'sea-bottle'],
+        layout: [
+          { pair: ['grove-setup', 'shore-band'] },
+          { solo: 'sea-bottle', align: 'end' }
+        ] },
+      { id: 'chuppah', title: { he: 'חופה', en: 'Chuppah' }, cover: 'grove-ring',
+        photos: ['shore-crowd', 'shore-kiss', 'grove-glass', 'grove-ring', 'grove-family-laugh', 'grove-chuppah-bw', 'water-aisle', 'shore-chuppah-bw', 'grove-chuppah-crowd'],
+        layout: [
+          { full: 'shore-crowd' },
+          { pair: ['shore-kiss', 'grove-glass'], offset: true },
+          { pair: ['grove-ring', 'grove-family-laugh'] },
+          { wide: 'grove-chuppah-bw', align: 'end' },
+          { pair: ['water-aisle', 'shore-chuppah-bw'] },
+          { wide: 'grove-chuppah-crowd', align: 'start' }
+        ] },
+      { id: 'couple', title: { he: 'הזוג', en: 'The two of them' }, cover: 'shore-dip',
+        photos: ['shore-blur', 'shore-silhouette', 'grove-laugh', 'shore-dip', 'water-cheek', 'water-portrait', 'shore-portrait', 'water-embrace', 'water-low-angle'],
+        layout: [
+          { full: 'shore-blur' },
+          { pair: ['shore-silhouette', 'grove-laugh'] },
+          { wide: 'shore-dip', align: 'end' },
+          { pair: ['water-cheek', 'water-portrait'], offset: true },
+          { row: ['shore-portrait', 'water-embrace', 'water-low-angle'] }
+        ] },
       { id: 'family', title: { he: 'משפחה', en: 'Family' }, photos: [] },
-      { id: 'dance', title: { he: 'רחבה', en: 'Dance floor' },
-        photos: ['first-dance', 'dancefloor-yellow', 'dancefloor-lift', 'dancefloor-amber', 'dancefloor-dj', 'dancefloor-blue'] }
+      { id: 'dance', title: { he: 'רחבה', en: 'Dance floor' }, cover: 'dancefloor-lift',
+        photos: ['first-dance', 'dancefloor-yellow', 'dancefloor-lift', 'dancefloor-amber', 'dancefloor-dj', 'dancefloor-blue'],
+        layout: [
+          { full: 'first-dance' },
+          { pair: ['dancefloor-yellow', 'dancefloor-lift'] },
+          { wide: 'dancefloor-amber', align: 'start' },
+          { pair: ['dancefloor-dj', 'dancefloor-blue'] }
+        ] }
     ] },
   { id: 'events', title: { he: 'אירועים', en: 'Events' }, photos: [] },
   { id: 'concerts', title: { he: 'הופעות', en: 'Concerts' }, photos: [] },

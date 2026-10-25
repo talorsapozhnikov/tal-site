@@ -73,24 +73,50 @@
     });
   };
 
-  /* ---------- collage: rows of photos at their own proportions, heights equal within a row ---------- */
+  /* ---------- photo rows: photos at their own proportions, heights equal within a row ---------- */
   function ratio(name) { var p = window.PHOTOS[name]; return p.w ? p.w / p.h : (p.portrait ? 2 / 3 : 1.5); }
+  function fig(name, sizes, eager) { return '<figure><div class="photo">' + Site.img(name, sizes, eager) + '</div></figure>'; }
+  function eqRow(row, cls, eager) {
+    var total = row.reduce(function (a, x) { return a + ratio(x); }, 0);
+    return '<div class="crow n' + row.length + (cls ? ' ' + cls : '') + '">' + row.map(function (x, k) {
+      var share = Math.round(ratio(x) / total * 100);
+      return '<figure style="flex-grow:' + ratio(x).toFixed(3) + '"><div class="photo">' +
+        Site.img(x, '(min-width:1240px) ' + Math.round(12.4 * share) + 'px, (min-width:700px) ' + share + 'vw, ' + (row.length === 3 && k === 0 ? 100 : 50) + 'vw', eager && k === 0) +
+        '</div></figure>';
+    }).join('') + '</div>';
+  }
+  /* fallback: automatic rows of 2, then 3 */
   Site.collage = function (names, rows, eager) {
     rows = rows && rows.length ? rows : [2, 3];
     var out = '', i = 0, r = 0;
     while (i < names.length) {
-      var n = Math.min(rows[r % rows.length], names.length - i), row = names.slice(i, i + n);
-      var total = row.reduce(function (a, x) { return a + ratio(x); }, 0);
-      out += '<div class="crow n' + n + '">' + row.map(function (x, k) {
-        var share = Math.round(ratio(x) / total * 100);
-        return '<figure style="flex-grow:' + ratio(x).toFixed(3) + '"><div class="photo">' +
-          Site.img(x, '(min-width:1240px) ' + Math.round(12.4 * share) + 'px, (min-width:700px) ' + share + 'vw, ' + (n === 3 && k === 0 ? 100 : 50) + 'vw', eager && i === 0 && k === 0) +
-          '</div></figure>';
-      }).join('') + '</div>';
+      var n = Math.min(rows[r % rows.length], names.length - i);
+      out += eqRow(names.slice(i, i + n), '', eager && i === 0);
       i += n; r++;
     }
     return out;
   };
+
+  /* ---------- editorial blocks (see assets/projects.js) ---------- */
+  function blockNames(b) { return [].concat(b.full || [], b.wide || [], b.solo || [], b.pair || [], b.row || []); }
+  function block(b, eager) {
+    if (b.full) return '<div class="b full">' + fig(b.full, '(min-width:1240px) 1240px, 100vw', eager) + '</div>';
+    if (b.wide) return '<div class="b wide ' + (b.align || 'start') + '">' + fig(b.wide, '(min-width:1240px) 930px, (min-width:700px) 75vw, 100vw', eager) + '</div>';
+    if (b.solo) return '<div class="b solo ' + (b.align || 'center') + '">' + fig(b.solo, '(min-width:1240px) 520px, (min-width:700px) 42vw, 72vw', eager) + '</div>';
+    if (b.pair && b.offset) return '<div class="b offset">' + fig(b.pair[0], '(min-width:1240px) 720px, (min-width:700px) 58vw, 100vw', eager) +
+      fig(b.pair[1], '(min-width:1240px) 410px, (min-width:700px) 33vw, 75vw') + '</div>';
+    if (b.pair) return '<div class="b">' + eqRow(b.pair, '', eager) + '</div>';
+    if (b.row) return '<div class="b">' + eqRow(b.row, '', eager) + '</div>';
+    return '';
+  }
+  Site.sequence = function (layout, photos, eager) {
+    var used = [], out = '';
+    (layout || []).forEach(function (b, k) { out += block(b, eager && k === 0); used = used.concat(blockNames(b)); });
+    var rest = (photos || []).filter(function (n) { return used.indexOf(n) < 0; });
+    if (rest.length) out += '<div class="b">' + Site.collage(rest, null, eager && !layout) + '</div>';
+    return '<div class="seq">' + out + '</div>';
+  };
+
   /* categories that have photos; for weddings, only the chapters that have photos */
   function cats() {
     return window.CATEGORIES.map(function (c) {
@@ -99,72 +125,79 @@
       return ch.length ? { id: c.id, title: c.title, chapters: ch } : null;
     }).filter(Boolean);
   }
-  /* every page-able unit: wedding chapters and the plain categories, in page order */
-  function units() {
-    var out = [];
-    cats().forEach(function (c) {
-      if (c.chapters) c.chapters.forEach(function (x, k) { out.push({ unit: x, parent: c, no: k + 1 }); });
-      else out.push({ unit: c });
-    });
-    return out;
-  }
+  function countOf(c) { return c.chapters ? c.chapters.reduce(function (a, x) { return a + x.photos.length; }, 0) : c.photos.length; }
   function two(n) { return String(n).padStart(2, '0'); }
-  function moreLink(u) {
-    var many = u.photos.length > 5, he = Site.lang === 'he';
-    return '<a class="more" href="' + Site.href('project.html?id=' + u.id) + '">' +
-      (he ? (many ? 'לכל ' + u.photos.length + ' התמונות ←' : 'לפרק המלא ←') : (many ? 'All ' + u.photos.length + ' photographs →' : 'Open →')) + '</a>';
-  }
-  function block(u, no, level) {
-    return '<section class="chapter" id="' + u.id + '" aria-labelledby="h-' + u.id + '"><header>' +
-      (no ? '<span class="no">' + two(no) + '</span>' : '') +
-      '<h' + level + ' id="h-' + u.id + '">' + Site.t(u.title) + '</h' + level + '>' + moreLink(u) +
-      '</header><div class="collage">' + Site.collage(u.photos.slice(0, 5), u.rows) + '</div></section>';
+  var NAME = { he: 'טל אור ספוזניקוב', en: 'Tal Or Sapozhnikov' };
+
+  function setMeta(title, desc) {
+    document.title = title;
+    [['name', 'description'], ['property', 'og:description']].forEach(function (m) {
+      var el = document.querySelector('meta[' + m[0] + '="' + m[1] + '"]'); if (el) el.setAttribute('content', desc);
+    });
+    var og = document.querySelector('meta[property="og:title"]'); if (og) og.setAttribute('content', title);
   }
 
-  /* ---------- home: cover lines, index, and the categories with their collages ---------- */
+  /* ---------- home: selected work, then the archive ---------- */
   Site.home = function () {
-    var list = document.getElementById('contents-list');
-    var lines = document.getElementById('cover-lines');
-    var box = document.getElementById('chapters');
+    var sel = document.getElementById('selected-seq');
+    var arch = document.getElementById('archive-list');
     Site.renderers.push(function () {
-      document.title = Site.lang === 'he' ? 'טל אור ספוזניקוב · צילום' : 'Tal Or Sapozhnikov · Photography';
-      var cs = cats();
-      if (list) list.innerHTML = cs.map(function (c) {
-        var count = c.chapters ? c.chapters.reduce(function (a, x) { return a + x.photos.length; }, 0) : c.photos.length;
-        var sub = c.chapters ? '<ol class="sub">' + c.chapters.map(function (x, k) {
-          return '<li><a href="#' + x.id + '"><span class="no">' + two(k + 1) + '</span><span class="t">' + Site.t(x.title) + '</span><span class="m">' + Site.count(x.photos.length) + '</span></a></li>';
-        }).join('') + '</ol>' : '';
-        return '<li class="cat"><a href="#cat-' + c.id + '"><span class="t">' + Site.t(c.title) + '</span><span class="m">' + Site.count(count) + '</span></a>' + sub + '</li>';
-      }).join('');
-      if (lines) lines.innerHTML = cs.map(function (c) {
-        return '<li><a href="#cat-' + c.id + '"><span>' + Site.t(c.title) + '</span></a>' +
-          (c.chapters ? '<small>' + c.chapters.map(function (x) { return Site.t(x.title); }).join(' · ') + '</small>' : '') + '</li>';
-      }).join('');
-      if (box) box.innerHTML = cs.map(function (c) {
-        if (!c.chapters) return '<div class="category" id="cat-' + c.id + '">' + block(c, 0, 2) + '</div>';
-        return '<div class="category" id="cat-' + c.id + '"><header class="cat-head"><h2>' + Site.t(c.title) + '</h2>' +
-          '<p>' + (Site.lang === 'he' ? 'לפי רגעים ביום, מהביוטי ועד הרחבה.' : 'By moments of the day, from getting ready to the dance floor.') + '</p></header>' +
-          c.chapters.map(function (x, k) { return block(x, k + 1, 3); }).join('') + '</div>';
+      var he = Site.lang === 'he';
+      setMeta(he ? 'טל אור ספוזניקוב · צילום' : 'Tal Or Sapozhnikov · Photography',
+        he ? 'טל אור ספוזניקוב, צלם דוקומנטרי. חתונות, אירועים, הופעות, פסטיבלים והפקות. רגעים אמיתיים, סיפורים דרך העדשה.'
+           : 'Tal Or Sapozhnikov, documentary photographer. Weddings, events, concerts, festivals and productions. Real moments, stories through the lens.');
+      if (sel) sel.innerHTML = Site.sequence(window.SELECTED, []);
+      if (arch) arch.innerHTML = cats().map(function (c) {
+        var items = c.chapters || [c];
+        return '<section class="cat" aria-labelledby="cat-' + c.id + '"><header>' +
+          '<h3 id="cat-' + c.id + '">' + Site.t(c.title) + '</h3><span class="m">' + Site.count(countOf(c)) + '</span>' +
+          '<a class="more" href="' + Site.href('project.html?id=' + c.id) + '">' + (he ? 'הכול ברצף ←' : 'View all →') + '</a></header>' +
+          '<ol class="cards">' + items.map(function (x, k) {
+            return '<li><a class="card" href="' + Site.href('project.html?id=' + x.id) + '">' +
+              '<div class="photo">' + Site.img(x.cover || x.photos[0], '(min-width:1240px) 300px, (min-width:700px) 24vw, 50vw') + '</div>' +
+              '<span class="no">' + two(k + 1) + '</span><span class="t">' + Site.t(x.title) + '</span><span class="m">' + Site.count(x.photos.length) + '</span></a></li>';
+          }).join('') + '</ol></section>';
       }).join('');
     });
   };
 
-  /* ---------- chapter or category page ---------- */
+  /* ---------- project page: a chapter, a plain category, or a whole category with its chapters ---------- */
   Site.project = function () {
     var id = params.get('id');
-    var all = units();
-    var i = all.findIndex(function (e) { return e.unit.id === id; });
+    var list = [];
+    cats().forEach(function (c) {
+      list.push({ unit: c, isCat: true });
+      if (c.chapters) c.chapters.forEach(function (x, k) { list.push({ unit: x, parent: c, no: k + 1 }); });
+    });
+    var e = list.filter(function (x) { return x.unit.id === id; })[0];
     var head = document.getElementById('p-head'), gal = document.getElementById('gallery'), next = document.getElementById('next'), miss = document.getElementById('missing');
-    if (i < 0) { head.hidden = true; gal.hidden = true; next.hidden = true; miss.hidden = false; return; }
-    var e = all[i], c = e.unit, n = all[(i + 1) % all.length].unit;
+    if (!e) { head.hidden = true; gal.hidden = true; next.hidden = true; miss.hidden = false;
+      Site.renderers.push(function () { setMeta((Site.lang === 'he' ? 'לא נמצא · ' : 'Not found · ') + NAME[Site.lang], ''); }); return; }
+    var u = e.unit;
+    var siblings = e.parent ? e.parent.chapters : null;
+    var n = siblings ? siblings[(siblings.indexOf(u) + 1) % siblings.length] : null;
     Site.renderers.push(function () {
-      document.title = Site.t(c.title) + ' · ' + (Site.lang === 'he' ? 'טל אור ספוזניקוב' : 'Tal Or Sapozhnikov');
-      head.innerHTML = (e.parent ? '<span class="kicker">' + Site.t(e.parent.title) + ' · ' + two(e.no) + '</span>' : '') + '<h1>' + Site.t(c.title) + '</h1>' +
-        '<span class="count">' + Site.count(c.photos.length) + '</span>';
-      gal.innerHTML = '<div class="collage">' + Site.collage(c.photos, c.rows, true) + '</div>';
-      next.hidden = all.length < 2;
-      next.querySelector('a').href = Site.href('project.html?id=' + n.id);
-      next.querySelector('.t').textContent = Site.t(n.title);
+      var he = Site.lang === 'he', total = countOf(u);
+      var where = e.parent ? Site.t(u.title) + ' · ' + Site.t(e.parent.title) : Site.t(u.title);
+      setMeta(where + ' · ' + NAME[Site.lang],
+        he ? where + '. צילום דוקומנטרי של טל אור ספוזניקוב, ' + Site.count(total) + '.'
+           : where + '. Documentary photography by Tal Or Sapozhnikov, ' + Site.count(total) + '.');
+      head.innerHTML = (e.parent ? '<span class="kicker">' + Site.t(e.parent.title) + ' · ' + two(e.no) + '</span>' : '<span class="kicker">' + (he ? 'ארכיון' : 'Archive') + '</span>') +
+        '<h1>' + Site.t(u.title) + '</h1><span class="count">' + Site.count(total) + '</span>';
+      if (u.chapters) {
+        gal.innerHTML = u.chapters.map(function (x, k) {
+          return '<section class="chapter" aria-labelledby="h-' + x.id + '"><header><span class="no">' + two(k + 1) + '</span>' +
+            '<h2 id="h-' + x.id + '">' + Site.t(x.title) + '</h2><a class="more" href="' + Site.href('project.html?id=' + x.id) + '">' + (he ? 'לפרק ←' : 'Open →') + '</a></header>' +
+            Site.sequence(x.layout, x.photos, k === 0) + '</section>';
+        }).join('');
+      } else {
+        gal.innerHTML = Site.sequence(u.layout, u.photos, true);
+      }
+      next.hidden = !n || n === u;
+      if (n) {
+        next.querySelector('a').href = Site.href('project.html?id=' + n.id);
+        next.querySelector('.t').textContent = Site.t(n.title);
+      }
     });
   };
 })();

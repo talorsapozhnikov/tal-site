@@ -1,5 +1,5 @@
 /* Tal Or Sapozhnikov · photography
-   Editorial layout: a photography magazine. Masthead, cover, contents, one collage per moment of the day, about, closing page.
+   Editorial layout: a photography magazine. Cover, selected work, archive, about, closing page.
    One light "paper" look on purpose; colours are set explicitly so it reads the same on any device theme. */
 :root{
   --paper:#f6f6f3;
@@ -7,7 +7,10 @@
   --grey:#62625d;
   --rule:#d3d3cd;
   --plate:#deddd8;
-  --serif:"Bellefair","David","Times New Roman",serif;
+  /* type: Frank Ruhl Libre for Hebrew display, Newsreader for English display, Assistant for text in both */
+  --display-he:"Frank Ruhl Libre","David","Times New Roman",serif;
+  --display-en:"Newsreader","Frank Ruhl Libre",Georgia,serif;
+  --serif:var(--display-he);
   --sans:"Assistant","Segoe UI",system-ui,sans-serif;
   --gutter:max(18px,env(safe-area-inset-left,0px));
   --gutter-end:max(18px,env(safe-area-inset-right,0px));
@@ -16,7 +19,8 @@
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 @media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
-body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.65;text-rendering:optimizeLegibility}
+html[lang="en"]{--serif:var(--display-en)}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.65;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}
 img{max-width:100%;height:auto;display:block}
 a{color:inherit}
 h1,h2,h3{text-wrap:balance}
@@ -29,7 +33,8 @@ h1,h2,h3{text-wrap:balance}
 .gut{padding-left:var(--gutter);padding-right:var(--gutter-end)}
 .page{max-width:1240px;margin:0 auto}
 .grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(12px,1.6vw,20px)}
-.kicker{font-size:12px;letter-spacing:.06em;color:var(--grey);font-weight:500}
+.kicker{font-size:13px;letter-spacing:.02em;color:var(--grey);font-weight:500}
+html[lang="en"] .kicker{font-size:12px;letter-spacing:.08em;text-transform:uppercase}
 
 /* photographs: plate colour holds the space while an image loads */
 .photo{background:var(--plate);width:100%}
@@ -37,100 +42,109 @@ h1,h2,h3{text-wrap:balance}
 
 /* ---------- top bar ---------- */
 .topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-block:8px;border-bottom:1px solid var(--rule)}
-.topbar .label{font-size:12px;letter-spacing:.04em;white-space:nowrap}
-.topbar .home{text-decoration:none;font-family:var(--serif);font-size:17px;white-space:nowrap}
+.topbar .label{font-size:13px;letter-spacing:.02em;white-space:nowrap}
+.topbar .home{text-decoration:none;font-family:var(--serif);font-size:19px;white-space:nowrap;padding-block:10px}
 .topbar nav{display:flex;align-items:center;gap:clamp(10px,2.6vw,24px);font-size:14px}
 .topbar nav a{text-decoration:none;padding-block:12px;display:inline-block}
-.topbar nav a:hover{text-decoration:underline;text-underline-offset:5px;text-decoration-thickness:1px}
-.lang{background:none;border:1px solid var(--rule);color:var(--ink);font:500 12px var(--sans);min-width:44px;min-height:34px;padding:0 10px;border-radius:99px;cursor:pointer}
+.topbar nav a{background:linear-gradient(currentColor,currentColor) no-repeat 100% calc(100% - 9px)/0 1px}
+html[lang="en"] .topbar nav a{background-position:0 calc(100% - 9px)}
+.topbar nav a:hover,.topbar nav a:focus-visible{background-size:100% 1px}
+@media (prefers-reduced-motion:no-preference){.topbar nav a{transition:background-size .25s ease}}
+.lang{background:none;border:1px solid var(--rule);color:var(--ink);font:500 12px var(--sans);min-width:44px;min-height:40px;padding:0 10px;border-radius:99px;cursor:pointer}
 .lang:hover{border-color:var(--ink)}
-@media (max-width:380px){.topbar nav{gap:8px;font-size:13px}}
+@media (max-width:380px){.topbar{flex-wrap:wrap;row-gap:0}.topbar nav{gap:12px;font-size:14px}}
 
 /* ---------- masthead ---------- */
 .mast .name{padding-block:clamp(26px,5vw,52px) clamp(14px,2vw,20px)}
-.mast h1{font-family:var(--serif);font-weight:400;font-size:clamp(50px,10vw,132px);line-height:.92;letter-spacing:-.012em;margin:0}
+.mast h1{font-family:var(--serif);font-weight:300;font-size:clamp(48px,9vw,124px);line-height:.92;letter-spacing:-.01em;margin:0}
+html[lang="en"] .mast h1{letter-spacing:-.025em;line-height:.95}
 .mast h1 span{display:block}
 @media (min-width:700px){.mast h1 span{display:inline}}
-.mast .alt{display:block;font-family:var(--serif);font-weight:400;font-size:clamp(15px,1.5vw,19px);color:var(--grey);margin-top:clamp(10px,1.3vw,16px)}
+.mast .alt{display:block;font-family:var(--display-en);font-weight:300;font-size:clamp(16px,1.6vw,21px);letter-spacing:.01em;color:var(--grey);margin-top:clamp(10px,1.3vw,16px)}
+html[lang="en"] .mast .alt{font-family:var(--display-he)}
 [dir="rtl"] .mast .alt{text-align:right}
 [dir="ltr"] .mast .alt{text-align:left}
 .dek{display:flex;justify-content:space-between;align-items:baseline;gap:4px 18px;flex-wrap:wrap;border-top:1px solid var(--ink);padding-block:10px;font-size:13px;color:var(--grey)}
-.dek .statement{font-family:var(--serif);font-size:15px;color:var(--ink)}
+.dek .statement{font-family:var(--serif);font-size:17px;color:var(--ink)}
 
-/* ---------- hero: the cover photograph fills the opening screen, name and bar sit on it ---------- */
-.hero{position:relative;display:flex;aspect-ratio:3/2;background:#111;color:var(--paper);isolation:isolate}
-/* the box has the photo's own proportions, so the photo is never cropped */
-.hero .bg{position:absolute;inset:0;z-index:-1}
-.hero .bg img{width:100%;height:100%;object-fit:fill}
-.hero .bg::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,10,10,.55) 0%,rgba(10,10,10,0) 22%,rgba(10,10,10,0) 45%,rgba(10,10,10,.72) 100%)}
-.hero .inner{flex:1;display:flex;padding-top:env(safe-area-inset-top,0px)}
-.hero .page{flex:1;display:flex;flex-direction:column;width:100%}
-.hero .topbar{border-bottom-color:rgba(246,246,243,.28)}
-.hero .lang{color:var(--paper);border-color:rgba(246,246,243,.5)}
-.hero .lang:hover{border-color:var(--paper)}
-.hero .name{margin-top:auto}
-.hero .alt{color:rgba(246,246,243,.78)}
-.hero .dek{border-top-color:rgba(246,246,243,.7);color:rgba(246,246,243,.82)}
-.hero .dek .statement{color:var(--paper)}
-.hero .credit{margin:0;padding-block:0 18px;font-size:12px;color:rgba(246,246,243,.7)}
-.hero .credit b{font-weight:500;color:var(--paper)}
-.hero :focus-visible{outline-color:var(--paper)}
-/* phones and upright screens: the whole photograph between the bar and the name */
-@media (max-width:640px),(max-aspect-ratio:1/1){
-  .hero{flex-direction:column;aspect-ratio:auto;padding-top:env(safe-area-inset-top,0px)}
-  .hero .inner,.hero .page{display:contents}
-  .hero .topbar{order:0;margin-left:var(--gutter);margin-right:var(--gutter-end);border-bottom:0}
-  .hero .bg{position:relative;inset:auto;z-index:0;order:1}
-  .hero .bg img{height:auto;object-fit:fill}
-  .hero .bg::after{display:none}
-  .hero .name{order:2;margin-top:0;padding-left:var(--gutter);padding-right:var(--gutter-end)}
-  .hero .dek{order:3;margin-left:var(--gutter);margin-right:var(--gutter-end)}
-  .hero .credit{order:4;padding:12px var(--gutter-end) 22px var(--gutter)}
+/* ---------- cover: masthead on paper, then the photograph whole, never cropped or stretched ---------- */
+.hero{padding-top:env(safe-area-inset-top,0px)}
+.cover-photo{margin:clamp(8px,1.4vw,16px) 0 0}
+.cover-photo .photo{background:var(--plate)}
+.cover-photo img{width:100%;height:auto}
+.cover-photo figcaption{font-size:13px;color:var(--grey);padding-top:10px}
+.cover-photo figcaption b{font-weight:500;color:var(--ink)}
+@media (max-width:640px){.cover-photo{margin-left:calc(-1 * var(--gutter));margin-right:calc(-1 * var(--gutter-end))}.cover-photo figcaption{padding-left:var(--gutter);padding-right:var(--gutter-end)}}
+
+/* ---------- section heads ---------- */
+.sec-head{display:grid;gap:8px;padding-block:clamp(56px,9vw,120px) clamp(24px,4vw,48px)}
+.sec-head h2{font-family:var(--serif);font-weight:300;font-size:clamp(34px,4.6vw,56px);line-height:1;margin:0}
+.sec-head p{margin:0;color:var(--grey);font-size:15px;max-width:40ch}
+@media (min-width:860px){.sec-head{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:end}.sec-head p{justify-self:end;text-align:end}}
+
+/* ---------- editorial sequence: every photo at its own proportions ---------- */
+.seq{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(12px,1.6vw,20px);row-gap:clamp(28px,5.5vw,80px)}
+.seq .b{grid-column:1/-1;margin:0}
+.seq figure{margin:0}
+.seq .wide,.seq .solo,.seq .offset{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(12px,1.6vw,20px)}
+.seq .wide figure{grid-column:1/-1}
+.seq .solo figure{grid-column:2/12}
+.seq .offset{row-gap:clamp(12px,2vw,20px)}
+.seq .offset figure:first-child{grid-column:1/-1}
+.seq .offset figure:last-child{grid-column:4/-1}
+@media (min-width:700px){
+  .seq .wide.start figure{grid-column:1/10}
+  .seq .wide.end figure{grid-column:4/-1}
+  .seq .solo.start figure{grid-column:1/6}
+  .seq .solo.center figure{grid-column:4/10}
+  .seq .solo.end figure{grid-column:8/-1}
+  .seq .offset{align-items:end}
+  .seq .offset figure:first-child{grid-column:1/8}
+  .seq .offset figure:last-child{grid-column:9/-1;padding-bottom:clamp(0px,4vw,60px)}
 }
-
-/* ---------- contents: categories, with the wedding chapters nested ---------- */
-.contents{padding-block:clamp(52px,8vw,96px) clamp(20px,4vw,40px)}
-.contents h2{grid-column:1/-1;font-family:var(--serif);font-weight:400;font-size:28px;line-height:1.1;margin:0 0 18px}
-.contents ol{grid-column:1/-1;list-style:none;margin:0;padding:0}
-.contents li a{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:baseline;gap:12px;padding-block:14px;border-top:1px solid var(--rule);text-decoration:none}
-.contents > ol > li:last-child{border-bottom:1px solid var(--rule)}
-.contents .sub{list-style:none;margin:0 0 12px;padding:0;padding-inline-start:clamp(16px,4vw,48px)}
-.contents .sub li a{grid-template-columns:36px minmax(0,1fr) auto;padding-block:9px;border-top-style:dotted}
-.contents .sub .t{font-size:clamp(19px,2.2vw,23px)}
-.contents .no,.chapter .no{font-size:12px;color:var(--grey);font-variant-numeric:tabular-nums;letter-spacing:.04em}
-.contents .t{font-family:var(--serif);font-size:clamp(24px,3vw,32px);line-height:1.15}
-.contents .m{font-size:13px;color:var(--grey)}
-.contents li a:hover .t,.contents li a:focus-visible .t{text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:1px}
-@media (min-width:860px){.contents h2{grid-column:1/4}.contents ol{grid-column:4/-1}}
-
-/* ---------- chapters and collages ---------- */
-.chapter{padding-block:clamp(44px,7vw,90px);border-top:1px solid var(--ink)}
-.chapter header{display:flex;align-items:baseline;flex-wrap:wrap;gap:6px 16px;margin-bottom:clamp(18px,3vw,30px)}
-.chapter h2,.chapter h3{font-family:var(--serif);font-weight:400;font-size:clamp(34px,5vw,56px);line-height:1;margin:0}
-.category .chapter:first-of-type{border-top-color:var(--rule)}
-.cat-head{border-top:1px solid var(--ink);padding-block:clamp(48px,8vw,100px) clamp(6px,1vw,12px);display:grid;gap:10px}
-.cat-head h2{font-family:var(--serif);font-weight:400;font-size:clamp(56px,10vw,128px);line-height:.9;margin:0}
-.cat-head p{margin:0;color:var(--grey);font-size:15px}
-.category .chapter{border-top-color:var(--rule)}
-.chapter .more{margin-inline-start:auto}
-.collage{display:grid;gap:clamp(8px,1.2vw,14px)}
-.crow{display:flex;gap:clamp(8px,1.2vw,14px);align-items:flex-start}
+.crow{display:flex;gap:clamp(10px,1.6vw,20px);align-items:flex-start}
 .crow figure{margin:0;flex-basis:0;min-width:0}
 .crow .photo img{width:100%}
+.seq .b > .crow + .crow{margin-top:clamp(10px,1.6vw,20px)}
 @media (max-width:699px){
   .crow.n3{flex-wrap:wrap}
   .crow.n3 figure:first-child{flex-basis:100%}
 }
-@media (prefers-reduced-motion:no-preference){.crow .photo{overflow:hidden}.crow img{transition:transform .6s ease}.crow figure:hover img{transform:scale(1.015)}}
-.more{justify-self:start;font-size:14px;text-decoration:none;border-bottom:1px solid var(--ink);padding-block:6px 2px;white-space:nowrap}
+.more{justify-self:start;font-size:14px;text-decoration:none;border-bottom:1px solid var(--ink);padding-block:10px 2px;white-space:nowrap}
 .more:hover{border-bottom-width:2px}
 
+/* ---------- archive: categories, chapter cards ---------- */
+.archive{border-top:1px solid var(--ink);margin-top:clamp(56px,9vw,120px)}
+.cat{padding-bottom:clamp(40px,6vw,80px)}
+.cat > header{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 16px;border-top:1px solid var(--rule);padding-top:16px;margin-bottom:clamp(16px,2.6vw,28px)}
+.cat h3{font-family:var(--serif);font-weight:400;font-size:clamp(28px,3.4vw,40px);line-height:1;margin:0}
+.cat > header .m{font-size:13px;color:var(--grey)}
+.cat > header .more{margin-inline-start:auto}
+.cards{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(22px,3vw,36px) clamp(12px,1.6vw,20px)}
+@media (min-width:900px){.cards{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.card{display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:8px;align-items:baseline;text-decoration:none}
+.card .photo{grid-column:1/-1;margin-bottom:12px}
+.card .no{font-size:12px;color:var(--grey);font-variant-numeric:tabular-nums}
+.card .t{font-family:var(--serif);font-size:clamp(20px,2vw,24px);line-height:1.15}
+.card .m{grid-column:2;font-size:13px;color:var(--grey)}
+.card .photo img{transition:opacity .25s ease}
+.card:hover .photo img{opacity:.88}
+.card:hover .t,.card:focus-visible .t{text-decoration:underline;text-underline-offset:5px;text-decoration-thickness:1px}
+
+/* ---------- chapters inside a category page ---------- */
+.chapter{padding-block:clamp(40px,7vw,90px);border-top:1px solid var(--rule)}
+.chapter:first-child{border-top:0;padding-top:0}
+.chapter > header{display:flex;align-items:baseline;flex-wrap:wrap;gap:6px 16px;margin-bottom:clamp(18px,3vw,32px)}
+.chapter .no{font-size:12px;color:var(--grey);font-variant-numeric:tabular-nums}
+.chapter h2{font-family:var(--serif);font-weight:300;font-size:clamp(32px,4.4vw,52px);line-height:1;margin:0}
+.chapter .more{margin-inline-start:auto}
+
 /* ---------- about ---------- */
-.about{padding-block:clamp(56px,8vw,100px);border-top:1px solid var(--ink)}
-.about h2{grid-column:1/-1;font-family:var(--serif);font-weight:400;font-size:28px;margin:0 0 18px}
+.about{padding-block:clamp(64px,10vw,130px);border-top:1px solid var(--ink)}
+.about h2{grid-column:1/-1;font-family:var(--serif);font-weight:300;font-size:clamp(34px,4.6vw,56px);line-height:1;margin:0 0 clamp(20px,3vw,32px)}
 .about .text{grid-column:1/-1;display:grid;gap:18px}
-.about .text p{margin:0;max-width:44ch}
-.about .text .lede{font-family:var(--serif);font-size:clamp(22px,2.4vw,30px);line-height:1.35;max-width:26ch}
+.about .text p{margin:0;max-width:44ch;font-size:17px;line-height:1.75}
+.about .text .lede{font-family:var(--serif);font-weight:300;font-size:clamp(25px,3vw,38px);line-height:1.3;max-width:24ch}
 .about .rest{display:grid;gap:16px}
 @media (min-width:860px){
   .about h2{grid-column:1/4}
@@ -141,7 +155,7 @@ h1,h2,h3{text-wrap:balance}
 /* ---------- closing page: contact ---------- */
 .contact{padding-block:clamp(64px,10vw,130px);border-top:1px solid var(--ink)}
 .contact .inner{grid-column:1/-1;display:grid;gap:14px}
-.contact h2{font-family:var(--serif);font-weight:400;font-size:clamp(36px,6vw,72px);line-height:1.02;margin:0;max-width:14ch}
+.contact h2{font-family:var(--serif);font-weight:300;font-size:clamp(38px,6vw,76px);line-height:1;margin:0;max-width:13ch}
 .contact p{margin:0;font-size:17px;color:var(--grey)}
 .actions{display:grid;gap:12px;margin-top:22px}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:54px;padding:0 26px;border:1px solid var(--ink);border-radius:2px;font:500 15px/1 var(--sans);letter-spacing:.02em;text-decoration:none;transition:background-color .2s ease,color .2s ease}
@@ -165,12 +179,16 @@ footer.site a:hover{color:var(--ink)}
 [dir="rtl"] .back::before{content:"→"}
 [dir="ltr"] .back::before{content:"←"}
 .p-head{padding-block:clamp(10px,3vw,30px) clamp(26px,4vw,48px);display:grid;gap:10px}
-.p-head h1{font-family:var(--serif);font-weight:400;font-size:clamp(46px,8.5vw,112px);line-height:.95;margin:0}
+.p-head h1{font-family:var(--serif);font-weight:300;font-size:clamp(44px,8vw,104px);line-height:.95;margin:0}
 .p-head .count{font-size:13px;color:var(--grey)}
 .gallery{padding-bottom:clamp(60px,9vw,110px)}
 .next{border-top:1px solid var(--ink);padding-block:28px 40px}
 .next a{display:grid;gap:4px;text-decoration:none}
-.next .t{font-family:var(--serif);font-size:clamp(28px,4vw,44px);line-height:1.1}
+.next .t{font-family:var(--serif);font-weight:300;font-size:clamp(30px,4.4vw,52px);line-height:1.05}
 .next a:hover .t{text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:1px}
 .missing{padding-block:60px 100px;display:grid;gap:14px}
-.missing h1{font-family:var(--serif);font-weight:400;font-size:clamp(36px,6vw,64px);margin:0}
+.missing h1{font-family:var(--serif);font-weight:300;font-size:clamp(36px,6vw,64px);margin:0}
+
+/* hold the space of script-rendered sections until they fill, so nothing below them jumps */
+#gallery:empty,#selected-seq:empty{min-height:120svh}
+#archive-list:empty{min-height:60svh}
