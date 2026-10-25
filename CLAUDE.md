@@ -66,7 +66,7 @@
   - אני אוהב להכיר את האנשים שאני מצלם, להרגיש חלק ממה שקורה, ולתת לדברים להתפתח בקצב שלהם.
   - בסוף, אני רוצה שתסתכלו על התמונות ותרגישו שהייתם שם שוב. לא רק תזכרו איך זה נראה, אלא גם איך זה הרגיש.
   - באנגלית: I love people, good stories, and all the little things that happen in between. / You’ll usually find me somewhere in the middle of it all, camera in hand, looking for the moments nobody really planned. A passing glance, a burst of laughter, a hug that lasts just a second longer. / I photograph weddings, events, concerts, and anything that brings people together, with a little emotion and a little good chaos. / I like getting to know the people I photograph, feeling part of what’s happening, and letting things unfold at their own pace. / In the end, I want you to look at the photographs and feel like you’re there again. Not just remember what it looked like, but what it felt like.
-- **יצירת קשר:** "יש סיפור ששווה לתעד?" ו"אשמח לשמוע מה אתם מתכננים.", עם הכפתורים "בואו נדבר" ו־‎@pho_t.o.s. בין המשפט לכפתורים יש שלושה שלבים קצרים: "קודם מדברים" (נפגשים או מדברים לפני), "ביום עצמו" (בארץ או בחו״ל) ו"אחר כך" (גלריה אונליין). אלה עובדות שטל אישר.
+- **יצירת קשר:** "יש סיפור ששווה לתעד?" ו"אשמח לשמוע מה אתם מתכננים.", עם הכפתורים "בואו נדבר" ו־‎@pho_t.o.s.
 
 ## עובדות ותוכן: לא ממציאים
 
