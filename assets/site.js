@@ -50,12 +50,31 @@
     alts.forEach(function (n) { n.alt = he ? n.dataset.heAlt : n.dataset.enAlt; });
     keep.forEach(function (a) { a.href = Site.href(a.dataset.href); });
     Site.renderers.forEach(function (f) { f(); });
+    signature();
     var b = document.getElementById('lang');
     if (b) {
       b.textContent = he ? 'EN' : 'עב';
       b.setAttribute('aria-label', he ? 'Switch to English' : 'מעבר לעברית');
       b.setAttribute('lang', he ? 'en' : 'he');
     }
+  }
+
+  /* the signature s: wrap each Latin s in display headings so CSS can draw it wide, like the logo */
+  function signature() {
+    document.querySelectorAll('h1, h2, h3, .card .t, .next .t, .mast .alt').forEach(function (el) {
+      if (el.querySelector('.sig-s')) return;
+      var walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT), nodes = [];
+      while (walker.nextNode()) if (/[sS]/.test(walker.currentNode.nodeValue)) nodes.push(walker.currentNode);
+      nodes.forEach(function (t) {
+        var frag = document.createDocumentFragment();
+        t.nodeValue.split(/([sS])/).forEach(function (part) {
+          if (!part) return;
+          if (part === 's' || part === 'S') { var sp = document.createElement('span'); sp.className = 'sig-s'; sp.textContent = part; frag.appendChild(sp); }
+          else frag.appendChild(document.createTextNode(part));
+        });
+        t.parentNode.replaceChild(frag, t);
+      });
+    });
   }
 
   Site.start = function () {

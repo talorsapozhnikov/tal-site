@@ -67,16 +67,13 @@ window.PHOTOS = {
    Where a chapter has no layout, its photos fall into automatic rows. */
 
 /* ---------- Selected work ----------
-   The curated sequence on the home page: the strongest frames, in an order that alternates
-   close and wide, quiet and loud. Not every good photo belongs here. */
+   The curated sequence on the home page: the strongest frames in tight rows of equal height,
+   alternating close and wide, quiet and loud. Not every good photo belongs here. */
 window.SELECTED = [
-  { full: 'grove-family-laugh' },
-  { pair: ['shore-kiss', 'shore-silhouette'], offset: true },
-  { full: 'fest-phones' },
-  { pair: ['fest-bow', 'fest-runway-bw'] },
-  { full: 'first-dance' },
+  { row: ['grove-family-laugh', 'shore-silhouette', 'shore-kiss'] },
+  { row: ['fest-bow', 'fest-phones', 'fest-runway-bw'] },
+  { pair: ['first-dance', 'fest-reach-bw'] },
   { row: ['shore-band', 'sea-bottle', 'grove-glass'] },
-  { wide: 'fest-reach-bw', align: 'end' },
   { pair: ['dancefloor-yellow', 'fest-barrier'] }
 ];
 

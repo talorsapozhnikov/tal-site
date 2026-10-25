@@ -58,8 +58,8 @@ html[lang="en"] .topbar nav a{background-position:0 calc(100% - 9px)}
 /* ---------- masthead ---------- */
 .mast .name{padding-block:clamp(26px,5vw,52px) clamp(14px,2vw,20px)}
 .mast h1{font-family:var(--serif);font-weight:200;font-size:clamp(46px,8.6vw,118px);line-height:.95;letter-spacing:-.01em;margin:0}
-.mast h1 span{display:block}
-@media (min-width:700px){.mast h1 span{display:inline}}
+.mast h1 > span{display:block}
+@media (min-width:700px){.mast h1 > span{display:inline}}
 .mast .alt{display:block;font-family:var(--serif);font-weight:300;font-size:clamp(16px,1.6vw,21px);letter-spacing:.01em;color:var(--grey);margin-top:clamp(10px,1.3vw,16px)}
 [dir="rtl"] .mast .alt{text-align:right}
 [dir="ltr"] .mast .alt{text-align:left}
@@ -193,3 +193,16 @@ footer.site a:hover{color:var(--ink)}
 #archive-list:empty{min-height:60svh}
 /* narrow screens: the logo carries the brand, so the small label steps aside and the bar stays on one line */
 @media (max-width:520px){.brand .label{display:none}}
+
+/* selected work: compact rows, small even gaps, so more of the work shows at once */
+.selected .seq{row-gap:clamp(6px,1vw,12px)}
+.selected .crow{gap:clamp(6px,1vw,12px)}
+.selected .sec-head{padding-block:clamp(48px,7vw,88px) clamp(18px,3vw,32px)}
+
+/* signature s: every Latin s in display type is drawn wide, like the s in the tos logo */
+.sig-s{display:inline-block;transform:scaleX(1.5);margin-inline:.1em;transform-origin:50% 50%}
+/* keep the wide S attached to its word */
+.mast h1 span,.sec-head h2,.card .t,.next .t,.cat h3,.p-head h1,.chapter h2{word-break:keep-all}
+.mast h1 > span{white-space:nowrap}
+/* the wide S makes "Sapozhnikov" a long single word; scale it to fit phones */
+html[lang="en"] .mast h1{font-size:clamp(32px,9.6vw,118px)}
