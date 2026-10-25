@@ -19,15 +19,15 @@ No build step and no dependencies: open `index.html` or serve the folder with an
 
 ## Adding photos
 
-The site is organised by moments of the day (getting ready, reception, chuppah, the couple, family, dance floor, laughter), not by wedding.
+Top-level categories are weddings, events, concerts, festivals and productions. Weddings are split into chapters by moment of the day (getting ready, reception, chuppah, the couple, family, dance floor, laughter), not by wedding.
 
 1. Export each photo as WebP without metadata (no EXIF, no GPS):
    - landscape: widths 400, 800, 1400, 2000 → `images/<name>-400.webp` … `-2000.webp`
    - portrait: widths 600, 1000, 1400 → `images/<name>-600.webp` … `-1400.webp`
 2. In `assets/projects.js`, add each photo to `PHOTOS` with Hebrew and English alt text (`portrait: true` for vertical photos, plus `w`/`h` if it isn't 2:3).
-3. Add the photo's name to a chapter in `CHAPTERS`. The order in the list is the order on the page; the first 5 form the home page collage.
+3. Add the photo's name to a category (or, for weddings, a chapter) in `CATEGORIES`. The order in the list is the order on the page; the first 5 form the home page collage.
 
-A chapter with no photos stays hidden until it has some.
+A category or chapter with no photos stays hidden until it has some.
 
 ## History
 

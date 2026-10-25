@@ -26,19 +26,27 @@ window.PHOTOS = {
   'dancefloor-blue':     { alt: { he: 'רחבת ריקודים באור כחול, אנשים רוקדים בצללית מתחת לפנסי במה', en: 'A dance floor in blue light, people dancing in silhouette under stage lights' } }
 };
 
-/* Chapters appear on the home page in this order. A chapter with no photos is hidden.
-   The first 5 photos of a chapter make its collage on the home page; all of them appear on its own page.
+/* Top-level categories, in this order. A category with no photos is hidden.
+   Weddings are split into chapters by moment of the day; other categories hold their photos directly.
+   The first 5 photos of a chapter (or category) make its collage on the home page; all appear on its own page.
    rows: how many photos sit in each collage row, repeated (default [2, 3]). */
-window.CHAPTERS = [
-  { id: 'beauty', title: { he: 'ביוטי', en: 'Getting ready' }, photos: [] },
-  { id: 'reception', title: { he: 'קבלת פנים', en: 'Reception' }, rows: [3],
-    photos: ['grove-setup', 'shore-band', 'sea-bottle'] },
-  { id: 'chuppah', title: { he: 'חופה', en: 'Chuppah' },
-    photos: ['shore-crowd', 'shore-kiss', 'grove-chuppah-bw', 'shore-chuppah-bw', 'water-aisle', 'grove-chuppah-crowd'] },
-  { id: 'couple', title: { he: 'הזוג', en: 'The two of them' },
-    photos: ['water-portrait', 'shore-dip', 'shore-blur', 'shore-portrait', 'water-embrace', 'water-low-angle'] },
-  { id: 'family', title: { he: 'משפחה', en: 'Family' }, photos: [] },
-  { id: 'dance', title: { he: 'רחבה', en: 'Dance floor' },
-    photos: ['dancefloor-dj', 'dancefloor-blue'] },
-  { id: 'laughter', title: { he: 'צחוק', en: 'Laughter' }, photos: [] }
+window.CATEGORIES = [
+  { id: 'weddings', title: { he: 'חתונות', en: 'Weddings' },
+    chapters: [
+      { id: 'beauty', title: { he: 'ביוטי', en: 'Getting ready' }, photos: [] },
+      { id: 'reception', title: { he: 'קבלת פנים', en: 'Reception' }, rows: [3],
+        photos: ['grove-setup', 'shore-band', 'sea-bottle'] },
+      { id: 'chuppah', title: { he: 'חופה', en: 'Chuppah' },
+        photos: ['shore-crowd', 'shore-kiss', 'grove-chuppah-bw', 'shore-chuppah-bw', 'water-aisle', 'grove-chuppah-crowd'] },
+      { id: 'couple', title: { he: 'הזוג', en: 'The two of them' },
+        photos: ['water-portrait', 'shore-dip', 'shore-blur', 'shore-portrait', 'water-embrace', 'water-low-angle'] },
+      { id: 'family', title: { he: 'משפחה', en: 'Family' }, photos: [] },
+      { id: 'dance', title: { he: 'רחבה', en: 'Dance floor' },
+        photos: ['dancefloor-dj', 'dancefloor-blue'] },
+      { id: 'laughter', title: { he: 'צחוק', en: 'Laughter' }, photos: [] }
+    ] },
+  { id: 'events', title: { he: 'אירועים', en: 'Events' }, photos: [] },
+  { id: 'concerts', title: { he: 'הופעות', en: 'Concerts' }, photos: [] },
+  { id: 'festivals', title: { he: 'פסטיבלים', en: 'Festivals' }, photos: [] },
+  { id: 'productions', title: { he: 'הפקות', en: 'Productions' }, photos: [] }
 ];

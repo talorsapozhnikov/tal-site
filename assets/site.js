@@ -91,45 +91,75 @@
     }
     return out;
   };
-  function live() { return window.CHAPTERS.filter(function (c) { return c.photos.length; }); }
+  /* categories that have photos; for weddings, only the chapters that have photos */
+  function cats() {
+    return window.CATEGORIES.map(function (c) {
+      if (!c.chapters) return c.photos.length ? c : null;
+      var ch = c.chapters.filter(function (x) { return x.photos.length; });
+      return ch.length ? { id: c.id, title: c.title, chapters: ch } : null;
+    }).filter(Boolean);
+  }
+  /* every page-able unit: wedding chapters and the plain categories, in page order */
+  function units() {
+    var out = [];
+    cats().forEach(function (c) {
+      if (c.chapters) c.chapters.forEach(function (x, k) { out.push({ unit: x, parent: c, no: k + 1 }); });
+      else out.push({ unit: c });
+    });
+    return out;
+  }
+  function two(n) { return String(n).padStart(2, '0'); }
+  function moreLink(u) {
+    var many = u.photos.length > 5, he = Site.lang === 'he';
+    return '<a class="more" href="' + Site.href('project.html?id=' + u.id) + '">' +
+      (he ? (many ? 'לכל ' + u.photos.length + ' התמונות ←' : 'לפרק המלא ←') : (many ? 'All ' + u.photos.length + ' photographs →' : 'Open →')) + '</a>';
+  }
+  function block(u, no, level) {
+    return '<section class="chapter" id="' + u.id + '" aria-labelledby="h-' + u.id + '"><header>' +
+      (no ? '<span class="no">' + two(no) + '</span>' : '') +
+      '<h' + level + ' id="h-' + u.id + '">' + Site.t(u.title) + '</h' + level + '>' + moreLink(u) +
+      '</header><div class="collage">' + Site.collage(u.photos.slice(0, 5), u.rows) + '</div></section>';
+  }
 
-  /* ---------- home: cover lines, index and one collage per chapter ---------- */
+  /* ---------- home: cover lines, index, and the categories with their collages ---------- */
   Site.home = function () {
     var list = document.getElementById('contents-list');
     var lines = document.getElementById('cover-lines');
     var box = document.getElementById('chapters');
     Site.renderers.push(function () {
       document.title = Site.lang === 'he' ? 'טל אור ספוזניקוב · צילום' : 'Tal Or Sapozhnikov · Photography';
-      var ch = live();
-      if (list) list.innerHTML = ch.map(function (c, k) {
-        return '<li><a href="#' + c.id + '"><span class="no">' + String(k + 1).padStart(2, '0') + '</span>' +
-          '<span class="t">' + Site.t(c.title) + '</span><span class="m">' + Site.count(c.photos.length) + '</span></a></li>';
+      var cs = cats();
+      if (list) list.innerHTML = cs.map(function (c) {
+        var count = c.chapters ? c.chapters.reduce(function (a, x) { return a + x.photos.length; }, 0) : c.photos.length;
+        var sub = c.chapters ? '<ol class="sub">' + c.chapters.map(function (x, k) {
+          return '<li><a href="#' + x.id + '"><span class="no">' + two(k + 1) + '</span><span class="t">' + Site.t(x.title) + '</span><span class="m">' + Site.count(x.photos.length) + '</span></a></li>';
+        }).join('') + '</ol>' : '';
+        return '<li class="cat"><a href="#cat-' + c.id + '"><span class="t">' + Site.t(c.title) + '</span><span class="m">' + Site.count(count) + '</span></a>' + sub + '</li>';
       }).join('');
-      if (lines) lines.innerHTML = ch.map(function (c) {
-        return '<li><a href="#' + c.id + '"><span>' + Site.t(c.title) + '</span></a></li>';
+      if (lines) lines.innerHTML = cs.map(function (c) {
+        return '<li><a href="#cat-' + c.id + '"><span>' + Site.t(c.title) + '</span></a>' +
+          (c.chapters ? '<small>' + c.chapters.map(function (x) { return Site.t(x.title); }).join(' · ') + '</small>' : '') + '</li>';
       }).join('');
-      if (box) box.innerHTML = ch.map(function (c, k) {
-        var more = c.photos.length > 5;
-        return '<section class="chapter" id="' + c.id + '" aria-labelledby="h-' + c.id + '">' +
-          '<header><span class="no">' + String(k + 1).padStart(2, '0') + '</span><h2 id="h-' + c.id + '">' + Site.t(c.title) + '</h2>' +
-          '<a class="more" href="' + Site.href('project.html?id=' + c.id) + '">' +
-          (Site.lang === 'he' ? (more ? 'לכל ' + c.photos.length + ' התמונות ←' : 'לפרק המלא ←') : (more ? 'All ' + c.photos.length + ' photographs →' : 'Open chapter →')) +
-          '</a></header><div class="collage">' + Site.collage(c.photos.slice(0, 5), c.rows) + '</div></section>';
+      if (box) box.innerHTML = cs.map(function (c) {
+        if (!c.chapters) return '<div class="category" id="cat-' + c.id + '">' + block(c, 0, 2) + '</div>';
+        return '<div class="category" id="cat-' + c.id + '"><header class="cat-head"><h2>' + Site.t(c.title) + '</h2>' +
+          '<p>' + (Site.lang === 'he' ? 'לפי רגעים ביום, מהביוטי ועד הרחבה.' : 'By moments of the day, from getting ready to the dance floor.') + '</p></header>' +
+          c.chapters.map(function (x, k) { return block(x, k + 1, 3); }).join('') + '</div>';
       }).join('');
     });
   };
 
-  /* ---------- chapter page ---------- */
+  /* ---------- chapter or category page ---------- */
   Site.project = function () {
     var id = params.get('id');
-    var all = live();
-    var i = all.findIndex(function (c) { return c.id === id; });
+    var all = units();
+    var i = all.findIndex(function (e) { return e.unit.id === id; });
     var head = document.getElementById('p-head'), gal = document.getElementById('gallery'), next = document.getElementById('next'), miss = document.getElementById('missing');
     if (i < 0) { head.hidden = true; gal.hidden = true; next.hidden = true; miss.hidden = false; return; }
-    var c = all[i], n = all[(i + 1) % all.length];
+    var e = all[i], c = e.unit, n = all[(i + 1) % all.length].unit;
     Site.renderers.push(function () {
       document.title = Site.t(c.title) + ' · ' + (Site.lang === 'he' ? 'טל אור ספוזניקוב' : 'Tal Or Sapozhnikov');
-      head.innerHTML = '<span class="kicker">' + (Site.lang === 'he' ? 'פרק ' : 'Chapter ') + (i + 1) + '</span><h1>' + Site.t(c.title) + '</h1>' +
+      head.innerHTML = (e.parent ? '<span class="kicker">' + Site.t(e.parent.title) + ' · ' + two(e.no) + '</span>' : '') + '<h1>' + Site.t(c.title) + '</h1>' +
         '<span class="count">' + Site.count(c.photos.length) + '</span>';
       gal.innerHTML = '<div class="collage">' + Site.collage(c.photos, c.rows, true) + '</div>';
       next.hidden = all.length < 2;
