@@ -283,3 +283,43 @@ html.lb-open,html.lb-open body{overflow:hidden}
 }
 @media (prefers-reduced-motion:reduce){html.motion-ready .reveal{opacity:1;transform:none;transition:none}}
 @media print{html.motion-ready .reveal{opacity:1!important;transform:none!important}}
+
+/* ==========================================================================
+   Draft (design/canva-picks): ideas Tal picked from Canva
+   #4 a quiet, centred opening · #5 a dark, warm room for the selected work
+   #15 zine headings and a soft mat around the cover · #19 a centred, quiet closing page
+   ========================================================================== */
+
+/* #4 · the opening: centred, more air, the statement carries the page */
+.mast .name{text-align:center;padding-block:clamp(48px,9vw,120px) clamp(10px,1.6vw,18px)}
+[dir] .mast .alt{text-align:center}
+.dek{flex-direction:column;align-items:center;text-align:center;gap:10px;border-top:0;padding-block:6px clamp(30px,5vw,56px)}
+.dek .statement{order:-1;font-weight:300;font-size:clamp(20px,2.2vw,26px);letter-spacing:.005em}
+html[lang="en"] .dek > span:not(.statement){font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+
+/* #15 · the cover sits on a soft mat, like a print laid on a page; the photo itself is never cropped */
+.cover-photo .photo{background:#ecebe6;padding:clamp(14px,3.4vw,44px);border-radius:clamp(8px,1vw,14px)}
+.cover-photo .photo img{display:block}
+.cover-photo figcaption{text-align:center}
+@media (max-width:640px){.cover-photo{margin-left:0;margin-right:0}}
+
+/* #15 · zine headings: large and thin; in English, set in capitals */
+.sec-head h2{font-size:clamp(40px,6.4vw,84px)}
+html[lang="en"] .sec-head h2,html[lang="en"] .sel-group h3,html[lang="en"] .cat h3,html[lang="en"] .chapter h2,html[lang="en"] .p-head h1{text-transform:uppercase;letter-spacing:.02em}
+html[lang="en"] .sec-head h2{font-size:clamp(36px,5.8vw,76px)}
+
+/* #5 · selected work in a dark, warm room. Each field keeps its own group; nothing is mixed */
+.selected{--ink:#f1ece4;--grey:#b8ada0;--rule:rgba(241,236,228,.2);--plate:#33291f;background:#221a14;color:var(--ink);padding-bottom:clamp(56px,8vw,110px)}
+.selected a{color:inherit}
+.archive{margin-top:0;border-top:0}
+
+/* #19 · the closing page: centred, quieter heading, the two buttons side by side */
+.contact .inner{grid-column:1/-1;justify-items:center;text-align:center}
+.contact h2{font-size:clamp(30px,4vw,48px);font-weight:300;max-width:none}
+.contact .actions{justify-content:center}
+@media (min-width:860px){.contact .inner{grid-column:1/-1}}
+
+/* type, for comparison: ?type=serif swaps the display face for a light book serif */
+html.type-serif{--serif:"Cormorant Garamond","Frank Ruhl Libre",Georgia,serif}
+html.type-serif .mast h1,html.type-serif .sec-head h2,html.type-serif .chapter h2,html.type-serif .p-head h1,html.type-serif .contact h2,html.type-serif .next .t,html.type-serif .about h2{font-weight:300}
+html.type-serif .dek .statement{font-family:var(--serif);font-size:clamp(22px,2.4vw,30px)}
