@@ -23,6 +23,19 @@ window.PHOTOS = {
   'shore-dip':           { alt: { he: 'החתן מטה את הכלה לאחור על החוף, אור נגדי מהים', en: 'The groom dips the bride back on the shore, the sea backlit behind them' } },
   'sea-bottle':          { portrait: true, w: 1000, h: 1500,
     alt: { he: 'הים בשקיעה, ממוסגר בין דמות ובקבוק מחוץ לפוקוס', en: 'The sea at sunset, framed between a blurred figure and a bottle' } },
+  'shore-silhouette':    { portrait: true,
+    alt: { he: 'צללית של הזוג מול הים, השמש נוצצת על המים מאחוריהם', en: 'The couple in silhouette facing each other, sun glittering on the sea behind them' } },
+  'grove-laugh':         { portrait: true,
+    alt: { he: 'הכלה צוחקת ומביטה אחורה אל החתן שמחבק אותה, עצים ירוקים ברקע', en: 'The bride laughing as she looks back at the groom holding her, green trees behind' } },
+  'water-cheek':         { alt: { he: 'החתן מנשק את לחי הכלה, היא מחייכת למצלמה, המים והעצים מאחור', en: 'The groom kisses the bride\u2019s cheek as she smiles toward the camera, water and trees behind' } },
+  'grove-ring':          { alt: { he: 'החתן עונד את הטבעת לכלה מתחת לחופה, המשפחה מוחאת כפיים סביבם', en: 'The groom slips the ring onto the bride\u2019s finger under the chuppah, family clapping around them' } },
+  'grove-glass':         { portrait: true,
+    alt: { he: 'החתן מרים רגל לשבור את הכוס, הכלה והמשפחה מאחוריו', en: 'The groom lifts his foot to break the glass, the bride and family behind him' } },
+  'grove-family-laugh':  { alt: { he: 'הכלה מחזיקה את פני החתן בשתי ידיים, המשפחה וילד קטן צוחקים סביבם', en: 'The bride holds the groom\u2019s face in both hands while the family and a small boy laugh around them' } },
+  'first-dance':         { alt: { he: 'הזוג מחובק בריקוד, אלומות אור ועשן, האורחים מסביב בצללית', en: 'The couple holding each other in a slow dance, beams of light and haze, guests in silhouette around them' } },
+  'dancefloor-yellow':   { alt: { he: 'הכלה רוקדת עם ידיים למעלה מול החתן שמוחא כפיים, הכול באור צהוב', en: 'The bride dancing with her arms up as the groom claps, everything in yellow light' } },
+  'dancefloor-lift':     { alt: { he: 'החתן מורם על כתפיים מעל קהל רוקד, אלומות סגולות וכחולות', en: 'The groom lifted on shoulders above a dancing crowd, purple and blue beams of light' } },
+  'dancefloor-amber':    { alt: { he: 'מבט מעמדת הדי־ג׳יי על רחבה מלאה, אלומות אור כתומות ולבנות', en: 'From behind the DJ booth, a full dance floor under orange and white beams' } },
   'dancefloor-blue':     { alt: { he: 'רחבת ריקודים באור כחול, אנשים רוקדים בצללית מתחת לפנסי במה', en: 'A dance floor in blue light, people dancing in silhouette under stage lights' } }
 };
 
@@ -37,13 +50,14 @@ window.CATEGORIES = [
       { id: 'reception', title: { he: 'קבלת פנים', en: 'Reception' }, rows: [3],
         photos: ['grove-setup', 'shore-band', 'sea-bottle'] },
       { id: 'chuppah', title: { he: 'חופה', en: 'Chuppah' },
-        photos: ['shore-crowd', 'shore-kiss', 'grove-chuppah-bw', 'shore-chuppah-bw', 'water-aisle', 'grove-chuppah-crowd'] },
+        photos: ['grove-ring', 'shore-kiss', 'shore-chuppah-bw', 'grove-glass', 'shore-crowd', 'grove-chuppah-bw', 'water-aisle', 'grove-chuppah-crowd'] },
       { id: 'couple', title: { he: 'הזוג', en: 'The two of them' },
-        photos: ['water-portrait', 'shore-dip', 'shore-blur', 'shore-portrait', 'water-embrace', 'water-low-angle'] },
+        photos: ['shore-silhouette', 'water-cheek', 'shore-blur', 'water-portrait', 'shore-dip', 'shore-portrait', 'water-embrace', 'water-low-angle'] },
       { id: 'family', title: { he: 'משפחה', en: 'Family' }, photos: [] },
       { id: 'dance', title: { he: 'רחבה', en: 'Dance floor' },
-        photos: ['dancefloor-dj', 'dancefloor-blue'] },
-      { id: 'laughter', title: { he: 'צחוק', en: 'Laughter' }, photos: [] }
+        photos: ['first-dance', 'dancefloor-yellow', 'dancefloor-lift', 'dancefloor-amber', 'dancefloor-dj', 'dancefloor-blue'] },
+      { id: 'laughter', title: { he: 'צחוק', en: 'Laughter' },
+        photos: ['grove-laugh', 'grove-family-laugh'] }
     ] },
   { id: 'events', title: { he: 'אירועים', en: 'Events' }, photos: [] },
   { id: 'concerts', title: { he: 'הופעות', en: 'Concerts' }, photos: [] },
