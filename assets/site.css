@@ -42,6 +42,9 @@ html[lang="en"] .kicker{font-size:12px;letter-spacing:.08em;text-transform:upper
 
 /* ---------- top bar ---------- */
 .topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-block:8px;border-bottom:1px solid var(--rule)}
+.brand{display:inline-flex;align-items:center;gap:12px;text-decoration:none;min-height:44px}
+.brand img{width:auto;height:30px;flex:none}
+@media (min-width:860px){.brand img{height:36px}}
 .topbar .label{font-size:13px;letter-spacing:.02em;white-space:nowrap}
 .topbar .home{text-decoration:none;font-family:var(--serif);font-size:19px;white-space:nowrap;padding-block:10px}
 .topbar nav{display:flex;align-items:center;gap:clamp(10px,2.6vw,24px);font-size:14px}
