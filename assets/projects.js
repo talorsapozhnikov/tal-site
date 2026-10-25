@@ -36,6 +36,23 @@ window.PHOTOS = {
   'dancefloor-yellow':   { alt: { he: 'הכלה רוקדת עם ידיים למעלה מול החתן שמוחא כפיים, הכול באור צהוב', en: 'The bride dancing with her arms up as the groom claps, everything in yellow light' } },
   'dancefloor-lift':     { alt: { he: 'החתן מורם על כתפיים מעל קהל רוקד, אלומות סגולות וכחולות', en: 'The groom lifted on shoulders above a dancing crowd, purple and blue beams of light' } },
   'dancefloor-amber':    { alt: { he: 'מבט מעמדת הדי־ג׳יי על רחבה מלאה, אלומות אור כתומות ולבנות', en: 'From behind the DJ booth, a full dance floor under orange and white beams' } },
+  'fest-stage-wide':     { alt: { he: 'במה גדולה בלילה, להקה באור כחול ועשן, קהל צפוף בצללית ומסכים משני הצדדים', en: 'A big stage at night, a band in blue light and haze, a packed crowd in silhouette and screens on both sides' } },
+  'fest-reach-bw':       { alt: { he: 'בשחור־לבן: זמר מושיט יד אל הקהל, ידיים נמתחות אליו ואור חזק מאחור', en: 'Black and white: a singer reaches toward the crowd, hands stretching back to him, strong light behind' } },
+  'fest-bow':            { portrait: true,
+    alt: { he: 'זמר מתכופף עם המיקרופון בקצה הבמה, שערו מואר מאחור באור צהוב', en: 'A singer bends over the microphone at the edge of the stage, his hair backlit in yellow' } },
+  'fest-crowd-faces':    { alt: { he: 'קהל צפוף בלילה מול הבמה, פנים מסתכלות קדימה, מכולות מאחור', en: 'A dense crowd at night facing the stage, faces looking forward, shipping containers behind' } },
+  'fest-runway-bw':      { portrait: true,
+    alt: { he: 'בשחור־לבן: זמר עומד על מסלול רשת מתכת, מצולם מגובה הרצפה, אורות במה מאחוריו', en: 'Black and white: a singer on a metal-grate runway, shot from floor level, stage lights behind him' } },
+  'fest-sequins-up':     { portrait: true,
+    alt: { he: 'זמר במכנסי פאייטים מרים יד על המסלול, מצולם מלמטה, אורות כחולים ולהקה ברקע', en: 'A singer in sequinned trousers raises a hand on the runway, shot from below, blue lights and band behind' } },
+  'fest-phones':         { alt: { he: 'אלפי פנסי טלפון דולקים בקהל בחושך, זמר עומד על המסלול בתוך הערפל', en: 'Thousands of phone lights in the dark crowd, a singer standing on the runway in the haze' } },
+  'fest-guitar-sun':     { alt: { he: 'גיטריסט שר בחולצה משובצת באור שמש נמוך, עצים כהים ברקע', en: 'A guitarist sings in a checked shirt in low sunlight, dark trees behind' } },
+  'fest-shirtless':      { alt: { he: 'זמר בלי חולצה שר בעיניים עצומות, אורות סגולים וירוקים מסביבו', en: 'A shirtless singer sings with eyes closed, purple and green light around him' } },
+  'fest-runway-day':     { alt: { he: 'זמר במשקפי שמש שר על המסלול ביום, קונסטרוקציית במה ענקית מעליו', en: 'A singer in sunglasses on the runway in daylight, a huge stage rig above him' } },
+  'fest-horns':          { alt: { he: 'בשחור־לבן: יד מקועקעת מורמת בתנועת רוק מעל הקהל', en: 'Black and white: a tattooed arm raised in the rock salute above the crowd' } },
+  'fest-barrier':        { alt: { he: 'צעירים צמודים למחסום באור כחול, צועקים ומראים תנועות רוק', en: 'Young fans pressed against the barrier in blue light, shouting and throwing rock salutes' } },
+  'fest-sunflower':      { alt: { he: 'להקה על הבמה מבעד לפרח כתום מחוץ לפוקוס, אורות צבעוניים ורצפת רשת', en: 'A band on stage seen past an out-of-focus orange flower, coloured lights and a grated floor' } },
+  'fest-sequins-blue':   { alt: { he: 'זמר במכנסי פאייטים רחבים על המסלול באור כחול, פסנתרן בקצה הבמה', en: 'A singer in wide sequinned trousers on the runway in blue light, a pianist at the edge of the stage' } },
   'dancefloor-blue':     { alt: { he: 'רחבת ריקודים באור כחול, אנשים רוקדים בצללית מתחת לפנסי במה', en: 'A dance floor in blue light, people dancing in silhouette under stage lights' } }
 };
 
@@ -55,10 +72,12 @@ window.PHOTOS = {
 window.SELECTED = [
   { full: 'grove-family-laugh' },
   { pair: ['shore-kiss', 'shore-silhouette'], offset: true },
+  { full: 'fest-phones' },
+  { pair: ['fest-bow', 'fest-runway-bw'] },
   { full: 'first-dance' },
   { row: ['shore-band', 'sea-bottle', 'grove-glass'] },
-  { wide: 'grove-chuppah-crowd', align: 'end' },
-  { pair: ['dancefloor-yellow', 'dancefloor-lift'] }
+  { wide: 'fest-reach-bw', align: 'end' },
+  { pair: ['dancefloor-yellow', 'fest-barrier'] }
 ];
 
 /* ---------- Archive ----------
@@ -107,6 +126,20 @@ window.CATEGORIES = [
     ] },
   { id: 'events', title: { he: 'אירועים', en: 'Events' }, photos: [] },
   { id: 'concerts', title: { he: 'הופעות', en: 'Concerts' }, photos: [] },
-  { id: 'festivals', title: { he: 'פסטיבלים', en: 'Festivals' }, photos: [] },
+  { id: 'festivals', title: { he: 'פסטיבלים', en: 'Festivals' }, cover: 'fest-reach-bw',
+    photos: ['fest-stage-wide', 'fest-reach-bw', 'fest-bow', 'fest-crowd-faces', 'fest-runway-bw', 'fest-sequins-up', 'fest-phones',
+             'fest-guitar-sun', 'fest-shirtless', 'fest-runway-day', 'fest-horns', 'fest-barrier', 'fest-sunflower', 'fest-sequins-blue'],
+    layout: [
+      { full: 'fest-stage-wide' },
+      { pair: ['fest-reach-bw', 'fest-bow'], offset: true },
+      { wide: 'fest-crowd-faces', align: 'end' },
+      { pair: ['fest-runway-bw', 'fest-sequins-up'] },
+      { full: 'fest-phones' },
+      { pair: ['fest-guitar-sun', 'fest-shirtless'] },
+      { wide: 'fest-runway-day', align: 'start' },
+      { pair: ['fest-horns', 'fest-barrier'] },
+      { wide: 'fest-sunflower', align: 'end' },
+      { full: 'fest-sequins-blue' }
+    ] },
   { id: 'productions', title: { he: 'הפקות', en: 'Productions' }, photos: [] }
 ];
