@@ -82,7 +82,7 @@ html[lang="en"] .topbar nav a{background-position:0 calc(100% - 9px)}
 @media (min-width:860px){.sec-head{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:end}.sec-head p{justify-self:end;text-align:end}}
 
 /* ---------- editorial sequence: every photo at its own proportions ---------- */
-.seq{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(12px,1.6vw,20px);row-gap:clamp(28px,5.5vw,80px)}
+.seq{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(6px,1vw,12px);row-gap:clamp(6px,1vw,12px)}
 .seq .b{grid-column:1/-1;margin:0}
 .seq figure{margin:0}
 .seq .wide,.seq .solo,.seq .offset{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(12px,1.6vw,20px)}
@@ -101,14 +101,11 @@ html[lang="en"] .topbar nav a{background-position:0 calc(100% - 9px)}
   .seq .offset figure:first-child{grid-column:1/8}
   .seq .offset figure:last-child{grid-column:9/-1;padding-bottom:clamp(0px,4vw,60px)}
 }
-.crow{display:flex;gap:clamp(10px,1.6vw,20px);align-items:flex-start}
+.crow{display:flex;gap:clamp(6px,1vw,12px);align-items:flex-start}
 .crow figure{margin:0;flex-basis:0;min-width:0}
 .crow .photo img{width:100%}
-.seq .b > .crow + .crow{margin-top:clamp(10px,1.6vw,20px)}
-@media (max-width:699px){
-  .crow.n3{flex-wrap:wrap}
-  .crow.n3 figure:first-child{flex-basis:100%}
-}
+.seq .b > .crow + .crow{margin-top:clamp(6px,1vw,12px)}
+/* phones keep every row side by side, so photos stay small and the page stays short */
 .more{justify-self:start;font-size:14px;text-decoration:none;border-bottom:1px solid var(--ink);padding-block:10px 2px;white-space:nowrap}
 .more:hover{border-bottom-width:2px}
 
@@ -131,7 +128,7 @@ html[lang="en"] .topbar nav a{background-position:0 calc(100% - 9px)}
 .card:hover .t,.card:focus-visible .t{text-decoration:underline;text-underline-offset:5px;text-decoration-thickness:1px}
 
 /* ---------- chapters inside a category page ---------- */
-.chapter{padding-block:clamp(40px,7vw,90px);border-top:1px solid var(--rule)}
+.chapter{padding-block:clamp(28px,4vw,56px);border-top:1px solid var(--rule)}
 .chapter:first-child{border-top:0;padding-top:0}
 .chapter > header{display:flex;align-items:baseline;flex-wrap:wrap;gap:6px 16px;margin-bottom:clamp(18px,3vw,32px)}
 .chapter .no{font-size:12px;color:var(--grey);font-variant-numeric:tabular-nums}
@@ -180,7 +177,9 @@ footer.site a:hover{color:var(--ink)}
 .p-head{padding-block:clamp(10px,3vw,30px) clamp(26px,4vw,48px);display:grid;gap:10px}
 .p-head h1{font-family:var(--serif);font-weight:200;font-size:clamp(44px,8vw,104px);line-height:.95;margin:0}
 .p-head .count{font-size:13px;color:var(--grey)}
-.gallery{padding-bottom:clamp(60px,9vw,110px)}
+.gallery{padding-bottom:clamp(40px,6vw,80px)}
+/* galleries: cap the width so photos read as a set, not as posters */
+.gallery .seq,.selected .seq{max-width:1120px;margin-inline:auto}
 .next{border-top:1px solid var(--ink);padding-block:28px 40px}
 .next a{display:grid;gap:4px;text-decoration:none}
 .next .t{font-family:var(--serif);font-weight:200;font-size:clamp(30px,4.4vw,52px);line-height:1.05}
@@ -194,9 +193,11 @@ footer.site a:hover{color:var(--ink)}
 /* narrow screens: the logo carries the brand, so the small label steps aside and the bar stays on one line */
 @media (max-width:520px){.brand .label{display:none}}
 
-/* selected work: compact rows, small even gaps, so more of the work shows at once */
-.selected .seq{row-gap:clamp(6px,1vw,12px)}
-.selected .crow{gap:clamp(6px,1vw,12px)}
+/* selected work: one group per field, never mixed */
+.sel-group + .sel-group{margin-top:clamp(36px,5vw,64px)}
+.sel-group > header{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 16px;border-top:1px solid var(--rule);padding-top:14px;margin-bottom:clamp(12px,2vw,20px)}
+.sel-group h3{font-family:var(--serif);font-weight:300;font-size:clamp(24px,2.8vw,34px);line-height:1;margin:0}
+.sel-group > header .more{margin-inline-start:auto}
 .selected .sec-head{padding-block:clamp(48px,7vw,88px) clamp(18px,3vw,32px)}
 
 /* signature s: every Latin s in display type is drawn wide, like the s in the tos logo */

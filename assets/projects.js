@@ -67,14 +67,20 @@ window.PHOTOS = {
    Where a chapter has no layout, its photos fall into automatic rows. */
 
 /* ---------- Selected work ----------
-   The curated sequence on the home page: the strongest frames in tight rows of equal height,
-   alternating close and wide, quiet and loud. Not every good photo belongs here. */
+   The curated sequence on the home page, one group per field. Groups are never mixed:
+   wedding photos stay with weddings, festival photos with festivals. A group whose category
+   has no photos is hidden. Tight rows of equal height; not every good photo belongs here. */
 window.SELECTED = [
-  { row: ['grove-family-laugh', 'shore-silhouette', 'shore-kiss'] },
-  { row: ['fest-bow', 'fest-phones', 'fest-runway-bw'] },
-  { pair: ['first-dance', 'fest-reach-bw'] },
-  { row: ['shore-band', 'sea-bottle', 'grove-glass'] },
-  { pair: ['dancefloor-yellow', 'fest-barrier'] }
+  { category: 'weddings', blocks: [
+    { row: ['grove-family-laugh', 'shore-silhouette', 'shore-kiss'] },
+    { row: ['first-dance', 'grove-glass', 'dancefloor-yellow'] },
+    { row: ['shore-band', 'sea-bottle', 'water-cheek'] }
+  ] },
+  { category: 'festivals', blocks: [
+    { row: ['fest-bow', 'fest-phones', 'fest-runway-bw'] },
+    { row: ['fest-reach-bw', 'fest-barrier'] },
+    { row: ['fest-sequins-up', 'fest-guitar-sun', 'fest-horns'] }
+  ] }
 ];
 
 /* ---------- Archive ----------
@@ -89,36 +95,30 @@ window.CATEGORIES = [
       { id: 'reception', title: { he: 'קבלת פנים', en: 'Reception' }, cover: 'shore-band',
         photos: ['grove-setup', 'shore-band', 'sea-bottle'],
         layout: [
-          { pair: ['grove-setup', 'shore-band'] },
-          { solo: 'sea-bottle', align: 'end' }
+          { row: ['grove-setup', 'shore-band', 'sea-bottle'] }
         ] },
       { id: 'chuppah', title: { he: 'חופה', en: 'Chuppah' }, cover: 'grove-ring',
         photos: ['shore-crowd', 'shore-kiss', 'grove-glass', 'grove-ring', 'grove-family-laugh', 'grove-chuppah-bw', 'water-aisle', 'shore-chuppah-bw', 'grove-chuppah-crowd'],
         layout: [
-          { full: 'shore-crowd' },
-          { pair: ['shore-kiss', 'grove-glass'], offset: true },
-          { pair: ['grove-ring', 'grove-family-laugh'] },
-          { wide: 'grove-chuppah-bw', align: 'end' },
-          { pair: ['water-aisle', 'shore-chuppah-bw'] },
-          { wide: 'grove-chuppah-crowd', align: 'start' }
+          { row: ['shore-crowd', 'shore-kiss'] },
+          { row: ['grove-ring', 'grove-glass', 'grove-family-laugh'] },
+          { row: ['grove-chuppah-bw', 'shore-chuppah-bw'] },
+          { row: ['water-aisle', 'grove-chuppah-crowd'] }
         ] },
       { id: 'couple', title: { he: 'הזוג', en: 'The two of them' }, cover: 'shore-dip',
         photos: ['shore-blur', 'shore-silhouette', 'grove-laugh', 'shore-dip', 'water-cheek', 'water-portrait', 'shore-portrait', 'water-embrace', 'water-low-angle'],
         layout: [
-          { full: 'shore-blur' },
-          { pair: ['shore-silhouette', 'grove-laugh'] },
-          { wide: 'shore-dip', align: 'end' },
-          { pair: ['water-cheek', 'water-portrait'], offset: true },
-          { row: ['shore-portrait', 'water-embrace', 'water-low-angle'] }
+          { row: ['shore-blur', 'shore-silhouette', 'grove-laugh'] },
+          { row: ['shore-dip', 'water-cheek', 'water-low-angle'] },
+          { row: ['water-portrait', 'water-embrace', 'shore-portrait'] }
         ] },
       { id: 'family', title: { he: 'משפחה', en: 'Family' }, photos: [] },
       { id: 'dance', title: { he: 'רחבה', en: 'Dance floor' }, cover: 'dancefloor-lift',
         photos: ['first-dance', 'dancefloor-yellow', 'dancefloor-lift', 'dancefloor-amber', 'dancefloor-dj', 'dancefloor-blue'],
         layout: [
-          { full: 'first-dance' },
-          { pair: ['dancefloor-yellow', 'dancefloor-lift'] },
-          { wide: 'dancefloor-amber', align: 'start' },
-          { pair: ['dancefloor-dj', 'dancefloor-blue'] }
+          { row: ['first-dance', 'dancefloor-yellow'] },
+          { row: ['dancefloor-lift', 'dancefloor-amber'] },
+          { row: ['dancefloor-dj', 'dancefloor-blue'] }
         ] }
     ] },
   { id: 'events', title: { he: 'אירועים', en: 'Events' }, photos: [] },
@@ -127,16 +127,12 @@ window.CATEGORIES = [
     photos: ['fest-stage-wide', 'fest-reach-bw', 'fest-bow', 'fest-crowd-faces', 'fest-runway-bw', 'fest-sequins-up', 'fest-phones',
              'fest-guitar-sun', 'fest-shirtless', 'fest-runway-day', 'fest-horns', 'fest-barrier', 'fest-sunflower', 'fest-sequins-blue'],
     layout: [
-      { full: 'fest-stage-wide' },
-      { pair: ['fest-reach-bw', 'fest-bow'], offset: true },
-      { wide: 'fest-crowd-faces', align: 'end' },
-      { pair: ['fest-runway-bw', 'fest-sequins-up'] },
-      { full: 'fest-phones' },
-      { pair: ['fest-guitar-sun', 'fest-shirtless'] },
-      { wide: 'fest-runway-day', align: 'start' },
-      { pair: ['fest-horns', 'fest-barrier'] },
-      { wide: 'fest-sunflower', align: 'end' },
-      { full: 'fest-sequins-blue' }
+      { row: ['fest-stage-wide', 'fest-crowd-faces'] },
+      { row: ['fest-reach-bw', 'fest-bow', 'fest-runway-bw'] },
+      { row: ['fest-phones', 'fest-sequins-up'] },
+      { row: ['fest-guitar-sun', 'fest-shirtless', 'fest-sequins-blue'] },
+      { row: ['fest-runway-day', 'fest-horns'] },
+      { row: ['fest-barrier', 'fest-sunflower'] }
     ] },
   { id: 'productions', title: { he: 'הפקות', en: 'Productions' }, photos: [] }
 ];

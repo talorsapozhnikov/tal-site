@@ -165,7 +165,17 @@
       setMeta(he ? 'טל אור ספוזניקוב · צילום' : 'Tal Or Sapozhnikov · Photography',
         he ? 'טל אור ספוזניקוב, צלם דוקומנטרי. חתונות, אירועים, הופעות, פסטיבלים והפקות. רגעים אמיתיים, סיפורים דרך העדשה.'
            : 'Tal Or Sapozhnikov, documentary photographer. Weddings, events, concerts, festivals and productions. Real moments, stories through the lens.');
-      if (sel) sel.innerHTML = Site.sequence(window.SELECTED, []);
+      if (sel) {
+        var live = cats();
+        sel.innerHTML = window.SELECTED.map(function (g) {
+          var c = live.filter(function (x) { return x.id === g.category; })[0];
+          if (!c) return '';
+          return '<section class="sel-group" aria-labelledby="sel-' + c.id + '"><header>' +
+            '<h3 id="sel-' + c.id + '">' + Site.t(c.title) + '</h3>' +
+            '<a class="more" href="' + Site.href('project.html?id=' + c.id) + '">' + (he ? 'לכל ' + Site.t(c.title) + ' ←' : 'All ' + Site.t(c.title).toLowerCase() + ' →') + '</a></header>' +
+            Site.sequence(g.blocks, []) + '</section>';
+        }).join('');
+      }
       if (arch) arch.innerHTML = cats().map(function (c) {
         var items = c.chapters || [c];
         return '<section class="cat" aria-labelledby="cat-' + c.id + '"><header>' +
