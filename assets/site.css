@@ -135,15 +135,19 @@ html[lang="en"] .topbar nav a{background-position:0 calc(100% - 9px)}
 .chapter h2{font-family:var(--serif);font-weight:200;font-size:clamp(32px,4.4vw,52px);line-height:1;margin:0}
 .chapter .more{margin-inline-start:auto}
 
-/* ---------- about: one readable column, the first line set larger ---------- */
+/* ---------- about: heading and portrait on one side, one readable column of text on the other ---------- */
 .about{padding-block:clamp(64px,10vw,130px);border-top:1px solid var(--ink)}
 .about h2{grid-column:1/-1;font-family:var(--serif);font-weight:200;font-size:clamp(34px,4.6vw,56px);line-height:1;margin:0 0 clamp(22px,3.4vw,36px)}
+.about .portrait{grid-column:1/-1;margin:0 0 clamp(26px,4vw,40px)}
+.about .portrait img{width:100%;height:auto;background:var(--plate)}
 .about .text{grid-column:1/-1;display:grid;gap:1.1em;max-width:34em}
 .about .text p{margin:0;font-size:clamp(17px,1.35vw,19px);line-height:1.8;text-wrap:pretty}
 .about .text .lede{font-family:var(--serif);font-weight:300;font-size:clamp(25px,3vw,38px);line-height:1.3;max-width:22ch;margin-bottom:.35em;text-wrap:balance}
 @media (min-width:860px){
-  .about h2{grid-column:1/4}
-  .about .text{grid-column:4/-1}
+  .about .grid{grid-template-rows:auto 1fr;align-items:start}
+  .about h2{grid-column:1/6;grid-row:1}
+  .about .portrait{grid-column:1/6;grid-row:2;margin:0}
+  .about .text{grid-column:7/-1;grid-row:1/3}
 }
 
 /* ---------- closing page: contact ---------- */
@@ -265,6 +269,7 @@ html.lb-open,html.lb-open body{overflow:hidden}
     transition:opacity .6s cubic-bezier(.22,.61,.36,1) var(--reveal-delay,0ms),
                transform .75s cubic-bezier(.22,.61,.36,1) var(--reveal-delay,0ms);
   }
+  html.motion-ready .reveal.from-above{transform:translate3d(0,-16px,0)}
   html.motion-ready .reveal.is-visible{opacity:1;transform:none}
 
   /* hover only where there is a real mouse; the cover stays still */

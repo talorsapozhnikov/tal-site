@@ -1,4 +1,6 @@
-/* Scroll reveal: photos, cards and headings rise slightly and fade in as they enter the screen.
+/* Scroll reveal: photos, cards and headings rise slightly and fade in as they enter the screen,
+   and fade back out once they have left it, so the motion repeats every time they come back.
+   Direction-aware: scrolling up, they arrive from above instead of from below.
    Loaded after Site.home() / Site.project() have built the galleries; a MutationObserver also
    picks up anything rendered later. Content is only hidden once this script is running
    (html.motion-ready), so without JavaScript, without IntersectionObserver, or with reduced
@@ -9,17 +11,21 @@
   if (reduce || !('IntersectionObserver' in window)) return;
 
   /* headings move as one piece; photos and cards move one by one */
-  var HEADS = '.sec-head, .p-head, .sel-group > header, .cat > header, .cat > .sub-h, .chapter > header, .next';
+  var HEADS = '.sec-head, .p-head, .sel-group > header, .cat > header, .cat > .sub-h, .chapter > header, .next, .about .portrait';
   var UNITS = '.seq figure, .cards > li';
   var STEP = 70, MAX_STEPS = 3;   /* a short stagger inside one row, never a slow chain */
 
   var io = new IntersectionObserver(function (entries) {
     entries.forEach(function (e) {
-      if (!e.isIntersecting) return;
-      e.target.classList.add('is-visible');
-      io.unobserve(e.target);
+      var el = e.target;
+      if (e.isIntersecting && e.intersectionRatio >= 0.1) { el.classList.add('is-visible'); return; }
+      /* reset only once it is completely off screen, so nothing ever fades out in view */
+      if (!e.isIntersecting) {
+        el.classList.toggle('from-above', e.boundingClientRect.top < 0);
+        el.classList.remove('is-visible');
+      }
     });
-  }, { rootMargin: '0px 0px -6% 0px', threshold: 0.1 });
+  }, { rootMargin: '0px 0px -6% 0px', threshold: [0, 0.1] });
 
   /* position within its own row: 0, 70, 140 or 210 ms */
   function delay(el) {
@@ -35,8 +41,8 @@
     el.classList.add('reveal');
     var d = delay(el);
     if (d) el.style.setProperty('--reveal-delay', d + 'ms');
-    /* already scrolled past (e.g. returning with Back): show at once, no animation */
-    if (el.getBoundingClientRect().bottom < 0) { el.classList.add('is-visible'); return; }
+    /* already scrolled past (e.g. returning with Back): it will arrive from above if you scroll up */
+    if (el.getBoundingClientRect().bottom < 0) el.classList.add('from-above');
     io.observe(el);
   }
 
