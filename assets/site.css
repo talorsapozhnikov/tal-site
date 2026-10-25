@@ -3,6 +3,8 @@
    One light "paper" look on purpose; colours are set explicitly so it reads the same on any device theme. */
 :root{
   --paper:#f6f6f3;
+  /* a barely-there paper grain, painted behind everything; the photographs themselves stay clean */
+  --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .08 0 0 0 0 .08 0 0 0 0 .07 0 0 0 1 -.35'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23g)' opacity='.12'/%3E%3C/svg%3E");
   --ink:#151515;
   --grey:#62625d;
   --rule:#d3d3cd;
@@ -18,7 +20,7 @@
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 @media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
-body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-weight:400;font-size:16px;line-height:1.65;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}
+body{margin:0;background:var(--paper) var(--grain) repeat;color:var(--ink);font-family:var(--sans);font-weight:400;font-size:16px;line-height:1.65;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}
 img{max-width:100%;height:auto;display:block}
 a{color:inherit}
 h1,h2,h3{text-wrap:balance}
@@ -155,6 +157,13 @@ html[lang="en"] .topbar nav a{background-position:0 calc(100% - 9px)}
 .contact .inner{grid-column:1/-1;display:grid;gap:14px}
 .contact h2{font-family:var(--serif);font-weight:200;font-size:clamp(38px,6vw,76px);line-height:1;margin:0;max-width:13ch}
 .contact p{margin:0;font-size:17px;color:var(--grey)}
+/* how it works: three quiet steps between the invitation and the buttons */
+.how{list-style:none;margin:clamp(18px,3vw,28px) 0 0;padding:0;display:grid;gap:18px;max-width:46em;counter-reset:how}
+.how li{counter-increment:how;display:grid;grid-template-columns:2.2em 1fr;grid-template-rows:auto 1fr;align-content:start;column-gap:4px;padding-top:14px;border-top:1px solid var(--rule)}
+.how li::before{content:counter(how,decimal-leading-zero);grid-row:1/3;font:300 13px/1.9 var(--sans);color:var(--grey);font-variant-numeric:tabular-nums}
+.how h3{margin:0;font-family:var(--serif);font-weight:300;font-size:19px;line-height:1.4}
+.how p{margin:2px 0 0;font-size:15px;line-height:1.65}
+@media (min-width:860px){.how{grid-template-columns:repeat(3,1fr);gap:28px}}
 .actions{display:grid;gap:12px;margin-top:22px}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:54px;padding:0 26px;border:1px solid var(--ink);border-radius:2px;font:500 15px/1 var(--sans);letter-spacing:.02em;text-decoration:none;transition:background-color .2s ease,color .2s ease}
 .btn svg{width:19px;height:19px;flex:none}
