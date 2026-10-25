@@ -251,3 +251,22 @@ html.lb-open,html.lb-open body{overflow:hidden}
 @media (hover:none) and (pointer:coarse){.lb-side{display:none}}
 @media (min-width:900px){.lb-stage{padding-inline:max(76px,env(safe-area-inset-left,0px))}}
 @media (prefers-reduced-motion:reduce){.lb,.lb-img{transition:none}.lb-img.fade{animation:none}}
+
+
+/* ---------- subtle editorial motion ---------- */
+@media (prefers-reduced-motion:no-preference){
+  html.motion-ready .reveal{
+    opacity:0;
+    transform:translateY(10px);
+    transition:opacity .55s ease,transform .55s cubic-bezier(.2,.65,.3,1);
+  }
+  html.motion-ready .reveal.is-visible{opacity:1;transform:none}
+  .photo{overflow:hidden}
+  @media (hover:hover) and (pointer:fine){
+    .photo .zoom img{transition:transform .55s cubic-bezier(.2,.65,.3,1)}
+    .photo .zoom:hover img{transform:scale(1.018)}
+  }
+}
+@media (prefers-reduced-motion:reduce){
+  html.motion-ready .reveal{opacity:1;transform:none;transition:none}
+}
