@@ -309,7 +309,8 @@ html[lang="en"] .sec-head h2,html[lang="en"] .sel-group h3,html[lang="en"] .cat 
 html[lang="en"] .sec-head h2{font-size:clamp(36px,5.8vw,76px)}
 
 /* #5 · selected work in a dark, warm room. Each field keeps its own group; nothing is mixed */
-.selected{--ink:#f1ece4;--grey:#b8ada0;--rule:rgba(241,236,228,.2);--plate:#33291f;background:#221a14;color:var(--ink);padding-bottom:clamp(56px,8vw,110px)}
+.selected{padding-bottom:clamp(56px,8vw,110px)}
+html:not(.room-js) .selected{--ink:#f1ece4;--grey:#b8ada0;--rule:rgba(241,236,228,.2);--plate:#33291f;background:#221a14;color:var(--ink)}
 .selected a{color:inherit}
 .archive{margin-top:0;border-top:0}
 
@@ -323,3 +324,43 @@ html[lang="en"] .sec-head h2{font-size:clamp(36px,5.8vw,76px)}
 html.type-serif{--serif:"Cormorant Garamond","Frank Ruhl Libre",Georgia,serif}
 html.type-serif .mast h1,html.type-serif .sec-head h2,html.type-serif .chapter h2,html.type-serif .p-head h1,html.type-serif .contact h2,html.type-serif .next .t,html.type-serif .about h2{font-weight:300}
 html.type-serif .dek .statement{font-family:var(--serif);font-size:clamp(22px,2.4vw,30px)}
+
+/* ==========================================================================
+   Experience (design/next-level): motion that stays quiet and never touches the photographs' shape
+   ========================================================================== */
+
+/* the dark room (assets/experience.js): the whole page dims while the selected work is in the middle of the screen */
+html.room-js body{transition:background-color .9s cubic-bezier(.4,0,.2,1),color .9s cubic-bezier(.4,0,.2,1)}
+html.dark-room{--paper:#221a14;--ink:#f1ece4;--grey:#b8ada0;--rule:rgba(241,236,228,.2);--plate:#33291f}
+html.dark-room .cover-photo .photo{background:#2c231c}
+html.room-js .dek,html.room-js .sec-head,html.room-js .more,html.room-js .topbar,html.room-js .cover-photo .photo,html.room-js .sel-group > header,html.room-js .cover-photo figcaption{transition:color .9s ease,border-color .9s ease,background-color .9s ease}
+
+/* the opening: the name rises out of the page, then the statement follows. Pure CSS, so it always finishes */
+@media (prefers-reduced-motion:no-preference){
+  @keyframes rise{from{opacity:0;transform:translate3d(0,.4em,0);clip-path:inset(0 0 100% 0)}to{opacity:1;transform:none;clip-path:inset(-.3em -.2em -.4em -.2em)}}
+  @keyframes fade{from{opacity:0;transform:translate3d(0,8px,0)}to{opacity:1;transform:none}}
+  html.intro .mast h1 > span{display:inline-block;animation:rise 1.1s cubic-bezier(.22,.61,.36,1) .1s both}
+  html.intro .mast h1 > span + span{animation-delay:.24s}
+  @media (max-width:699px){html.intro .mast h1 > span{display:block}}
+  html.intro .mast .alt{animation:fade .9s ease .62s both}
+  html.intro .dek{animation:fade .9s ease .78s both}
+  html.intro .topbar{animation:fade .8s ease 0s both}
+
+  /* headings open like a page being uncovered */
+  html.motion-ready .sec-head.reveal h2,html.motion-ready .chapter > header.reveal h2,html.motion-ready .p-head.reveal h1,html.motion-ready .cat > header.reveal h3,html.motion-ready .sel-group > header.reveal h3{clip-path:inset(0 0 100% 0);transform:translate3d(0,.3em,0);transition:clip-path 1s cubic-bezier(.22,.61,.36,1) var(--reveal-delay,0ms),transform 1s cubic-bezier(.22,.61,.36,1) var(--reveal-delay,0ms)}
+  html.motion-ready .sec-head.reveal.is-visible h2,html.motion-ready .chapter > header.reveal.is-visible h2,html.motion-ready .p-head.reveal.is-visible h1,html.motion-ready .cat > header.reveal.is-visible h3,html.motion-ready .sel-group > header.reveal.is-visible h3{clip-path:inset(-.3em -.3em -.4em -.3em);transform:none}
+
+  /* moving between pages: the old page lifts away, the new one settles in (browsers that support it) */
+  @view-transition{navigation:auto}
+  @keyframes vt-out{to{opacity:0;transform:translate3d(0,-12px,0)}}
+  @keyframes vt-in{from{opacity:0;transform:translate3d(0,16px,0)}}
+  ::view-transition-old(root){animation:vt-out .32s cubic-bezier(.4,0,1,1) both}
+  ::view-transition-new(root){animation:vt-in .6s cubic-bezier(.22,.61,.36,1) .05s both}
+}
+
+/* the cursor (precise pointers only): a small paper disc that says "View" over photographs */
+.cursor{position:fixed;left:0;top:0;z-index:15;pointer-events:none;width:0;height:0}
+.cursor span{position:absolute;left:-40px;top:-40px;width:80px;height:80px;border-radius:50%;display:grid;place-items:center;background:rgba(246,246,243,.94);color:#151515;font:400 13px/1 var(--sans);letter-spacing:.04em;box-shadow:0 6px 24px -8px rgba(0,0,0,.35);transform:scale(0);opacity:0;transition:transform .35s cubic-bezier(.22,.61,.36,1),opacity .25s ease}
+.cursor.on span{transform:scale(1);opacity:1}
+html.cursor-js .seq .zoom,html.cursor-js a.card{cursor:none}
+@media print{.cursor{display:none}}
