@@ -2,10 +2,32 @@
    1. The dark room: while the selected work fills the middle of the screen, the whole page dims
       to a warm dark, then returns to paper. Without JavaScript the section is simply dark.
    2. A quiet "View" cursor over photographs, on devices with a precise pointer only.
+   Always: the sticky top bar hides while scrolling down and returns when scrolling up.
    Reduced motion: the room stays a plain dark section and the normal cursor is kept. */
 (function () {
   var root = document.documentElement;
   var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* full-screen photographs measure the page without the scrollbar, so nothing is cut at the edge */
+  function sbw() { root.style.setProperty('--sbw', (window.innerWidth - root.clientWidth) + 'px'); }
+  sbw(); window.addEventListener('resize', sbw);
+
+  /* the top bar steps aside while scrolling down to read, and comes back on the way up */
+  var last = window.scrollY, ticking = false;
+  window.addEventListener('scroll', function () {
+    if (ticking) return; ticking = true;
+    requestAnimationFrame(function () {
+      ticking = false;
+      var y = window.scrollY, d = y - last;
+      root.classList.toggle('bar-scrolled', y > 8);
+      if (y < 120 || d < -6) root.classList.remove('bar-hidden');
+      else if (d > 6 && !root.classList.contains('lb-open')) root.classList.add('bar-hidden');
+      last = y;
+    });
+  }, { passive: true });
+  /* keyboard users always see the bar when they move into it */
+  document.addEventListener('focusin', function (e) { if (e.target.closest && e.target.closest('.bar')) root.classList.remove('bar-hidden'); });
+
   if (reduce) return;
   function L(he, en) { return window.Site && Site.lang === 'en' ? en : he; }
 

@@ -320,10 +320,6 @@ html:not(.room-js) .selected{--ink:#f1ece4;--grey:#b8ada0;--rule:rgba(241,236,22
 .contact .actions{justify-content:center}
 @media (min-width:860px){.contact .inner{grid-column:1/-1}}
 
-/* type, for comparison: ?type=serif swaps the display face for a light book serif */
-html.type-serif{--serif:"Cormorant Garamond","Frank Ruhl Libre",Georgia,serif}
-html.type-serif .mast h1,html.type-serif .sec-head h2,html.type-serif .chapter h2,html.type-serif .p-head h1,html.type-serif .contact h2,html.type-serif .next .t,html.type-serif .about h2{font-weight:300}
-html.type-serif .dek .statement{font-family:var(--serif);font-size:clamp(22px,2.4vw,30px)}
 
 /* ==========================================================================
    Experience (design/next-level): motion that stays quiet and never touches the photographs' shape
@@ -364,3 +360,51 @@ html.room-js .dek,html.room-js .sec-head,html.room-js .more,html.room-js .topbar
 .cursor.on span{transform:scale(1);opacity:1}
 html.cursor-js .seq .zoom,html.cursor-js a.card{cursor:none}
 @media print{.cursor{display:none}}
+
+/* ==========================================================================
+   Cinematic (design/cinematic): the confidence of a production house, still only photographs.
+   A sticky bar that steps aside while reading, a cover across the whole screen,
+   numbered chapters with a full-screen lead photograph, a spotlight on the photo under the pointer.
+   ========================================================================== */
+body{overflow-x:clip}
+.bar{position:sticky;top:0;z-index:12;background:var(--paper);padding-top:env(safe-area-inset-top,0px);transition:transform .5s cubic-bezier(.22,.61,.36,1),background-color .9s cubic-bezier(.4,0,.2,1)}
+.bar .topbar{border-bottom-color:transparent;transition:border-color .3s ease}
+html.bar-scrolled .bar .topbar{border-bottom-color:var(--rule)}
+html.bar-hidden .bar{transform:translate3d(0,-100%,0)}
+.hero{padding-top:0}
+
+/* the cover runs edge to edge; the photograph keeps its whole frame */
+.cover-photo{margin-inline:calc(50% - (100vw - var(--sbw,0px)) / 2)}
+.cover-photo .photo{padding:0;border-radius:0;background:var(--plate)}
+.cover-photo figcaption{padding-inline:var(--gutter) var(--gutter-end)}
+.mast h1{font-size:clamp(50px,9.6vw,140px)}
+
+/* selected work: numbered chapters, each opening with one photograph across the screen */
+.selected .seq{max-width:1240px}
+.selected .b.full{margin-inline:calc(50% - (100vw - var(--sbw,0px)) / 2);margin-bottom:clamp(0px,1vw,6px)}
+#selected-seq{counter-reset:grp}
+.sel-group{counter-increment:grp}
+.sel-group + .sel-group{margin-top:clamp(90px,13vw,190px)}
+.sel-group > header{border-top:0;padding-top:0;align-items:baseline;gap:8px 18px;margin-bottom:clamp(20px,3.4vw,40px)}
+.sel-group > header::before{content:counter(grp,decimal-leading-zero) " /";flex-basis:100%;font:300 13px/1 var(--sans);letter-spacing:.16em;color:var(--grey)}
+.sel-group h3{font-weight:200;font-size:clamp(48px,8.4vw,128px);line-height:.92;letter-spacing:-.01em}
+.sel-group > header .m{font-size:13px;color:var(--grey);letter-spacing:.02em}
+html[lang="en"] .sel-group > header .m{text-transform:uppercase;letter-spacing:.12em;font-size:12px}
+
+/* the archive keeps the same numbering */
+#archive-list{counter-reset:cat}
+.cat{counter-increment:cat}
+.cat > header::before{content:counter(cat,decimal-leading-zero);font:300 13px/1 var(--sans);letter-spacing:.16em;color:var(--grey);align-self:center}
+.cat h3{font-weight:200;font-size:clamp(34px,5vw,64px)}
+.card .photo{overflow:hidden}
+@media (prefers-reduced-motion:no-preference){
+  .card .photo img{transition:transform 1s cubic-bezier(.22,.61,.36,1),opacity .25s ease}
+  .card:hover .photo img{transform:scale(1.045);opacity:1}
+}
+
+/* spotlight: on a desktop, the photograph under the pointer stays bright and the rest step back */
+@media (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){
+  .seq figure{transition:opacity .6s cubic-bezier(.22,.61,.36,1)}
+  .seq:has(.zoom:hover) figure:not(:has(.zoom:hover)){opacity:.38}
+}
+@media (prefers-reduced-motion:reduce){.bar{transition:none}}

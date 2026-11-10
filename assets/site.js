@@ -84,7 +84,7 @@
   function blockNames(b) { return [].concat(b.full || [], b.wide || [], b.solo || [], b.pair || [], b.row || []); }
   Site.blockNames = blockNames;
   function block(b, eager) {
-    if (b.full) return '<div class="b full">' + fig(b.full, '(min-width:1240px) 1120px, 100vw', eager) + '</div>';
+    if (b.full) return '<div class="b full">' + fig(b.full, '100vw', eager) + '</div>';
     if (b.wide) return '<div class="b wide ' + (b.align || 'start') + '">' + fig(b.wide, '(min-width:1240px) 840px, (min-width:700px) 75vw, 100vw', eager) + '</div>';
     if (b.solo) return '<div class="b solo ' + (b.align || 'center') + '">' + fig(b.solo, '(min-width:1240px) 470px, (min-width:700px) 42vw, 72vw', eager) + '</div>';
     if (b.pair && b.offset) return '<div class="b offset">' + fig(b.pair[0], '(min-width:1240px) 650px, (min-width:700px) 58vw, 100vw', eager) +
@@ -228,7 +228,8 @@
     if (sel) sel.innerHTML = window.SELECTED.map(function (g) {
       var c = live.filter(function (x) { return x.id === g.category; })[0];
       if (!c) return '';
-      return '<section class="sel-group" aria-labelledby="sel-' + c.id + '"><header>' + tx(c.title, 'h3', 'id="sel-' + c.id + '"') +
+      var n = g.blocks.reduce(function (a, b) { return a + blockNames(b).length; }, 0);
+      return '<section class="sel-group" aria-labelledby="sel-' + c.id + '"><header>' + tx(c.title, 'h3', 'id="sel-' + c.id + '"') + tx(count(n), 'span', 'class="m"') +
         link('project.html?id=' + c.id, 'more', tx({ he: 'לכל ה' + c.title.he + ' ←', en: 'All ' + c.title.en.toLowerCase() + ' →' })) + '</header>' +
         sequence(g.blocks, [], 'selected-' + c.id) + '</section>';
     }).join('');
